@@ -1,0 +1,22 @@
+$primary-color : #008347;
+
+.menu-item {
+  margin-top: 20px;
+
+  .title {
+    margin-bottom: 50px;
+  }
+
+  .menu {
+    .child-item {
+      margin-bottom: 10px;
+
+      a {
+        color: $primary-color;
+        &:hover{
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
