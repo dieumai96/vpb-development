@@ -58,7 +58,10 @@ function IndexNavbar() {
               target="_blank"
               id="navbar-brand"
             >
-              Now UI Kit React
+              <img
+                width='164px' height='42px' alt='main logo'
+                src={require("assets/images/main-logo.svg")}
+              ></img>
             </NavbarBrand>
             <UncontrolledTooltip target="#navbar-brand">
               Designed by Invision. Coded by Creative Tim
@@ -92,17 +95,37 @@ function IndexNavbar() {
                       .getElementById("download-section")
                       .scrollIntoView();
                   }}
+                  style={{ color: '#292E2F' }}
                 >
                   <i className="now-ui-icons arrows-1_cloud-download-93"></i>
-                  <p>Download</p>
+                  <p>Lovemark</p>
                 </NavLink>
               </NavItem>
-              <UncontrolledDropdown nav>
+              <NavItem>
+                <NavLink
+                  href="#pablo"
+                  style={{ color: '#292E2F' }}
+                >
+                  <i className="now-ui-icons arrows-1_cloud-download-93"></i>
+                  <p>Contact us</p>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  href="#pablo"
+                  style={{ color: '#292E2F' }}
+                >
+                  <i className="now-ui-icons arrows-1_cloud-download-93"></i>
+                  <p>Branch & ATM</p>
+                </NavLink>
+              </NavItem>
+              {/* <UncontrolledDropdown nav>
                 <DropdownToggle
                   caret
                   color="default"
                   href="#pablo"
                   nav
+                  style = {{color : '#292E2F'}}
                   onClick={e => e.preventDefault()}
                 >
                   <i className="now-ui-icons design_app mr-1"></i>
@@ -121,27 +144,13 @@ function IndexNavbar() {
                     Documentation
                   </DropdownItem>
                 </DropdownMenu>
-              </UncontrolledDropdown>
-              <NavItem>
-                <Button
-                  className="nav-link btn-neutral"
-                  color="info"
-                  href="#pablo"
-                  id="upgrade-to-pro"
-                  onClick={e => e.preventDefault()}
-                >
-                  <i className="now-ui-icons arrows-1_share-66 mr-1"></i>
-                  <p>Upgrade to PRO</p>
-                </Button>
-                <UncontrolledTooltip target="#upgrade-to-pro">
-                  Cooming soon!
-                </UncontrolledTooltip>
-              </NavItem>
+              </UncontrolledDropdown> */}
               <NavItem>
                 <NavLink
                   href="https://twitter.com/CreativeTim?ref=creativetim"
                   target="_blank"
                   id="twitter-tooltip"
+                  style={{ color: '#292E2F' }}
                 >
                   <i className="fab fa-twitter"></i>
                   <p className="d-lg-none d-xl-none">Twitter</p>
@@ -152,6 +161,7 @@ function IndexNavbar() {
               </NavItem>
               <NavItem>
                 <NavLink
+                  style={{ color: '#292E2F' }}
                   href="https://www.facebook.com/CreativeTim?ref=creativetim"
                   target="_blank"
                   id="facebook-tooltip"
@@ -165,6 +175,7 @@ function IndexNavbar() {
               </NavItem>
               <NavItem>
                 <NavLink
+                  style={{ color: '#292E2F' }}
                   href="https://www.instagram.com/CreativeTimOfficial?ref=creativetim"
                   target="_blank"
                   id="instagram-tooltip"

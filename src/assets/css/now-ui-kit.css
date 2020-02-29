@@ -2581,7 +2581,7 @@ p {
   color: #f96332 !important; }
 
 .text-info {
-  color: #2CA8FF !important; }
+  color: #f4f7f8!important; }
 
 .text-success {
   color: #18ce0f !important; }
@@ -3247,7 +3247,7 @@ Created using IcoMoon - icomoon.io
   .navbar a {
     vertical-align: middle; }
     .navbar a:not(.btn):not(.dropdown-item) {
-      color: #FFFFFF; }
+      color: #292E2F; }
   .navbar p {
     display: inline-block;
     margin: 0;
@@ -3353,7 +3353,7 @@ Created using IcoMoon - icomoon.io
   background-color: #f96332 !important; }
 
 .bg-info {
-  background-color: #2CA8FF !important; }
+  background-color: #f4f7f8 !important; }
 
 .bg-success {
   background-color: #18ce0f !important; }
