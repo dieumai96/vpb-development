@@ -7,14 +7,18 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_CARD: {
+      let newCardList = [...state.listCard, action.payload];
       return {
         ...state,
-        listCard: action.payload,
+        listCard: newCardList,
       }
     }
     case REMOVE_CARD: {
+      const cardIndex = action.payload;
+      let newCardList = findCardOnList(state.listCard, cardIndex);
       return {
         ...state,
+        listCard: newCardList,
       }
     }
     default: {
@@ -24,5 +28,9 @@ const reducer = (state = initialState, action) => {
     }
 
   }
+}
+
+const findCardOnList = (listCard, cardIndex) => {
+  return listCard.filter(card => card.dataIndex != cardIndex);
 }
 export default reducer;

@@ -1,8 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import { data } from './CardData';
 import { connect } from 'react-redux';
-const CardList = () => {
+import { actAddCard, actRemoveCard } from '../../../redux/card/card.action';
+import { createStructuredSelector } from 'reselect';
+import {
+  selectCardItems,
+} from '../../../redux/card/card.seletor';
+
+const CardList = ({ actAddCard, actRemoveCard, cardItems }) => {
   const [cardData, setCardData] = useState(data);
+  const toggleCardItem = (event, cardIndex) => {
+    if (event.target.checked) {
+      const findCard = findCardOnList(cardIndex);
+      actAddCard(findCard);
+    } else {
+      actRemoveCard(cardIndex);
+    }
+  }
+  const findCardOnList = (cardIndex) => {
+    return data.find(card => card.dataIndex == cardIndex);
+  }
   return (
     <div className="card-list">
       <div className="container">
@@ -69,12 +86,12 @@ const CardList = () => {
                   <div className="card-item__description"><a className="card-type" href="#">{item.type}</a>
                     <h5 className="name"><a href="#">{item.name}</a></h5>
                     <ul className="description">
-                      <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae expedita blanditiis amet Quae expedita blanditiis amet impedit</li>
-                      <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae expedita blanditiis amet impedit</li>
+                      <li>【不顾疫情与禁令，韩国首尔上千人坚持集会】3月1日“三一节”意义特殊，首尔城北区长位洞，上千人组成多个政治、宗教团体坚持进行集会</li>
+                      <li>动】3月1日起，《网络信息内容生态治理规定》开始实行。规定明确，网络信息内容服务使用者和</li>
                     </ul>
                   </div>
                   <div className="card-item__action">
-                    <div className="add-compare"><input className="vp-checkbox" id={'chosen-card-' + item.dataIndex} type="checkbox" name="vehicle1" value="Bike" /><label htmlFor={'chosen-card-' + item.dataIndex}>ADD TO COMPARE CARD</label></div>
+                    <div className="add-compare"><input className="vp-checkbox" id={'chosen-card-' + item.dataIndex} type="checkbox" name="vehicle1" value="Bike" onChange={(event) => toggleCardItem(event, item.dataIndex)} /><label htmlFor={'chosen-card-' + item.dataIndex}>ADD TO COMPARE CARD</label></div>
                     <div className="choice-button-action"><a className="button-apply btn btn-outline-primary" href="#">APPLY NOW</a><a className="button-infomation btn btn-outline-default" href="#">MORE INFOMATION</a></div>
                   </div>
                 </div>
@@ -88,4 +105,13 @@ const CardList = () => {
   )
 }
 
-export default connect()(CardList);
+const mapDispatchToProps = dispatch => ({
+  actAddCard: card => dispatch(actAddCard(card)),
+  actRemoveCard: cardIndex => dispatch(actRemoveCard(cardIndex)),
+})
+
+const mapPropsToState = createStructuredSelector({
+  cardItems: selectCardItems
+})
+
+export default connect(mapPropsToState, mapDispatchToProps)(CardList);
