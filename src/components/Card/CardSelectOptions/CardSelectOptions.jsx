@@ -1,10 +1,18 @@
 import React, { useEffect } from 'react'
 import { data } from '../CardList/CardData';
 import CardSelectOptionJquery from './CardSelectOption.jquery';
-const CardSelectOptions = () => {
+import { connect } from 'react-redux';
+import { actAddCard } from '../../../redux/card/card.action';
+
+const CardSelectOptions = ({ actAddCard, cardItems }) => {
   useEffect(() => {
     CardSelectOptionJquery.init();
-  })
+  }, [cardItems]);
+
+  const isAleardyChosen = (cardIndex) => {
+    return cardItems.find(item => item.dataIndex == cardIndex);
+  }
+
   return (
     <>
       <div className="add-card-component__content__close-button"><i className="ico icon-close"></i></div>
@@ -14,7 +22,7 @@ const CardSelectOptions = () => {
             <div className="credit-card-item" key={index}>
               <div className="card-image"><img src="images/components-image/card-list/card-1.png" alt="Not Available" />
                 <p className="card-name">{item.name}</p>
-              </div><span className="card-action">+ Add</span>
+              </div><span className={((isAleardyChosen(item.dataIndex) || cardItems.length >= 3) ? 'disabled' : '') + ' card-action'} onClick={() => actAddCard(item)}>+ Add</span>
             </div>
           )
         })}
@@ -22,4 +30,7 @@ const CardSelectOptions = () => {
     </>
   )
 }
-export default CardSelectOptions;
+const mapDispatchToProps = dispatch => ({
+  actAddCard: card => dispatch(actAddCard(card))
+})
+export default connect(null, mapDispatchToProps)(CardSelectOptions);

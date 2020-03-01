@@ -27,9 +27,17 @@ const CardList = ({ actAddCard, actRemoveCard, cardItems }) => {
       let id = $(item).attr('id');
       if (!listIndexChosen.includes(id)) {
         $(item).prop('checked', false);
+      }else{
+        $(item).prop('checked', true);
       }
     })
+    if(listIndexChosen.length >= 3){
+      listCheckboxOnCard.addClass('deactivated-by-count');
+    }else{
+      listCheckboxOnCard.removeClass('deactivated-by-count');
+    }
   }, [cardItems]);
+
   const findCardOnList = (cardIndex) => {
     return data.find(card => card.dataIndex == cardIndex);
   }

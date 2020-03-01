@@ -7,7 +7,7 @@ const CardSelectOption = {
     $('.add-card-component .add-card-content').not('.slick-initialized').slick({
       slidesToShow: maxItem,
       slidesToShow: 6,
-      slidesToScroll: 1,
+      slidesToScroll: 6,
       arrows: true,
     });
   }

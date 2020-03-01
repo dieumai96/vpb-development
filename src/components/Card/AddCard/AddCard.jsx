@@ -49,7 +49,7 @@ const AddCard = ({ cardItems, actRemoveCard }) => {
       <div className="add-card-component closed">
         <div className="container">
           <div className="add-card-component__content">
-            {toggleCardSelectOption ? <CardSelectOptions /> : null}
+            {toggleCardSelectOption ? <CardSelectOptions cardItems={cardItems} /> : null}
             <div className="basic-accordion large-collapse">
               <div className="basic-accordion__card">
                 <div className="basic-accordion__card__header compare-card__header" id="compareCard">
