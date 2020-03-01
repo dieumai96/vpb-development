@@ -1,0 +1,180 @@
+.retail-banking {
+  padding: 30px 0 40px;
+
+  @include min-sm {
+    padding: 40px 0 20px;
+  }
+
+  &.no-title {
+    .section-title {
+      display: none;
+    }
+  }
+
+  .section-title {
+    @include min-lg {
+      margin-bottom: 20px;
+    }
+  }
+
+  &__content {
+    text-align: center;
+    padding: 0 10px;
+
+    @include min-sm {
+      margin: 0 -18.5px;
+      padding: 0;
+    }
+
+    &__option {
+      text-align: center;
+      padding: 10px;
+      margin-bottom: 0px;
+
+      @include min-sm {
+        margin-bottom: 15px;
+        padding: 20px 18.5px;
+      }
+
+      &__item {
+        display: block;
+        transition: 0.2s all;
+
+        picture {
+          img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 14px;
+          }
+        }
+
+        &:hover {
+          text-decoration: none;
+
+          @include min-sm {
+            transform: translateY(-10px);
+          }
+
+          &.shadow-light-green {
+            img {
+              box-shadow: 0px 0px 18px rgba(0, 131, 70, .2);
+            }
+          }
+
+          &.shadow-light-brown {
+            img {
+              box-shadow: 0px 0px 18px rgba(203, 133, 12, .2);
+            }
+          }
+
+          &.shadow-light-orange {
+            img {
+              box-shadow: 0px 0px 18px rgba(234, 114, 0, .2);
+            }
+          }
+
+          &.shadow-light-pink {
+            img {
+              box-shadow: 0px 0px 18px rgba(189, 19, 56, .2);
+            }
+          }
+
+          &.shadow-ocean-blue {
+            img {
+              box-shadow: 0px 0px 18px rgba(10, 137, 168, .2);
+            }
+          }
+
+          &.shadow-light-blue {
+            img {
+              box-shadow: 0px 0px 18px rgba(37, 107, 175, .2);
+            }
+          }
+
+          &.shadow-light-purple {
+            img {
+              box-shadow: 0px 0px 18px rgba(56, 86, 160, .2);
+            }
+          }
+
+          &.shadow-yellow-green {
+            img {
+              box-shadow: 0px 0px 18px rgba(149, 154, 4, 0.2);
+            }
+          }
+
+          &.shadow-lighter-blue {
+            img {
+              box-shadow: 0px 0px 18px rgba(58, 159, 155, 0.2);
+            }
+          }
+
+          h5 {
+            color: $primary;
+          }
+        }
+
+        &:active,
+        &:focus {
+          outline: none;
+        }
+
+        h5 {
+          margin-top: 15px;
+          font-family: $font-family-base;
+          font-size: $font-size-small;
+          font-weight: $font-weight-bold;
+          text-align: center;
+          color: $gray;
+          letter-spacing: $spacing-muli-font;
+
+          @include min-sm {
+            margin-top: 25px;
+            font-size: $h5-font-size;
+          }
+        }
+      }
+    }
+
+    // Slide
+    .slick-arrow {
+      width: 20px;
+      height: 40px;
+      top: 20%;
+      transform: translateY(0);
+      background: $gray-light;
+      color: $primary;
+
+      &:before {
+        font-family: 'icomoon';
+        color: $primary;
+        font-size: 1.6rem;
+        font-weight: $font-weight-bold;
+      }
+
+      &:hover,
+      &:focus {
+        background: $gray-light;
+        color: $primary;
+      }
+    }
+
+    .slick-prev {
+      left: -$grid-gutter-width/2;
+      border-radius: 0 20px 20px 0;
+
+      &:before {
+        content: "\e911";
+      }
+    }
+
+    .slick-next {
+      right: -$grid-gutter-width/2;
+      border-radius: 20px 0 0 20px;
+
+      &:before {
+        content: "\e916";
+      }
+    }
+  }
+}
