@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { data } from './CardData';
+import { connect } from 'react-redux';
 const CardList = () => {
   const [cardData, setCardData] = useState(data);
   return (
@@ -59,10 +60,10 @@ const CardList = () => {
         <div className="row card-list__list-item">
           {cardData.map((item, index) => {
             return (
-              <div className="col-sm-6 col-lg-4 card-item" key={index}>
+              <div className="col-sm-6 col-lg-4 card-item" key={item.dataIndex}>
                 <div className="card-item__wrap">
                   <div className="card-item__image-container"><a href="#"><img className="card-item__image-container--card-image" src={item.image} alt="" /></a>
-                    <div className="card-item__image-container--wishlist"><input id={'wish-' + { index }} type="checkbox" /><label htmlFor={'wish-' + { index }}></label></div>
+                    <div className="card-item__image-container--wishlist"><input id={'wish-' + item.dataIndex} type="checkbox" /><label htmlFor={'wish-' + item.dataIndex}></label></div>
                     <div className="card-item__image-container--tag">Best Seller</div>
                   </div>
                   <div className="card-item__description"><a className="card-type" href="#">{item.type}</a>
@@ -73,7 +74,7 @@ const CardList = () => {
                     </ul>
                   </div>
                   <div className="card-item__action">
-                    <div className="add-compare"><input className="vp-checkbox" id="chk21" type="checkbox" name="vehicle1" value="Bike" /><label htmlFor="chk21">ADD TO COMPARE CARD</label></div>
+                    <div className="add-compare"><input className="vp-checkbox" id={'chosen-card-' + item.dataIndex} type="checkbox" name="vehicle1" value="Bike" /><label htmlFor={'chosen-card-' + item.dataIndex}>ADD TO COMPARE CARD</label></div>
                     <div className="choice-button-action"><a className="button-apply btn btn-outline-primary" href="#">APPLY NOW</a><a className="button-infomation btn btn-outline-default" href="#">MORE INFOMATION</a></div>
                   </div>
                 </div>
@@ -81,11 +82,10 @@ const CardList = () => {
             )
           })}
         </div>
-
         <div className="card-list__pagination"></div>
       </div>
     </div>
   )
 }
 
-export default CardList
+export default connect()(CardList);

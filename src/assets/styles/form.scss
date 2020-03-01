@@ -219,7 +219,7 @@ input.vp-checkbox {
   }
 
   &:checked+label:before {
-    background-image: url('/assets/images/icons/icon-cb-checked.png');
+    background-image: url('./icon-cb-checked.png');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: bottom;
