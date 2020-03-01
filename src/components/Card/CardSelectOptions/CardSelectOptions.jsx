@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { data } from '../CardList/CardData';
+import CardSelectOptionJquery from './CardSelectOption.jquery';
 const CardSelectOptions = () => {
+  useEffect(() => {
+    CardSelectOptionJquery.init();
+  })
   return (
     <>
       <div className="add-card-component__content__close-button"><i className="ico icon-close"></i></div>

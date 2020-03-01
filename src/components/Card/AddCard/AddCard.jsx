@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import CardSelectOptions from '../CardSelectOptions/CardSelectOptions';
 import { createStructuredSelector } from 'reselect';
@@ -9,6 +9,7 @@ import {
 
 const AddCard = ({ cardItems }) => {
   const cardSelectLength = cardItems.length;
+  const [toggleCardSelectOption, setToggleCardSelectOption] = useState(false);
 
   useEffect(() => {
     $(window).bind('wheel mousewheel', function (event) {
@@ -19,23 +20,46 @@ const AddCard = ({ cardItems }) => {
         }
       }
     });
+    clickOutAddCard();
   }, [cardItems]);
+
+  const toggleOption = () => {
+    setToggleCardSelectOption(true);
+    $('body').addClass('masked');
+    $('.add-card-component').addClass('show-mask');
+  }
+
+  const clickOutAddCard = () => {
+    const addCardComponent = $('.add-card-component');
+    $(document).mouseup((e) => {
+      if (addCardComponent.hasClass('show-mask')) {
+        if (!addCardComponent.is(e.target) && addCardComponent.has(e.target).length === 0) {
+          $('.add-card-content').hide();
+          setToggleCardSelectOption(false);
+          addCardComponent.removeClass('show-mask');
+          $('body').removeClass('masked');
+        }
+      }
+    });
+  }
+
   return (
     <>
       <div className="add-card-component closed">
         <div className="container">
           <div className="add-card-component__content">
+            {toggleCardSelectOption ? <CardSelectOptions /> : null}
             <div className="basic-accordion large-collapse">
               <div className="basic-accordion__card">
                 <div className="basic-accordion__card__header compare-card__header" id="compareCard">
-                  <h3 className="basic-accordion__card__header__text"><a data-toggle="collapse" data-target="#collapseCompareCard" aria-expanded="false" aria-controls="collapseCompareCard">Compare Cards<i className="ico icon-remove" style ={{float : 'right'}}></i></a></h3>
+                  <h3 className="basic-accordion__card__header__text"><a data-toggle="collapse" data-target="#collapseCompareCard" aria-expanded="false" aria-controls="collapseCompareCard">Compare Cards<i className="ico icon-remove" style={{ float: 'right' }}></i></a></h3>
                 </div>
                 <div className="basic-accordion__card__collapse compare-card__collapse collapse show" id="collapseCompareCard" aria-labelledby="compareCard">
                   <div className="compare-card__collapse__content">
                     <div className="row no-gutters list-card-added">
                       <div className="col-md-4 item-column button-add-card">
                         <div className="content">
-                          <div className="add-button"><i className="icon-add plus"></i><span>Add a card</span></div>
+                          <div className="add-button" onClick={toggleOption}><i className="icon-add plus"></i><span>Add a card</span></div>
                         </div>
                       </div>
                     </div>

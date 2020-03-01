@@ -1,3 +1,4 @@
+@import '../CardSelectOptions/CardSelectOption.scss';
 
 .card-name {
   font-size: $font-size-small;
@@ -223,7 +224,7 @@ body.masked {
           }
 
           &:before {
-            background-image: url('/assets/images/icons/icon-arrow-left-img.png');
+            background-image: url('/images/icons/icon-arrow-left-img.png');
           }
         }
 
@@ -235,7 +236,7 @@ body.masked {
           }
 
           &:before {
-            background-image: url('/assets/images/icons/icon-arrow-right-img.png');
+            background-image: url('/images/icons/icon-arrow-right-img.png');
           }
         }
       }
