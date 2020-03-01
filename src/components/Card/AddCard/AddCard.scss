@@ -1,0 +1,536 @@
+@import './../CardSelectOptions/CardSelectOption.scss';
+
+
+.card-name {
+  font-size: $font-size-small;
+  font-weight: $font-weight-bold;
+  margin-bottom: 7px;
+  display: inline-block;
+
+  @include min-sm {
+    display: block;
+  }
+}
+
+.card-action {
+  color: $primary;
+  border-radius: 25px;
+  font-size: $font-size-small;
+  cursor: pointer;
+  padding: 1px 20px;
+  border: 1px solid $primary;
+  display: inline-block;
+
+  @include min-md {
+    padding: 1px 15px;
+    font-size: $font-size-smaller;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
+
+  &:hover {
+    color: $white;
+    background-color: $primary;
+  }
+
+  &:focus,
+  &:active {
+    background-color: $link-hover-color;
+    border-color: $link-hover-color;
+    color: $white;
+  }
+}
+
+body.marked-add-card {
+  .add-card-mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    opacity: 0;
+  }
+}
+
+body.masked {
+  overflow: hidden;
+
+  .add-card-mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    opacity: .6;
+  }
+}
+
+body.masked {
+  .add-card-mask {
+    background: $black;
+  }
+}
+
+
+.add-card-component {
+  z-index: 4;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  background-color: $white;
+  transition: all .4s;
+  box-shadow: 0px -3px 30px rgba(41, 46, 47, 0.1);
+  overflow: auto;
+  padding-top: 0;
+  height: auto;
+  // INFO: never ever use display:none here
+  // display: none;
+
+  @include min-md {
+    padding-top: 0;
+  }
+
+  &.closed {
+    height: 0 !important;
+    overflow: hidden;
+    border: none;
+    padding: 0;
+  }
+
+  &__content {
+    margin: 0 auto;
+
+    @include min-xl {
+      padding: 0 90px;
+    }
+
+    &__close-button {
+      display: none;
+      position: fixed;
+      z-index: 9;
+      top: 60px;
+      right: 0;
+      cursor: pointer;
+
+      &.show {
+        display: block;
+      }
+
+      &:after {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        right: -40px;
+        top: -40px;
+        content: '';
+        background-color: $primary;
+        z-index: 0;
+        transform: rotate(45deg);
+      }
+
+      i {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        font-size: $font-size-small;
+        font-weight: $font-weight-bold;
+        color: white;
+        z-index: 1;
+        cursor: pointer;
+      }
+    }
+
+    .add-card-content {
+      padding: 20px 0 45px;
+
+      @include min-md {
+        padding: 40px 0 30px;
+      }
+
+      &.mobile {
+        overflow: hidden;
+      }
+
+      &.slick-dotted.slick-slider {
+        margin-bottom: 0;
+      }
+
+      .slick-list {
+        margin: 0 -26.5px;
+
+        @include min-md {
+          text-align: center;
+        }
+
+        .slick-track {
+          display: flex;
+
+          .slick-slide {
+            display: flex;
+            height: auto;
+            align-items: center; //optional
+            justify-content: center; //optional
+
+            >div {
+              height: 100%;
+              width: 100%;
+
+              >.credit-card-item {
+                height: 100%;
+              }
+            }
+          }
+        }
+      }
+
+      .slick-arrow {
+        width: 25px;
+        height: 25px;
+        top: 34%;
+        border-radius: 50%;
+        border: 1px solid $gray;
+
+        @include min-xl {
+          width: 42px;
+          height: 42px;
+        }
+
+        &:hover {
+          background-color: $gray-light;
+          border: 1px solid $gray-light;
+        }
+
+        &:before {
+          content: '';
+          opacity: 1;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          display: inline-block;
+          width: 17px;
+          height: 12px;
+          background-repeat: no-repeat;
+          background-size: contain;
+        }
+
+        &.slick-prev {
+          left: -45px;
+
+          @include min-xl {
+            left: -90px;
+          }
+
+          &:before {
+            background-image: url('/assets/images/icons/icon-arrow-left-img.png');
+          }
+        }
+
+        &.slick-next {
+          right: -45px;
+
+          @include min-xl {
+            right: -90px;
+          }
+
+          &:before {
+            background-image: url('/assets/images/icons/icon-arrow-right-img.png');
+          }
+        }
+      }
+
+      .slick-dots {
+        bottom: 15px;
+
+        li {
+          &.slick-active {
+            button {
+              &:before {
+                background: $btn-primary-bg;
+                color: transparent;
+              }
+            }
+          }
+
+          button {
+            &:before {
+              width: 12px;
+              height: 12px;
+              border: 1px solid $btn-primary-border;
+              background: $btn-primary-color;
+              border-radius: 50%;
+              color: transparent;
+              opacity: 1;
+            }
+          }
+        }
+      }
+
+      .credit-card-item {
+        padding: 0 26.5px 11px 26.5px;
+        position: relative;
+        overflow: hidden;
+
+        @include min-md {
+          padding: 0 25px 10px 25px;
+        }
+
+        .card-image {
+          width: 105px;
+          height: 70px;
+          float: left;
+          border-radius: 10px;
+          margin-right: 15px;
+
+          @include min-md {
+            height: auto;
+            width: 100%;
+            margin-bottom: 16px;
+            margin-right: 0;
+          }
+
+          img {
+            border-radius: 10px;
+          }
+        }
+
+        span.deactivated-by-choice,
+        span.deactivated-by-count {
+          pointer-events: none;
+          opacity: .3;
+        }
+
+        .card-name {
+          display: block;
+
+          @include min-md {
+            margin-top: 12px;
+          }
+        }
+
+        .card-action {
+          padding: 1px 19px;
+
+          @include min-md {
+            padding: 1px 9px;
+            font-size: $font-size-smaller;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+          }
+
+          &.deactivated-by-choice,
+          &.deactivated-by-count {
+            pointer-events: none;
+            opacity: .3;
+          }
+        }
+      }
+    }
+  }
+
+  .basic-accordion.large-collapse {
+
+    .basic-accordion__card {
+      margin-bottom: 0;
+    }
+
+    .compare-card__header {
+      border-bottom: 2px solid transparent;
+      margin: 14px 0 10px;
+
+      @include min-md {
+        border: none;
+        margin-bottom: 18px;
+      }
+    }
+
+    .compare-card {
+      &__header {
+        .basic-accordion__card__header__text {
+          &:hover {
+            background: transparent;
+          }
+
+          a {
+            font-size: 2.4rem;
+            padding: 0;
+            color: $gray-dark;
+
+            @include min-md {
+              font-size: $h3-font-size;
+            }
+
+            i {
+              z-index: 1;
+            }
+          }
+        }
+      }
+
+      &__collapse {
+        &__content {
+          padding: 10px 0 20px;
+          display: flex;
+          justify-content: space-between;
+          flex-direction: column;
+
+          @include min-md {
+            padding-bottom: 25px;
+            flex-direction: row;
+          }
+        }
+
+        .list-card-added {
+          display: flex;
+          width: 100%;
+
+          @include min-md {
+            width: calc(100% - 170px);
+          }
+
+          .item {
+            display: flex;
+            margin-bottom: 15px;
+
+            @include min-md {
+              margin-bottom: 0;
+            }
+
+            .card-image {
+              width: 31%;
+
+              @include min-md {
+                width: 45%;
+              }
+
+              img {
+                width: 100%;
+                border-radius: 10px;
+              }
+            }
+
+            .card-infomation {
+              position: relative;
+              width: 41%;
+              margin-left: 15px;
+
+              @include min-md {
+                margin-left: 20px;
+              }
+            }
+          }
+
+          .button-add-card {
+            order: 1;
+
+            .content {
+              position: relative;
+              margin-top: 5px;
+              width: 31%;
+              border-radius: 10px;
+              background: $gray-lightest;
+              cursor: pointer;
+
+              @include min-md {
+                margin-top: 0;
+                width: 45%;
+              }
+
+              &:after {
+                content: '';
+                padding-bottom: calc(100%/1.58);
+                display: block;
+              }
+
+              &:hover {
+                box-shadow: 0px 3px 20px rgba(0, 0, 0, .1);
+              }
+
+              .add-button {
+                text-align: center;
+                position: absolute;
+                width: 80%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+
+                .plus {
+                  background: $white;
+                  width: 23px;
+                  height: 23px;
+                  line-height: 23px;
+                  border-radius: 50%;
+                  margin: 0 auto;
+                  text-align: center;
+
+                  @include min-sm {
+                    width: 30px;
+                    height: 30px;
+                    line-height: 30px;
+                  }
+
+                  &:before {
+                    color: $primary;
+                    cursor: pointer;
+                  }
+                }
+
+                span {
+                  display: block;
+                  margin-top: 5px;
+                  font-size: $font-size-small;
+                }
+              }
+            }
+
+            &.remove-class-add-card {
+              display: none;
+            }
+          }
+        }
+
+        .compare-button {
+          text-align: center;
+          position: relative;
+          width: 100%;
+          margin-top: 30px;
+
+          @include min-md {
+            width: 170px;
+            margin-top: 0;
+          }
+
+          .general-button {
+            white-space: nowrap;
+            padding: 8px 15px;
+            width: 100%;
+
+            @include min-md {
+              padding: 5px 15px;
+            }
+
+            &.deactivated {
+              pointer-events: none;
+              opacity: .5;
+            }
+          }
+
+          .notice {
+            margin-top: 12px;
+            display: inline-block;
+
+            @include min-md {
+              margin-top: 10px;
+              font-size: $font-size-small;
+            }
+          }
+        }
+      }
+    }
+  }
+}
