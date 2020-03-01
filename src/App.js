@@ -6,7 +6,7 @@ const loading = () => (
   <p>Loading...</p>
 )
 const DefaultLayout = Loadable({
-  loader: () => import('./views/DefaultLayout'),
+  loader: () => import('./views/DefaultLayout/DefaultLayout'),
   loading
 });
 

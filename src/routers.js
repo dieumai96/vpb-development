@@ -1,13 +1,11 @@
 import React from 'react';
-import Index from './views/DefaultLayout/Index';
+import DefaultLayout from './views/DefaultLayout/DefaultLayout';
 
-// const CardService = React.lazy(() => import('./components/CardService/CardService')); 
 const Menu = React.lazy(() => import('./components/Menu/Menu'));
 
 
 const routes = [
-  { path: '/', exact: true, name: 'dawdaw', component: Index },
+  { path: '/', exact: true, name: 'DefaultLayout', component: DefaultLayout },
   { path: '/menu', exact: true, name: 'Menu', component: Menu },
-  // { path: '/card-service', exact: true, name: 'CardService', component: CardService },
 ]
 export default routes;

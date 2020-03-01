@@ -1,5 +1,5 @@
 import Util from '../../utils/util';
-import * as $ from 'jquery';
+import * as $ from 'jquery'; 
 const STICKY_STOP_POINT = 46;
 const MOBILE_BREAKPOINT = 1024;
 const $generalButton = $('.top-primary .js-general-button, .top-primary .js-button-icon');

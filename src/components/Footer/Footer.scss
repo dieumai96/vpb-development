@@ -1,0 +1,429 @@
+.footer {
+  background: $white;
+  font-size: $font-size-small;
+  padding: 0;
+
+  @include min-sm {
+    padding: 60px 0 0;
+  }
+
+  &__link {
+    padding-bottom: 30px;
+
+    .row {
+      @include min-md {
+        justify-content: space-between;
+      }
+    }
+
+    &--title {
+      position: relative;
+      margin-bottom: 0;
+      pointer-events: auto;
+      font-family: $font-family-serif;
+      font-size: $h6-font-size;
+      font-weight: $font-weight-black;
+
+      @include min-sm {
+        pointer-events: none;
+      }
+
+      a {
+        display: block;
+        color: $gray-dark;
+
+        @include min-sm {
+          cursor: auto;
+        }
+
+        &:hover {
+          text-decoration: none;
+        }
+
+        i {
+          transform: rotate(90deg);
+          transition: 0.2s;
+          display: block;
+          position: absolute;
+          right: 0;
+          top: 4px;
+          color: $text-color;
+
+          @include min-sm {
+            display: none;
+          }
+        }
+
+        &.collapsed i {
+          transform: rotate(0);
+          transition: 0.2s;
+        }
+      }
+    }
+
+    &__item {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid $border-color;
+
+      @include min-sm {
+        padding-top: 0;
+        padding-bottom: $global-padding;
+        border: none;
+      }
+
+      @include min-md {
+        padding-top: 0;
+        padding-bottom: 0;
+        border: none;
+      }
+
+      &:first-child {
+        border-top: 1px solid $border-color;
+
+        @include min-sm {
+          border: none;
+        }
+      }
+
+      ul {
+        padding: 0;
+        margin: 0;
+
+        @include min-sm {
+          display: block !important;
+        }
+
+        li {
+          list-style: none;
+          margin-bottom: 6px;
+
+          a {
+            font-size: $font-size-small;
+            color: $gray-dark;
+
+            &:hover {
+              color: $primary;
+              text-decoration: none;
+            }
+          }
+
+          &:first-child {
+            margin-top: 15px;
+          }
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+
+  &__content {
+    border-top: none;
+    padding: 20px 0 38px 0;
+
+    @include min-sm {
+      border-top: 1px solid $border-color;
+      padding: 38px 0 23px;
+    }
+
+    &__left {
+      display: block;
+      text-align: center;
+      margin-bottom: 20px;
+
+      @include min-sm {
+        display: flex;
+        text-align: left;
+        margin-bottom: $global-margin;
+      }
+
+      @include min-md {
+        display: block;
+        margin-bottom: 0;
+      }
+
+      @include min-lg {
+        display: flex;
+      }
+
+      &__logo {
+        padding-right: 0px;
+        margin-bottom: 15px;
+
+        @include min-sm {
+          padding-right: 15px;
+          margin-bottom: 0;
+        }
+
+        @include min-md {
+          margin-bottom: 15px;
+        }
+
+        @include min-lg {
+          padding-right: 10px;
+        }
+
+        @include min-xl {
+          padding-right: 30px;
+        }
+
+        img {
+          max-width: 140px;
+        }
+      }
+
+      &__info {
+        position: relative;
+        padding: 0 15px;
+        font-size: $font-size-base;
+        color: $gray-dark;
+
+        @include min-sm {
+          padding: 0 0 0 30px;
+          font-size: $font-size-small;
+        }
+
+        @include min-md {
+          padding: 0;
+        }
+
+        @include min-lg {
+          padding: 0 0 0 10px;
+        }
+
+        @include min-xl {
+          padding: 0 0 0 30px;
+        }
+
+        &:before {
+          content: "";
+          display: none;
+          position: absolute;
+          left: 0;
+          top: 5px;
+          width: 1px;
+          height: 75%;
+          background-color: $gray-600;
+
+          @include min-sm {
+            display: block;
+          }
+
+          @include min-md {
+            display: none;
+          }
+
+          @include min-lg {
+            display: block;
+          }
+        }
+
+        &__name {
+          display: block;
+          margin-bottom: 5px;
+
+          @include min-sm {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+
+    &__right {
+      display: block;
+      text-align: center;
+
+      @include min-sm {
+        display: flex;
+        text-align: left;
+        justify-content: space-between;
+      }
+
+      @include min-md {
+        display: block;
+      }
+
+      @include min-lg {
+        display: flex;
+      }
+
+      &__link {
+        margin-bottom: 25px;
+
+        @include min-sm {
+          margin-bottom: 0;
+        }
+
+        @include min-md {
+          margin-bottom: 5px;
+        }
+
+        @include min-lg {
+          width: 150px;
+          margin-bottom: 0;
+        }
+
+
+        a {
+          margin: 0 10px 10px 0;
+          display: inline-block;
+          width: 45px;
+          height: 45px;
+
+          @include min-sm {
+            width: 40px;
+            height: 40px;
+          }
+
+          &:last-child {
+            margin: 0;
+          }
+
+          img {
+            width: 100%;
+            max-width: 100%;
+          }
+        }
+      }
+
+      .promo {
+        display: block;
+
+        @include min-lg {
+          // display: flex;
+          // justify-content: flex-start;
+          text-align: right;
+          width: 395px;
+          padding-left: 20px;
+        }
+
+        @include min-xl {
+          width: 450px;
+        }
+
+        > a {
+          width: 46%;
+          display: inline-block;
+          margin: 0 1%;
+
+          @include min-sm {
+            float: none;
+            width: 125px;
+            margin: 0 0 5px 10px;
+          }
+
+          @include min-xl {
+            width: auto;
+            margin: 0 0 0 15px;
+          }
+
+          img {
+            width: 100%;
+          }
+        }
+
+        .vpbank {
+          color: $gray-dark;
+          font-weight: $font-weight-bold;
+          margin: 0 0 15px 0;
+          text-align: center;
+          font-size: $font-size-base;
+          text-transform: uppercase;
+
+          @include min-sm {
+            margin: 0;
+            float: left;
+            text-align: left;
+            font-size: $font-size-small;
+          }
+
+          @include min-md {
+            max-width: 100px;
+          }
+        }
+      }
+    }
+
+    b, strong {
+      color: $gray-dark;
+      font-weight: $font-weight-black;
+      font-size: $font-size-base;
+
+      @include min-sm {
+        font-size: $font-size-small;
+      }
+    }
+  }
+
+  // Copyright
+  &__copyright {
+    background-color: $primary;
+    padding: 24px 0;
+    font-size: $font-size-base;
+
+    @include min-sm {
+      padding: 30px 0;
+      font-size: $font-size-small;
+    }
+
+    &__left {
+      color: $white;
+      text-align: center;
+
+      @include min-sm {
+        text-align: left;
+      }
+    }
+
+    &__right {
+      text-align: center;
+      margin-top: 10px;
+
+      @include min-sm {
+        text-align: right;
+        margin-top: 0px;
+      }
+
+      span {
+        a {
+          color: $white;
+
+          & + a {
+            padding-left: 10px;
+            margin-left: 10px;
+            border-left: 1px solid rgba($white, 0.5);
+          }
+
+          &:hover {
+            color: rgba($white, 0.7);
+            text-decoration: none;
+          }
+
+          &.back-to-old-website {
+            background: rgba($white, 0.2) url('/assets/images/icons/special-icon.png') no-repeat 10px center;
+            padding: 5px 10px 5px 28px;
+            border: none;
+            border-radius: 3px;
+            margin-top: 10px;
+            display: inline-block;
+
+            @include min-sm {
+              margin-left: 20px;
+            }
+
+            @include min-md {
+              margin: 0 0 0 20px;
+            }
+
+            &:hover {
+              background-color: rgba($white, 0.1);
+            }
+          }
+        }
+      }
+    }
+  }
+}

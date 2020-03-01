@@ -1,5 +1,6 @@
 import React, { Component, Fragment, Suspense } from 'react'
 import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
 import routers from '../../routers';
 import { Switch, Route, Redirect } from 'react-router-dom';
 class DefaultLayout extends Component {
@@ -24,6 +25,7 @@ class DefaultLayout extends Component {
             <Redirect from="/" to="/menu" />
           </Switch>
         </Suspense>
+        <Footer />
       </Fragment>
     )
   }

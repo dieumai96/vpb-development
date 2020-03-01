@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Language from '../Language/Language';
 import HeaderJquery from './Header.jquery';
 const Header = () => {
   useEffect(() => {
@@ -25,6 +26,7 @@ const Header = () => {
               <li className="contact"><a className="navbar-item" href="#">Contact Us</a></li>
               <li className="atm"><a className="navbar-item" href="#">Branch & ATM</a></li>
             </ul>
+            <Language />
           </div>
         </div>
       </div>
@@ -180,6 +182,7 @@ const Header = () => {
                 <li className="button-icon js-button-icon"><span data-toggle="tooltip" data-placement="bottom" title="Ngân hàng điện tử"><img src="/images/icons/icon-internet-banking.png" alt="" width="16px" height="16px" /></span>
                   <div className="sub-menu"><a href="#">Personal</a><a href="#">Business</a></div>
                 </li>
+                <Language />
               </ul>
             </div>
           </div>
