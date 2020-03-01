@@ -9,8 +9,6 @@ const $searchClose = $('.top-primary .js-search-icon span.icon-close');
 
 const Header = {
   init: () => {
-    console.log('here');
-    console.log($('.mobile-menu'));
     $('.mobile-menu').click(() => {
       $('.navbar-mobile').toggleClass('display');
       $('.mobile-menu').toggleClass('hamburger-hover');
