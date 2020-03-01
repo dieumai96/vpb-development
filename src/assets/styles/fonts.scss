@@ -1,0 +1,203 @@
+// Font Krub
+// --------------------
+@font-face {
+  font-family: "Krub";
+  font-display: fallback;
+  src: url('./fonts/Krub/Krub-Regular.eot?#iefix') format('embedded-opentype'),
+       url('./fonts/Krub/krub-regular.woff') format('woff');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Krub";
+  font-display: fallback;
+  src: url('./fonts/Krub/Krub-Italic.eot?#iefix') format('embedded-opentype'),
+       url('./fonts/Krub/krub-italic.woff') format('woff');
+  font-weight: normal;
+  font-style: Italic;
+}
+
+// Krub Medium
+@font-face {
+  font-family: "Krub";
+  font-display: fallback;
+  src: url('./fonts/Krub/Krub-Medium.eot?#iefix') format('embedded-opentype'),
+       url('./fonts/Krub/krub-medium.woff') format('woff');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Krub";
+  font-display: fallback;
+  src: url('./fonts/Krub/Krub-MediumItalic.eot?#iefix') format('embedded-opentype'),
+       url('./fonts/Krub/krub-mediumitalic.woff') format('woff');
+  font-weight: 500;
+  font-style: Italic;
+}
+
+// Krub Bold
+@font-face {
+  font-family: "Krub";
+  font-display: fallback;
+  src: url('./fonts/Krub/Krub-Bold.eot?#iefix') format('embedded-opentype'),
+       url('./fonts/Krub/krub-bold.woff') format('woff');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Krub";
+  font-display: fallback;
+  src: url('./fonts/Krub/Krub-BoldItalic.eot?#iefix') format('embedded-opentype'),
+       url('./fonts/Krub/krub-bolditalic.woff') format('woff');
+  font-weight: 600;
+  font-style: Italic;
+}
+
+// Krub Light
+@font-face {
+  font-family: "Krub";
+  font-display: fallback;
+  src: url('./fonts/Krub/Krub-Light.eot?#iefix') format('embedded-opentype'),
+       url('./fonts/Krub/krub-light.woff') format('woff');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Krub";
+  font-display: fallback;
+  src: url('./fonts/Krub/Krub-LightItalic.eot?#iefix') format('embedded-opentype'),
+       url('./fonts/Krub/krub-lightitalic.woff') format('woff');
+  font-weight: 300;
+  font-style: Italic;
+}
+
+// Krub ExtraLight
+@font-face {
+  font-family: "Krub";
+  font-display: fallback;
+  src: url('./fonts/Krub/Krub-ExtraLight.eot?#iefix') format('embedded-opentype'),
+       url('./fonts/Krub/krub-extralight.woff') format('woff');
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: "Krub";
+  font-display: fallback;
+  src: url('./fonts/Krub/Krub-ExtraLightItalic.eot?#iefix') format('embedded-opentype'),
+       url('./fonts/Krub/krub-extralightitalic.woff') format('woff');
+  font-weight: 100;
+  font-style: Italic;
+}
+
+// Krub SemiBold
+// ---------------
+@font-face {
+  font-family: "Krub SemiBold";
+  font-display: fallback;
+  src: url('./fonts/Krub/Krub-SemiBold.eot?#iefix') format('embedded-opentype'),
+       url('./fonts/Krub/krub-semibold.woff') format('woff');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Krub SemiBold";
+  font-display: fallback;
+  src: url('./fonts/Krub/Krub-SemiBoldItalic.eot?#iefix') format('embedded-opentype'),
+       url('./fonts/Krub/krub-semibolditalic.woff') format('woff');
+  font-weight: 600;
+  font-style: Italic;
+}
+
+
+// Font Proxima Nova New
+// ---------------------------
+
+// Proxima Regular
+@font-face {
+  font-family: "Proxima Nova";
+  font-display: fallback;
+  src: url('./fonts/Proxima/ProximaNova-Regular.eot?#iefix') format('embedded-opentype'),
+	     url('./fonts/Proxima/proximanova-regular.woff') format('woff');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Proxima Nova";
+  font-display: fallback;
+  src: url('./fonts/Proxima/ProximaNova-RegularIt.eot?#iefix') format('embedded-opentype'),
+	     url('./fonts/Proxima/ProximaNova-RegularIt.woff') format('woff');
+  font-weight: normal;
+  font-style: Italic;
+}
+
+// Proxima Light
+@font-face {
+  font-family: "Proxima Nova";
+  font-display: fallback;
+  src: url('./fonts/Proxima/ProximaNova-Light.eot?#iefix') format('embedded-opentype'),
+	     url('./fonts/Proxima/ProximaNova-Light.woff') format('woff');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Proxima Nova";
+  font-display: fallback;
+  src: url('./fonts/Proxima/ProximaNova-LightIt.eot?#iefix') format('embedded-opentype'),
+	     url('./fonts/Proxima/ProximaNova-LightIt.woff') format('woff');
+  font-weight: 300;
+  font-style: Italic;
+}
+
+// Proxima Bold
+@font-face {
+  font-family: "Proxima Nova";
+  font-display: fallback;
+  src: url('./fonts/Proxima/ProximaNova-Bold.eot?#iefix') format('embedded-opentype'),
+	     url('./fonts/Proxima/ProximaNova-Bold.woff') format('woff');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Proxima Nova";
+  font-display: fallback;
+  src: url('./fonts/Proxima/ProximaNova-BoldIt.eot?#iefix') format('embedded-opentype'),
+	     url('./fonts/Proxima/ProximaNova-BoldIt.woff') format('woff');
+  font-weight: 600;
+  font-style: Italic;
+}
+
+// Proxima Black
+@font-face {
+  font-family: "Proxima Nova";
+  font-display: fallback;
+  src: url('./fonts/Proxima/ProximaNova-Black.eot?#iefix') format('embedded-opentype'),
+	     url('./fonts/Proxima/ProximaNova-Black.woff') format('woff');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Proxima Nova";
+  font-display: fallback;
+  src: url('./fonts/Proxima/ProximaNova-BlackIt.eot?#iefix') format('embedded-opentype'),
+	     url('./fonts/Proxima/ProximaNova-BlackIt.woff') format('woff');
+  font-weight: 700;
+  font-style: Italic;
+}
+
+// Proxima ExtraBold
+@font-face {
+  font-family: "Proxima Nova";
+  font-display: fallback;
+  src: url('./fonts/Proxima/ProximaNova-Extrabld.eot?#iefix') format('embedded-opentype'),
+	     url('./fonts/Proxima/ProximaNova-Extrabld.woff') format('woff');
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "Proxima Nova";
+  font-display: fallback;
+  src: url('./fonts/Proxima/ProximaNova-ExtrabldIt.eot?#iefix') format('embedded-opentype'),
+	     url('./fonts/Proxima/ProximaNova-ExtrabldIt.woff') format('woff');
+  font-weight: 900;
+  font-style: Italic;
+}

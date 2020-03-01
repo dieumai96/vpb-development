@@ -12,8 +12,10 @@ $primary-color : #008347;
       margin-bottom: 10px;
 
       a {
+        font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
         color: $primary-color;
-        &:hover{
+
+        &:hover {
           text-decoration: none;
         }
       }

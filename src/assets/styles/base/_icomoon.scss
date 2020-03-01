@@ -1,0 +1,140 @@
+/* src/assets/styles/base/_fonts.scss  */
+
+@font-face {
+  font-family: 'icomoon';
+  font-display: fallback;
+  src: url('./fonts/icomoon/icomoon.eot?32w7bp');
+  src: url('./fonts/icomoon/icomoon.eot?32w7bp#iefix') format('embedded-opentype'),
+    url('./fonts/icomoon/icomoon.ttf?32w7bp') format('truetype'),
+    url('./fonts/icomoon/icomoon.woff?32w7bp') format('woff'),
+    url('./fonts/icomoon/icomoon.svg?32w7bp#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon';
+  speak: none;
+  display: inline-block;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-add:before {
+  content: "\e900";
+}
+
+.icon-remove:before {
+  content: "\e903";
+}
+
+.icon-chevron-up:before {
+  content: "\e910";
+}
+
+.icon-chevron-down:before {
+  content: "\e907";
+}
+
+.icon-chevron-right:before {
+  content: "\e916";
+}
+
+.icon-chevron-left:before {
+  content: "\e911";
+}
+
+.icon-facebook:before {
+  content: "\e912";
+}
+
+.icon-twitter:before {
+  content: "\e913";
+}
+
+.icon-twitter:before {
+  content: "\e914";
+}
+
+.icon-hamburger:before {
+  content: "\e90a";
+}
+
+.icon-close:before {
+  content: "\e90b";
+}
+
+.icon-close-o:before {
+  content: "\e928";
+}
+
+.icon-heart:before {
+  content: "\e92e";
+}
+
+.icon-heart-selected:before {
+  content: "\e92f";
+}
+
+.icon-arrow-prev:before {
+  content: "\e908";
+}
+
+.icon-arrow-next:before {
+  content: "\e909";
+}
+
+.icon-location:before {
+  content: "\e914";
+}
+
+.icon-map:before {
+  content: "\e924";
+}
+
+.icon-star-full:before {
+  content: "\e9d9"
+}
+.icon-star-empty:before {
+  content: "\e9d7"
+}
+
+.icon-modal-closeBtn:before {
+  content: "\e90b";
+}
+
+.icon-filter-list:before {
+  content: "\e904";
+}
+
+.icon-search1:before {
+  content: "\e91e";
+}
+
+.icon-list:before {
+  content: "\e939";
+}
+
+.icon-loop2:before {
+  content: "\ea2e";
+}
+
+.icon-thumbs-up:before {
+  content: "\e94f";
+}
+
+.icon-thumbs-down:before {
+  content: "\e94e";
+}
+
+.icon-download:before {
+  content: "\e9c7";
+}

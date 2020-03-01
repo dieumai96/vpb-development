@@ -1,0 +1,95 @@
+$spacing-muli-font:       0;
+$font-size-small : 1.3rem;
+$font-size-base:          1.6rem;
+$font-size-large:         1.8rem;
+$font-size-smaller:       1.2rem;
+
+$font-weight-lighter:     100;
+$font-weight-light:       300;
+$font-weight-normal:      400;
+$font-weight-bold:        600;
+$font-weight-black:       700;
+$font-weight-bolder:      900;
+
+$h1-font-size:            4.4rem;
+$h2-font-size:            4rem;
+$h3-font-size:            3.2rem;
+$h4-font-size:            2.8rem;
+$h5-font-size:            1.8rem;
+$h6-font-size:            $font-size-base;
+
+$line-height-base:        1.5;
+$line-height-computed:    20px;
+$spacing-muli-font:       0;
+
+
+// Color system
+
+$white:    #fff;
+$gray-100: #f4f7f8;
+$gray-200: #e9ecef;
+$gray-300: #dde6e8;
+$gray-400: #b5bec1;
+$gray-500: #8e989a;
+$gray-600: #707070;
+$gray-700: #292E2F;
+$gray-800: #2C2C2C;
+$gray-900: #212529;
+$black:    #000;
+
+
+// Grays
+// -------------------------
+
+$gray-darker:            $gray-800;
+$gray-dark:              $gray-700;
+$gray:                   $gray-500;
+// $gray-border:            $gray-400;
+$gray-light:             $gray-300;
+$gray-lighter:           $gray-200;
+$gray-lightest:          $gray-100; // Add gray lightest
+
+
+.breadcrumb {
+  padding: 0;
+  margin: 15px 0 25px 0;
+  display: flex;
+  flex-wrap: wrap;
+
+
+  &__item {
+    font-size: $font-size-smaller;
+    line-height: 2rem;
+    list-style: none;
+    display: inline-block;
+    letter-spacing: $spacing-muli-font;
+
+
+
+    & + .breadcrumb__item {
+      &:before {
+        content: "/";
+        color: $gray-dark;
+        font-size: inherit;
+        padding-right: 5px;
+        display: inline-block;
+      }
+    }
+
+    a {
+      color: $gray-dark;
+      font-size: $font-size-small;
+      transition: 0.2s;
+
+      // @include min-sm {
+      //   font-size: $font-size-base;
+      // }
+
+
+      &:hover {
+        text-decoration: none;
+        color:#008347;
+      }
+    }
+  }
+}

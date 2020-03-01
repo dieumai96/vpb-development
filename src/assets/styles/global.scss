@@ -1,0 +1,376 @@
+// @import url('https://fonts.googleapis.com/css?family=Muli:200,300,400,600,700,800,900&display=swap');
+
+html {
+  // INFO: set font-size for html to 62.5% mean that <html> element will have font-size qual to 62.5% * {browser font setting ( default = 16px) } = 10px
+  // From now, 1rem will equal to 10 px
+  font-size: 62.5%;
+}
+
+body{
+  &.side-menu-open {
+    @include max-md {
+      overflow: hidden;
+    }
+  }
+}
+
+// Section Title
+.section-title {
+  text-align: center;
+  margin-bottom: $global-margin*0.75;
+
+  @include min-md {
+    margin-bottom: $global-margin*1.5;
+  }
+
+  h2 {
+    color: $gray-dark;
+    display: inline-block;
+    position: relative;
+    padding-bottom: 16px;
+    font-weight: normal;
+    font-size: 3rem;
+    width: 100%;
+    
+    @include min-xs {
+      padding-bottom: 20px;
+      width: 78%;
+    }
+
+    @include min-md {
+      font-size: $h2-font-size;
+      width: 100%;
+    }
+
+    &:after {
+      background: $primary;
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      height: 4px;
+      width: 50px;
+      margin-left: -19px;
+      
+      @include min-sm {
+        width: 38px;
+      }
+    }
+  }
+
+  .product-notify {
+    font-size: $font-size-large;
+    margin: 15px 0 0;
+    word-spacing: -1px;
+
+    @include min-sm {
+      word-spacing: normal;
+    }
+    span {
+      color: $primary;
+      padding: 0 6px;
+      font-weight: $font-weight-bold;
+    }
+  }
+}
+
+// Back to top
+.back-to-top {
+  width: 0;
+  height: 0;
+  line-height: 42px;
+  text-align: center;
+  color: $primary;
+  position: fixed;
+  right: 15px;
+  bottom: 70px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  overflow: hidden;
+  transition: 0.3s;
+  z-index: 3;
+  outline: none;
+
+  @include min-lg {
+    right: 20px;
+    bottom: 20px;
+  }
+
+  &.show {
+    background: $white;
+    width: 42px;
+    height: 42px;
+    transition: 0.3s;
+    border-color: $primary;
+  }
+
+  &:hover {
+    background: $primary-light;
+    text-decoration: none;
+    border-color: $primary-light;
+    color: $link-color;
+  }
+
+  i {
+    line-height: 40px;
+    transform: rotate(-90deg);
+    font-size: 2.4rem;
+  }
+}
+
+// Alert
+.alert {
+  padding: $global-padding;
+
+  p:last-child {
+    margin-bottom: 0
+  }
+}
+
+// success masked
+.success-masked {
+  overflow: hidden;
+}
+
+// hidden field
+.hidden-field {
+  display: none;
+}
+
+// Style for Mixin
+
+// Article And Article Icon Mixin
+.article,
+.article-tag,
+.article-leader,
+.article-icon {
+  background: $gray-lightest;
+  margin-bottom: 20px;
+  @extend .effect-box-hover;
+
+  @include min-sm {
+    margin: 0;
+    height: 100%;
+  }
+
+  &__picture {
+    position: relative;
+    display: block;
+    // @extend .effect-img-hover;
+
+    &--img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &__content {
+    padding: 20px;
+
+    &--title {
+      font-size: $font-size-base;
+      margin-bottom: $global-margin/2;
+      
+      @include min-md {
+        font-size: $h5-font-size;
+        // max-height: 5rem;
+        // overflow: hidden;
+      }
+
+      a {
+        color: $gray-dark;
+
+        &:hover {
+          color: $primary;
+          text-decoration: none;
+        }
+      }
+    }
+
+    &--description {
+      margin-bottom: 5px;
+    }
+
+    &--date {
+      font-size: $font-size-smaller;
+      color: $gray;
+    }
+  }
+}
+
+// Hover image of article
+.article,
+.article-tag,
+.article-leader {
+  &__picture {
+    @extend .effect-img-hover;
+  }
+}
+
+// Article mixin
+.article {
+  &__content {
+    &--link {
+      color: $primary;
+      font-size: $font-size-small;
+      font-weight: $font-weight-bold;
+
+      &:before {
+        content: "\e909";
+        font-family: 'icomoon';
+        padding-right: 10px;
+      }
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+// Article Icon mixin
+.article-icon {
+  &__picture {
+    &--icon {
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      width: 40px;
+      height: 40px;
+      margin-left: -20px;
+
+      img {
+        border-radius: 50%;
+        width: 100%;
+      }
+    }
+  }
+
+  &__content {
+    padding: 35px 20px 20px;
+  }
+}
+
+// Article Tag mixin
+.article-tag {
+  &__picture {
+    &--tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: $white;
+      padding: 5px 10px;
+      font-size: $font-size-smaller;
+      font-weight: $font-weight-black;
+      color: $gray-dark;
+
+      @include max-xs {
+        font-size: $font-size-small;
+      }
+    }
+  
+    // wish list
+    &--wishlist {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      line-height: 0;
+      z-index: 1;
+  
+      label {
+        position: relative;
+        margin-bottom: 0;
+        width: 15px;
+        height: 13px;
+        cursor: pointer;
+      }
+  
+      input[type='checkbox'] {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+        pointer-events: none;
+  
+        &+label:before {
+          content: "";
+          background: url('../images/heart.png') 0 0 no-repeat;
+          display: block;
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 15px;
+          height: 13px;
+          transition: all 0.2s;
+        }
+  
+        &:checked+label:before {
+          background: url('../images/heart-active.png') 0 0 no-repeat;
+        }
+      }
+    }
+  }
+
+  &__content {
+    &--subcategory {
+      color: $link-color;
+      font-size: $font-size-smaller;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    &--title {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Article Tag mixin
+.article-leader {
+  &__content {
+    &--title {
+      margin-bottom: 0;
+      text-transform: uppercase;
+    }
+
+    &--subtitle {
+      display: block;
+      color: $gray-dark;
+      font-size: $font-size-base;
+      font-family: $font-family-sans-serif;
+      font-weight: $font-weight-bold;
+      text-transform: uppercase;
+      margin-bottom: $global-margin/2;
+      
+      @include min-md {
+        font-size: $h5-font-size;
+      }
+    }
+  }
+}
+
+// Effect image when hover
+.effect-img-hover {
+  overflow: hidden;
+
+  img {
+    transition: 0.2s all;
+  }
+
+  &:hover {
+    img {
+      transform: scale(1.05);
+    }
+  }
+}
+
+// Effect Box when hover
+.effect-box-hover {
+  transition: 0.2s all;
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 3px 20px rgba($gray-dark, 0.1);
+  }
+}

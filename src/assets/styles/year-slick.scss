@@ -1,0 +1,244 @@
+.year-slick {
+  &__menu {
+    position: relative;
+
+    &.open {
+      .year-slick__menu__list {
+        display: block;
+        max-height: inherit;
+      }
+
+      .year-slick__menu__list__mobile {
+        &:before {
+          transform: rotate(180deg);
+          transition: all 0.3s ease-in-out
+        }
+      }
+    }
+
+    .slick-list {
+      margin-bottom: -1px;
+      
+      .slick-track {
+        margin: 0;
+      }
+    }
+
+    .slick-arrow {
+      z-index: 1;
+      width: 20px;
+      height: 20px;
+      top: 50%;
+      background: transparent;
+      color: $primary;
+      display: none;
+
+      &:before {
+        font-family: 'icomoon';
+        color: $primary;
+        font-size: 2.2rem;
+      }
+
+      @include min-md {
+        display: block;
+      }
+
+      &.slick-prev {
+        left: 0;
+        border-radius: 20px;
+
+        @include min-md {
+          left: 0;
+        }
+
+        &:before {
+          content: "\e908";
+        }
+      }
+
+      &.slick-next {
+        right: 0;
+        border-radius: 20px;
+
+        @include min-md {
+          right: 0;
+        }
+
+        &:before {
+          content: "\e909";
+        }
+      }
+
+      &.slick-disabled {
+        display: none !important;
+      }
+    }
+
+    &__list {
+      display: none;
+      padding: 0;
+      list-style: none;
+      position: absolute;
+      width: calc(100% + 30px);
+      left: -15px;
+      margin-top: -1px;
+      z-index: 1;
+      background-color: $gray-lightest;
+      box-shadow: 0 10px 10px rgba($gray-dark, 0.1);
+      border: none;
+
+      @include min-sm {
+        box-shadow: none;
+        width: 100%;
+        left: 0;
+        border-left: 1px solid $gray-400;
+        border-right: 1px solid $gray-400;
+        border-bottom: 1px solid $gray-400;
+      }
+
+      @include min-md {
+        box-shadow: none;
+        background-color: transparent;
+        display: block !important;
+        border: none;
+        border-bottom: 1px solid $gray-400;
+      }
+
+      &__mobile {
+        cursor: pointer;
+        position: relative;
+        display: block;
+        padding: 10px 15px;
+        background-color: $white;
+        border-top: 1px solid $gray-400;
+        border-bottom: 1px solid $gray-400;
+        margin: 0 -15px;
+
+        &:before {
+          content: "\e907";
+          font-family: 'icomoon';
+          font-weight: $font-weight-black;
+          position: absolute;
+          right: 15px;
+          transform: rotate(0deg);
+          transition: all 0.3s ease-in-out
+        }
+
+        img {
+          margin: 0 15px 4px 0;
+        }
+
+        @include min-sm {
+          margin: 0;
+        }
+
+        @include min-md {
+          display: none;
+        }
+
+        span {
+          font-size: $font-size-small;
+          font-family: $font-family-sans-serif;
+        }
+      }
+
+      &--item {
+        &:first-child {
+          border-top: 1px solid $gray-400;
+
+          @include min-md {
+            border-top: none;
+          }
+        }
+
+        &:last-child {
+          >span {
+            &:after {
+              display: none;
+
+              @include min-md {
+                display: block;
+              }
+            }
+          }
+        }
+
+        >span {
+          display: block;
+          width: 100%;
+          position: relative;
+          text-align: left;
+          padding: 18px 15px 18px 48px;
+          font-size: $font-size-small;
+          color: $gray-dark;
+          cursor: pointer;
+
+          @include min-sm {
+            font-size: $font-size-large;
+            padding: 18px 15px 18px 48px;
+          }
+
+          @include min-md {
+            text-transform: uppercase;
+            text-align: center;
+            padding: 15px;
+            color: $gray;
+          }
+
+          &:active,
+          &:focus {
+            outline: none;
+          }
+
+          &:hover {
+            text-decoration: none;
+            color: $link-color;
+          }
+
+          &:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: $gray-400;
+          }
+
+          &.active {
+            color: $primary;
+            background-color: $white;
+            font-weight: $font-weight-black;
+            font-size: $font-size-small;
+
+            @include min-sm {
+              font-size: $font-size-large;
+            }
+
+            @include min-md {
+              color: $primary;
+              font-weight: $font-weight-black;
+
+              &:after {
+                height: 4px;
+                background-color: $primary;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &__main {
+    margin: 24px 0 0 0;
+
+    @include min-sm {
+      margin: 30px 0 0 0;
+    }
+
+    @include min-lg {
+      margin: 40px 0 0 0;
+    }
+  }
+}

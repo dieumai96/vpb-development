@@ -1,0 +1,307 @@
+// Input
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+select {
+  color: $gray-dark;
+  width: 100%;
+  padding: 0 8px;
+  height: 40px;
+  line-height: 40px;
+  // letter-spacing: 0.54px;
+  border: solid 1px $border-color;
+  text-align: left;
+  border-radius: 0;
+
+  &:hover,
+  &:focus {
+    border-color: darken($border-color, 10%);
+    box-shadow: none;
+  }
+
+  @include placeholder() {    
+    color: $gray-400;
+  }
+}
+
+
+// Button
+.btn {
+  @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-line-height, $btn-border-radius);
+  text-transform: uppercase;
+  font-weight: $font-weight-bold;
+  letter-spacing: $spacing-muli-font;
+}
+
+// Button Normal
+.btn-default {
+  @include button-variant($btn-default-bg, $btn-default-border, $btn-default-bg-hover, $btn-default-border-hover, $btn-default-border-active, $btn-default-bg-active);
+
+  @include hover {
+    color: $btn-default-color-hover;
+    box-shadow: $btn-box-shadow;
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active,
+  .show>&.dropdown-toggle {
+    color: $btn-default-color-active;
+
+    &:focus {
+      box-shadow: $btn-box-shadow;
+    }
+  }
+}
+
+.btn-primary {
+  @include button-variant($btn-primary-bg, $btn-primary-border, $btn-primary-bg-hover, $btn-primary-border-hover, $btn-primary-border-active, $btn-primary-bg-active);
+
+  @include hover {
+    color: $btn-primary-color-hover;
+    box-shadow: $btn-box-shadow;
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active,
+  .show>&.dropdown-toggle {
+    color: $btn-primary-color-active;
+
+    &:focus {
+      box-shadow: $btn-box-shadow;
+    }
+  }
+}
+
+.btn-secondary {
+  @include button-variant($btn-secondary-bg, $btn-secondary-border, $btn-secondary-bg-hover, $btn-secondary-border-hover, $btn-secondary-border-active, $btn-secondary-bg-active);
+
+  @include hover {
+    color: $btn-secondary-color-hover;
+    box-shadow: $btn-box-shadow;
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active,
+  .show>&.dropdown-toggle {
+    color: $btn-secondary-color-active;
+
+    &:focus {
+      box-shadow: $btn-box-shadow;
+    }
+  }
+}
+
+// Button Outline
+.btn-outline-default {
+  background: $white;
+  position: relative;
+  @include button-outline-variant($btn-default-border, #fff, $btn-default-bg, $btn-default-border);
+
+  &:after {
+    content: '';
+    position: absolute;
+    width: calc(100% - (#{$btn-padding-x} * 2));
+    bottom: 0;
+    height: 3px;
+    left: $btn-padding-x;
+    background: $btn-default-bg;
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active,
+  .show > &.dropdown-toggle {
+    color: $white;
+    background-color: #555A5C;
+    border-color: #555A5C;
+
+    &:after {
+      background: #555A5C;
+    }
+  }
+}
+
+.btn-outline-primary {
+  background: $white;
+  position: relative;
+  @include button-outline-variant($btn-primary-border, #fff, $btn-primary-bg, $btn-primary-border);
+
+  &:after {
+    content: '';
+    position: absolute;
+    width: calc(100% - (#{$btn-padding-x} * 2));
+    bottom: 0;
+    height: 3px;
+    left: $btn-padding-x;
+    background: $btn-primary-bg;
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active,
+  .show > &.dropdown-toggle {
+    color: $white;
+    background-color: $link-hover-color;
+    border-color: $link-hover-color;
+
+    &:after {
+      background: $link-hover-color;
+    }
+  }
+}
+
+.btn-outline-secondary {
+  background: $white;
+  position: relative;
+  @include button-outline-variant($btn-secondary-border, #fff, $btn-secondary-bg, $btn-secondary-border);
+
+  &:after {
+    content: '';
+    position: absolute;
+    width: calc(100% - (#{$btn-padding-x} * 2));
+    bottom: 0;
+    height: 3px;
+    left: $btn-padding-x;
+    background: $btn-secondary-bg;
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active,
+  .show > &.dropdown-toggle {
+    color: $white;
+    background-color: lighten($btn-secondary-bg, 20%);
+    border-color: lighten($btn-secondary-border, 20%);
+
+    &:after {
+      background: lighten($btn-secondary-bg, 20%);
+    }
+  }
+}
+
+// vp check box
+input.vp-checkbox {
+  z-index: -1;
+  opacity: 0;
+  position: absolute;
+
+  &.deactivated-by-count {
+    &+label {
+      pointer-events: none;
+      opacity: .4;
+    }
+  }
+
+  &+label {
+    display: inline-block;
+    cursor: pointer;
+    color: $gray;
+    margin-bottom: 0;
+    font-size: $font-size-smaller;
+    vertical-align: baseline;
+
+    @include min-md {
+      font-size: $font-size-small;
+    }
+
+    &:before {
+      border: 1px solid $gray;
+      display: inline-block;
+      content: "\00a0";
+      height: 20px;
+      width: 20px;
+      margin-right: 10px;
+      padding: 0;
+      vertical-align: text-bottom;
+    }
+
+    &:hover {
+      color: $gray-dark;
+    }
+  }
+
+  &:checked+label:before {
+    background-image: url('/assets/images/icons/icon-cb-checked.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: bottom;
+  }
+}
+
+// Selectric style
+.selectric-wrapper {
+  height: 40px;
+
+  .selectric {
+    border: 1px solid $gray-300;
+    background: $white;
+
+    .label {
+      color: $gray-dark;
+      font-size: $font-size-base;
+      text-align: left;
+      height: 40px;
+      line-height: 40px;
+      margin: 0 35px 0 10px;
+    }
+
+    .button {
+      height: 40px;
+
+      &:after {
+        content: "\E907";
+        font-family: 'icomoon';
+        font-weight: $font-weight-bolder;
+        font-size: $font-size-base;
+        color: $primary;
+        transition: transform .4s ease-in-out;
+        border: none;
+        width: 100%;
+      }
+    }
+  }
+
+  .selectric-items {
+    max-height: 250px;
+    border: 1px solid $gray-300;
+    box-shadow: none;
+
+    .selectric-scroll {
+      li {
+        background: $white;
+        color: $gray-dark;
+        font-size: $font-size-base;
+        text-align: left;
+
+        &:hover {
+          color: $primary;
+          font-weight: $font-weight-bold;
+        }
+
+        &.selected {
+          color: $primary;
+          font-weight: $font-weight-bold;
+        }
+      }
+    }
+  }
+
+  &.selectric-open {
+    z-index: 1;
+    
+    .selectric {
+      border: 1px solid $gray-300;
+
+      .button {
+        &:after {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
+  &.selectric-hover {
+    
+    .selectric {
+      border-color: darken($border-color, 10%);
+    }
+  }
+}
