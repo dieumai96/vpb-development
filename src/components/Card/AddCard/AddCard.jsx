@@ -9,18 +9,23 @@ import {
 } from '../../../redux/card/card.seletor';
 
 const AddCard = ({ cardItems, actRemoveCard }) => {
-  const cardSelectLength = cardItems.length;
   const [toggleCardSelectOption, setToggleCardSelectOption] = useState(false);
 
   useEffect(() => {
-    $(window).bind('wheel mousewheel', function (event) {
-      const $addCardContent = $('.add-card-component');
-      if (event.originalEvent.deltaY >= 0) {
-        if (cardSelectLength >= 2) {
+    const $addCardContent = $('.add-card-component');
+    //   if (cardItems.length >= 2) {
+    // }
+    if (cardItems.length == 0) {
+      $($addCardContent).addClass('closed');
+    } else {
+      let itemLength = cardItems.length;
+      $(window).bind('wheel mousewheel', function (event) {
+        if (event.originalEvent.deltaY >= 0) {
+          console.log('object', itemLength);
           $($addCardContent).removeClass('closed');
         }
-      }
-    });
+      });
+    }
     clickOutAddCard();
   }, [cardItems]);
 
