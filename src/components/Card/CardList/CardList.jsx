@@ -9,6 +9,7 @@ import {
 
 const CardList = ({ actAddCard, actRemoveCard, cardItems }) => {
   const [cardData, setCardData] = useState(data);
+  const totalCard = cardItems.length;
   const toggleCardItem = (event, cardIndex) => {
     if (event.target.checked) {
       const findCard = findCardOnList(cardIndex);
@@ -72,7 +73,7 @@ const CardList = ({ actAddCard, actRemoveCard, cardItems }) => {
               </div>
             </div>
           </div>
-          <div className="card-list__button"><a className="btn btn-primary" href="#" data-toggle="modal" data-target="#show-find-card-modal">Find your suitable card</a><a className="card-list__button-compare-card btn btn-primary" href="/card-compare.html">COMPARE CARD<span className="count-card-chosen"></span></a></div>
+          <div className="card-list__button"><a className="btn btn-primary" href="#" data-toggle="modal" data-target="#show-find-card-modal">Find your suitable card</a><a className="card-list__button-compare-card btn btn-primary" href="/card-compare.html">COMPARE CARD {totalCard > 0 ? '(' + totalCard + ')' : ''}<span className="count-card-chosen"></span></a></div>
         </div>
         <div className="row card-list__list-item">
           {cardData.map((item, index) => {
