@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="230.768" height="29.097" viewBox="0 0 230.768 29.097">
+  <g id="Group_931" data-name="Group 931" transform="translate(0.5)">
+    <text id="Internet_banking" data-name="Internet banking" transform="translate(55.267 20.002)" fill="#008346" font-size="18" font-family="SegoeUI, Segoe UI" letter-spacing="0.05em"><tspan x="0" y="0">INTERNET BANKING</tspan></text>
+    <g id="locked" transform="translate(28.403 3.06)">
+      <path id="Path_678" data-name="Path 678" d="M20.545,8.177V7.891C20.545,4.643,17.609,2,14,2S7.455,4.643,7.455,7.891v.286A2.946,2.946,0,0,0,5,11.069v5.995A2.951,2.951,0,0,0,7.957,20H20.043A2.951,2.951,0,0,0,23,17.063V11.068A2.945,2.945,0,0,0,20.545,8.177ZM8.273,7.891c0-2.8,2.569-5.078,5.727-5.078s5.727,2.278,5.727,5.078v.24H8.273Zm13.909,9.172a2.134,2.134,0,0,1-2.139,2.124H7.957a2.134,2.134,0,0,1-2.139-2.124V11.068A2.134,2.134,0,0,1,7.957,8.944H20.043a2.134,2.134,0,0,1,2.139,2.124Z" transform="translate(-5 -2)" fill="#008346" stroke="#008346" stroke-width="0.6"/>
+      <path id="Path_679" data-name="Path 679" d="M24.564,28A1.566,1.566,0,0,0,23,29.564v2.346a1.564,1.564,0,0,0,3.128,0V29.564A1.566,1.566,0,0,0,24.564,28Zm.782,3.911a.782.782,0,0,1-1.564,0V29.564a.782.782,0,0,1,1.564,0Z" transform="translate(-15.564 -18.456)" fill="#008346" stroke="#008346" stroke-width="0.6"/>
+    </g>
+    <path id="Path_16986" data-name="Path 16986" d="M-6909.891,78.375v29.1" transform="translate(6909.891 -78.375)" fill="none" stroke="#b5bec1" stroke-width="1"/>
+  </g>
+</svg>

@@ -1,0 +1,113 @@
+// /*
+//   EN font
+// */
+// @import './base/font-language/en-EN';
+// @import './base/_functions';
+// @import './base/_variables';
+// @import './base/_mixins';
+@import './base/_fonts';
+// @import './base/_global';
+// @import './base/_flexboxgrid';
+// @import './base/_lazyload';
+
+// Variable & mixins
+@import './functions';
+@import './variables';
+@import './mixins';
+
+// Bootstrap
+@import './bootstrap/bootstrap-reboot';
+@import './bootstrap/bootstrap-grid';
+@import './bootstrap/utilities/spacing';
+@import './bootstrap/utilities/clearfix';
+@import './bootstrap/utilities/background';
+@import './bootstrap/utilities/text';
+@import './bootstrap/utilities/embed';
+@import './bootstrap/alert';
+@import './bootstrap/code';
+@import './bootstrap/modal';
+@import './bootstrap/type';
+@import './bootstrap/transitions';
+@import './bootstrap/buttons';
+@import './bootstrap/forms';
+@import './bootstrap/input-group';
+@import './bootstrap/tooltip';
+
+// Global
+@import './global';
+@import './form';
+@import './fonts';
+@import './animation';
+// @import './components-card';
+// @import './components-promotion';
+@import './year-slick';
+@import './smooth-scroll-list';
+
+// Component
+@import '../../components/Header/Header.scss';
+// @import '../../views/components/footer/footer';
+// @import '../../views/components/user-rating/user-rating';
+// @import '../../views/components/user-vote-rating/user-vote-rating';
+// @import '../../views/components/breadcrumb/breadcrumb';
+// @import '../../views/components/language/language';
+// @import '../../views/components/accordion/accordion';
+// @import '../../views/components/modal/modal';
+// @import '../../views/components/modal-welcome/modal-welcome';
+// @import '../../views/components/retail-banking/retail-banking';
+// @import '../../views/components/talk-to-us/talk-to-us';
+// @import '../../views/components/primary-search-bar/primary-search-bar';
+// @import '../../views/components/banner-slideshow/banner-slideshow';
+// @import '../../views/components/more-from-vpbank/more-from-vpbank';
+// @import '../../views/components/promotion/promotion';
+// // @import '../../views/components-card/add-card/add-card';
+// @import '../../views/components/typography/typography';
+// @import '../../views/components/error/error';
+// // @import '../../views/components-card/compare-cards/compare-cards.scss';
+// @import '../../views/components/nav-tab/nav-tab';
+// @import '../../views/components/masthead/masthead';
+// // @import '../../views/components-card/card-list-content/card-list-content.scss';
+// @import '../../views/components/testimonials/testimonials';
+// @import '../../views/components/vpbank-award/vpbank-award';
+// @import '../../views/components/story-tips/story-tips';
+// @import '../../views/components/menu-collapse/menu-collapse.scss';
+
+// @import '../../views/components/exchange-rate/exchange-rate.scss';
+
+// //sprint-2
+// @import '../../views/branch-atm/brand-atm.scss';
+// @import '../../views/components-form/register-personal-form/register-personal-form';
+// @import '../../views/components/interest-rate/interest-rate.scss';
+// @import '../../views/components/masthead-interestRate/masthead-interestRate.scss';
+// @import '../../views/components/search/search';
+// @import '../../views/components/promotion-detail/promotion-detail';
+// @import '../../views/components/offer-detail/offer-detail';
+// @import '../../views/components/choose-food/choose-food';
+// @import '../../views/smart-ui/paging/paging.scss';
+
+// //sprint-3
+// @import '../../views/components-sprint-3/development/development';
+// @import '../../views/components-sprint-3/symbolism/symbolism';
+// @import '../../views/components-sprint-3/operating/operating';
+// @import '../../views/components-sprint-3/introduction-vpbank/introduction-vpbank';
+// @import '../../views/components-sprint-3/introduction/introduction';
+// @import '../../views/components-sprint-3/landmark/landmark';
+// @import '../../views/components-sprint-3/award/award';
+// @import '../../views/components-sprint-3/library/library';
+// @import '../../views/components-sprint-3/press-releases-component/press-releases-component';
+// @import '../../views/components-sprint-3/support-now-FAQs/support-now-FAQs';
+// @import '../../views/components-sprint-3/investor-relation/investor-relation';
+// @import '../../views/components/landmark-memory/landmark-memory';
+// @import '../../views/components-sprint-3/mission/mission';
+// @import '../../views/components-sprint-3/you-maybe-interested-in/you-maybe-interested-in';
+// @import '../../views/components-sprint-3/story-tips-listing/story-tips-listing';
+// @import '../../views/components-sprint-3/article-detail/article-detail';
+// @import '../../views/components-sprint-3/article-detail-nosidebar/article-detail-nosidebar';
+// @import '../../views/components-sprint-3/proud/proud';
+// @import '../../views/components-sprint-3/awards-achievements/awards-achievements';
+// @import '../../views/components-sprint-3/other-information/other-information';
+// @import '../../views/components-sprint-3/about-news-vpbank/about-news-vpbank';
+// @import '../../views/components-sprint-3/vpbank-system/vpbank-system';
+// @import '../../views/components-sprint-3/leadership/leadership';
+// @import '../../views/components-sprint-3/main-event-investor-vpbank/main-event-investor-vpbank';
+// @import '../../views/components-sprint-3/form-documents/form-documents';
+// @import '../../views/smart-ui/captcha/captcha.scss';
