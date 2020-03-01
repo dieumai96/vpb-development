@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import CardSelectOptions from '../CardSelectOptions/CardSelectOptions';
 import { createStructuredSelector } from 'reselect';
+import { actRemoveCard } from '../../../redux/card/card.action';
 import * as $ from 'jquery';
 import {
   selectCardItems,
 } from '../../../redux/card/card.seletor';
 
-const AddCard = ({ cardItems }) => {
+const AddCard = ({ cardItems, actRemoveCard }) => {
   const cardSelectLength = cardItems.length;
   const [toggleCardSelectOption, setToggleCardSelectOption] = useState(false);
 
@@ -57,11 +58,29 @@ const AddCard = ({ cardItems }) => {
                 <div className="basic-accordion__card__collapse compare-card__collapse collapse show" id="collapseCompareCard" aria-labelledby="compareCard">
                   <div className="compare-card__collapse__content">
                     <div className="row no-gutters list-card-added">
-                      <div className="col-md-4 item-column button-add-card">
-                        <div className="content">
-                          <div className="add-button" onClick={toggleOption}><i className="icon-add plus"></i><span>Add a card</span></div>
-                        </div>
-                      </div>
+                      {cardItems.map((item, index) => {
+                        return (
+                          <div className="col-md-4 item-column" key={index}>
+                            <div className="item">
+                              <div className="card-image">
+                                <img src={item.image} alt="" />
+                              </div>
+                              <div className="card-infomation">
+                                <span className="card-name">{item.name}</span>
+                                <br />
+                                <span className="card-action remove-action" onClick={() => actRemoveCard(item.dataIndex)}>- Remove</span>
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      })}
+                      {cardItems.length < 3 ?
+                        <div className="col-md-4 item-column button-add-card">
+                          <div className="content">
+                            <div className="add-button" onClick={toggleOption}><i className="icon-add plus"></i><span>Add a card</span></div>
+                          </div>
+                        </div> : null
+                      }
                     </div>
                     <div className="compare-button"><a className="btn btn-outline-primary general-button" href="/card-compare.html">COMPARE NOW<span className="count-card-chosen"></span></a><br /><span className="notice">Select maximum 3 cards to compare</span></div>
                   </div>
@@ -80,4 +99,8 @@ const mapPropsToState = createStructuredSelector({
   cardItems: selectCardItems
 })
 
-export default connect(mapPropsToState)(AddCard);
+const mapDispatchToProps = dispatch => ({
+  actRemoveCard: cardIndex => dispatch(actRemoveCard(cardIndex)),
+})
+
+export default connect(mapPropsToState, mapDispatchToProps)(AddCard);

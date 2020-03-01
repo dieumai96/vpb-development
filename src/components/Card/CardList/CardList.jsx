@@ -3,6 +3,7 @@ import { data } from './CardData';
 import { connect } from 'react-redux';
 import { actAddCard, actRemoveCard } from '../../../redux/card/card.action';
 import { createStructuredSelector } from 'reselect';
+import * as $ from 'jquery';
 import {
   selectCardItems,
 } from '../../../redux/card/card.seletor';
@@ -18,8 +19,25 @@ const CardList = ({ actAddCard, actRemoveCard, cardItems }) => {
       actRemoveCard(cardIndex);
     }
   }
+
+  useEffect(() => {
+    let listIndexChosen = getListDataIndex();
+    const listCheckboxOnCard = $('.card-list .card-item .add-compare input');
+    listCheckboxOnCard.each((index, item) => {
+      let id = $(item).attr('id');
+      if (!listIndexChosen.includes(id)) {
+        $(item).prop('checked', false);
+      }
+    })
+  }, [cardItems]);
   const findCardOnList = (cardIndex) => {
     return data.find(card => card.dataIndex == cardIndex);
+  }
+
+  const getListDataIndex = () => {
+    let listIndex = [];
+    cardItems.forEach(item => listIndex.push('chosen-card-' + item.dataIndex));
+    return listIndex;
   }
   return (
     <div className="card-list">
