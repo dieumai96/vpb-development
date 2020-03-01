@@ -1,11 +1,9 @@
-import React, { Component } from 'react'
-
-export default class CardService extends Component {
-  render() {
-    return (
-      <div>
-        <div>Card Service</div>
-      </div>
-    )
-  }
+import React from 'react'
+import MastHead from '../../MastHead/MastHead';
+const CardService = () => {
+  return (
+    <MastHead />
+  )
 }
+
+export default CardService;

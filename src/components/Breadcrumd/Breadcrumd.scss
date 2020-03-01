@@ -1,0 +1,57 @@
+.breadcrumb {
+  padding: 0;
+  margin: 15px 0 25px 0;
+  display: flex;
+  flex-wrap: wrap;
+
+  @include min-sm {
+    margin: 25px 0;
+  }
+
+  &__item {
+    font-size: $font-size-smaller;
+    line-height: 2rem;
+    list-style: none;
+    display: inline-block;
+    letter-spacing: $spacing-muli-font;
+
+    @include min-xs {
+      font-size: $font-size-small;
+      letter-spacing: 0;
+    }
+
+    @include min-sm {
+      font-size: $font-size-base;
+      line-height: 3rem;
+    }
+
+    &+.breadcrumb__item {
+      &:before {
+        content: "/";
+        color: $gray-dark;
+        font-size: inherit;
+        padding-right: 5px;
+        display: inline-block;
+      }
+    }
+
+    a {
+      color: $gray-dark;
+      font-size: $font-size-small;
+      transition: 0.2s;
+
+      // @include min-sm {
+      //   font-size: $font-size-base;
+      // }
+
+      @include min-lg {
+        font-size: $font-size-base;
+      }
+
+      &:hover {
+        text-decoration: none;
+        color: $link-color;
+      }
+    }
+  }
+}
