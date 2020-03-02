@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
-import { actAddCard, actRemoveCard, actGetAllCard } from '../../../redux/card/card.action';
+import { actAddCard, actRemoveCard } from '../../../redux/card/card.action';
 import { createStructuredSelector } from 'reselect';
 import * as $ from 'jquery';
 import {
-  selectCardItems, selectAllCards,
+  selectCardItems
 } from '../../../redux/card/card.seletor';
+import ClientPaging from '../../../smart-ui/Client-Paging';
 
 const CardList = ({ actAddCard, actRemoveCard, cardItems, cardData, actGetAllCard }) => {
   const totalCard = cardItems.length;
@@ -124,7 +125,17 @@ const CardList = ({ actAddCard, actRemoveCard, cardItems, cardData, actGetAllCar
             )
           })}
         </div>
-        <div className="card-list__pagination"></div>
+        {/* <div className="card-list__pagination">
+          <div className="card-list__pagination-wrap">
+            <a href="" class="prev-item disabled" data-index="PREV"><i class="ico icon-arrow-prev"></i></a>
+            <a href="" className="active">1</a>
+            <a href="">2</a>
+            <a href="">3</a>
+            <a href="">4</a>
+            <a href="" class="next-item" data-index="NEXT"><i class="ico icon-arrow-next"></i></a>
+          </div>
+        </div> */}
+        <ClientPaging total = {cardData.length} />
       </div>
     </div>
   )
