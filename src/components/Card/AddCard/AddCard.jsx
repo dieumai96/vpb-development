@@ -13,15 +13,12 @@ const AddCard = ({ cardItems, actRemoveCard }) => {
 
   useEffect(() => {
     const $addCardContent = $('.add-card-component');
-    //   if (cardItems.length >= 2) {
-    // }
     if (cardItems.length == 0) {
       $($addCardContent).addClass('closed');
     } else {
       let itemLength = cardItems.length;
       $(window).bind('wheel mousewheel', function (event) {
         if (event.originalEvent.deltaY >= 0) {
-          console.log('object', itemLength);
           $($addCardContent).removeClass('closed');
         }
       });

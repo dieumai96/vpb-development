@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { data } from './CardData';
 import { connect } from 'react-redux';
-import { actAddCard, actRemoveCard } from '../../../redux/card/card.action';
+import { actAddCard, actRemoveCard, actGetAllCard } from '../../../redux/card/card.action';
 import { createStructuredSelector } from 'reselect';
 import * as $ from 'jquery';
 import {
-  selectCardItems,
+  selectCardItems, selectAllCards,
 } from '../../../redux/card/card.seletor';
 
-const CardList = ({ actAddCard, actRemoveCard, cardItems }) => {
-  const [cardData, setCardData] = useState(data);
+const CardList = ({ actAddCard, actRemoveCard, cardItems, cardData, actGetAllCard }) => {
   const totalCard = cardItems.length;
   const toggleCardItem = (event, cardIndex) => {
     if (event.target.checked) {
@@ -27,19 +25,19 @@ const CardList = ({ actAddCard, actRemoveCard, cardItems }) => {
       let id = $(item).attr('id');
       if (!listIndexChosen.includes(id)) {
         $(item).prop('checked', false);
-      }else{
+      } else {
         $(item).prop('checked', true);
       }
     })
-    if(listIndexChosen.length >= 3){
+    if (listIndexChosen.length >= 3) {
       listCheckboxOnCard.addClass('deactivated-by-count');
-    }else{
+    } else {
       listCheckboxOnCard.removeClass('deactivated-by-count');
     }
   }, [cardItems]);
 
   const findCardOnList = (cardIndex) => {
-    return data.find(card => card.dataIndex == cardIndex);
+    return cardData.find(card => card.dataIndex == cardIndex);
   }
 
   const getListDataIndex = () => {
@@ -138,7 +136,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapPropsToState = createStructuredSelector({
-  cardItems: selectCardItems
+  cardItems: selectCardItems,
 })
 
 export default connect(mapPropsToState, mapDispatchToProps)(CardList);

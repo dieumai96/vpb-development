@@ -1,7 +1,8 @@
-import { ADD_CARD, REMOVE_CARD } from './card.type';
-
+import { ADD_CARD, REMOVE_CARD, GET_ALL_CARD } from './card.type';
+import { data } from './card.data';
 const initialState = {
   listCard: [],
+  cardItemList: data,
 }
 
 const reducer = (state = initialState, action) => {
@@ -19,6 +20,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         listCard: newCardList,
+      }
+    }
+    case GET_ALL_CARD: {
+      return {
+        ...state,
       }
     }
     default: {
