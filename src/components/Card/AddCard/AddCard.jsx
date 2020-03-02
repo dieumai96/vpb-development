@@ -16,12 +16,13 @@ const AddCard = ({ cardItems, actRemoveCard }) => {
     if (cardItems.length == 0) {
       $($addCardContent).addClass('closed');
     } else {
-      let itemLength = cardItems.length;
-      $(window).bind('wheel mousewheel', function (event) {
-        if (event.originalEvent.deltaY >= 0) {
-          $($addCardContent).removeClass('closed');
-        }
-      });
+      if (cardItems.length >= 2) {
+        $(window).bind('wheel mousewheel', function (event) {
+          if (event.originalEvent.deltaY >= 0) {
+            $($addCardContent).removeClass('closed');
+          }
+        });
+      }
     }
     clickOutAddCard();
   }, [cardItems]);

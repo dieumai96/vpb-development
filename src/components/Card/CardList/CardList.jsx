@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
 import { actAddCard, actRemoveCard } from '../../../redux/card/card.action';
 import { createStructuredSelector } from 'reselect';
@@ -8,7 +8,9 @@ import {
 } from '../../../redux/card/card.seletor';
 import ClientPaging from '../../../smart-ui/Client-Paging';
 
-const CardList = ({ actAddCard, actRemoveCard, cardItems, cardData, actGetAllCard }) => {
+const CardList = ({ actAddCard, actRemoveCard, cardItems, cardData }) => {
+  const [pageIndex, setPageIndex] = useState(1);
+  const [pageSize] = useState(6);
   const totalCard = cardItems.length;
   const toggleCardItem = (event, cardIndex) => {
     if (event.target.checked) {
@@ -45,6 +47,10 @@ const CardList = ({ actAddCard, actRemoveCard, cardItems, cardData, actGetAllCar
     let listIndex = [];
     cardItems.forEach(item => listIndex.push('chosen-card-' + item.dataIndex));
     return listIndex;
+  }
+
+  const updatePaging = (pageIndex) => {
+    setPageIndex(pageIndex);
   }
   return (
     <div className="card-list">
@@ -112,8 +118,8 @@ const CardList = ({ actAddCard, actRemoveCard, cardItems, cardData, actGetAllCar
                   <div className="card-item__description"><a className="card-type" href="#">{item.type}</a>
                     <h5 className="name"><a href="#">{item.name}</a></h5>
                     <ul className="description">
-                      <li>【不顾疫情与禁令，韩国首尔上千人坚持集会】3月1日“三一节”意义特殊，首尔城北区长位洞，上千人组成多个政治、宗教团体坚持进行集会</li>
-                      <li>动】3月1日起，《网络信息内容生态治理规定》开始实行。规定明确，网络信息内容服务使用者和</li>
+                      <li>😍😘😎🐩🐪🐎🦄🍇🍈🍉🍊🍋🍌🍍🍎🍏🍐🍑🍒🍓🍅🍆🌽🌶🍄🌰🍞🧀🍖🍗🍔🍕🌭🌮🌯🍿🍲🍱🍘🍙🍛🍜🍝🍠🍢🌍🌐🏔🌋🏟🎗🎵🇧🇬🇮🇩🇻🇳</li>
+                      <li>😍😘😎🐩🐪🐎🦄🍇🍈🍉🍊🍋🍌🍍🍎🍏🍐🍑🍒🍓🍅🍆🌽🌶🍄🌰🍞🧀🍖🍗</li>
                     </ul>
                   </div>
                   <div className="card-item__action">
@@ -135,7 +141,7 @@ const CardList = ({ actAddCard, actRemoveCard, cardItems, cardData, actGetAllCar
             <a href="" class="next-item" data-index="NEXT"><i class="ico icon-arrow-next"></i></a>
           </div>
         </div> */}
-        <ClientPaging total = {cardData.length} />
+        <ClientPaging updatePaging={updatePaging} pageIndex={pageIndex} pageSize={pageSize} total={cardData.length} />
       </div>
     </div>
   )
