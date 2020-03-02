@@ -1,8 +1,9 @@
-import { ADD_CARD, REMOVE_CARD, GET_ALL_CARD } from './card.type';
+import { ADD_CARD, REMOVE_CARD, GET_ALL_CARD, GET_CARD_BY_PAGE } from './card.type';
 import { data } from './card.data';
 const initialState = {
   listCard: [],
-  cardItemList: data,
+  cardItemList: {},
+
 }
 
 const reducer = (state = initialState, action) => {
@@ -25,6 +26,18 @@ const reducer = (state = initialState, action) => {
     case GET_ALL_CARD: {
       return {
         ...state,
+        cardItemList: data,
+      }
+    }
+    case GET_CARD_BY_PAGE: {
+      let cardItemList = getCardByPage(action.payload);
+      return {
+        ...state,
+        cardItemList: {
+          data: [...cardItemList],
+          totalItem: data.length,
+        },
+
       }
     }
     default: {
@@ -38,5 +51,13 @@ const reducer = (state = initialState, action) => {
 
 const findCardOnList = (listCard, cardIndex) => {
   return listCard.filter(card => card.dataIndex != cardIndex);
+}
+
+const getCardByPage = (pageInput) => {
+  console.log(pageInput);
+  const { pageIndex, pageSize } = pageInput;
+  return data.filter((item, index) => {
+    return (index >= (pageIndex - 1) * pageSize && index < pageIndex * 6)
+  })
 }
 export default reducer;

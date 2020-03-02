@@ -1,7 +1,7 @@
 import * as $ from 'jquery';
 const RetailBanking = {
   init: () => {
-    $('.retail-banking__content').slick({
+    $('.retail-banking__content').not('.slick-initialized').slick({
       slidesToShow: 9,
       infinite: false,
       responsive: [

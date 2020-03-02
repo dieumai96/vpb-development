@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
-import { actAddCard, actRemoveCard } from '../../../redux/card/card.action';
-import { createStructuredSelector } from 'reselect';
-import * as $ from 'jquery';
-import {
-  selectCardItems
-} from '../../../redux/card/card.seletor';
+import { actAddCard, actRemoveCard, actGetCardByPage } from '../../../redux/card/card.action';
+
 import ClientPaging from '../../../smart-ui/Client-Paging';
 
-const CardList = ({ actAddCard, actRemoveCard, cardItems, cardData }) => {
+const CardList = ({ actAddCard, actRemoveCard, cardData, cardItems, actGetCardByPage }) => {
   const [pageIndex, setPageIndex] = useState(1);
   const [pageSize] = useState(6);
   const totalCard = cardItems.length;
@@ -22,36 +18,25 @@ const CardList = ({ actAddCard, actRemoveCard, cardItems, cardData }) => {
   }
 
   useEffect(() => {
-    let listIndexChosen = getListDataIndex();
-    const listCheckboxOnCard = $('.card-list .card-item .add-compare input');
-    listCheckboxOnCard.each((index, item) => {
-      let id = $(item).attr('id');
-      if (!listIndexChosen.includes(id)) {
-        $(item).prop('checked', false);
-      } else {
-        $(item).prop('checked', true);
-      }
-    })
-    if (listIndexChosen.length >= 3) {
-      listCheckboxOnCard.addClass('deactivated-by-count');
-    } else {
-      listCheckboxOnCard.removeClass('deactivated-by-count');
-    }
-  }, [cardItems]);
+    actGetCardByPage(pageIndex, pageSize);
+  }, []);
+
 
   const findCardOnList = (cardIndex) => {
-    return cardData.find(card => card.dataIndex == cardIndex);
+    return cardData.data && cardData.data.length && cardData.data.find(card => card.dataIndex == cardIndex);
   }
 
-  const getListDataIndex = () => {
-    let listIndex = [];
-    cardItems.forEach(item => listIndex.push('chosen-card-' + item.dataIndex));
-    return listIndex;
-  }
+
 
   const updatePaging = (pageIndex) => {
+    getData(pageIndex);
     setPageIndex(pageIndex);
   }
+
+  const getData = (pageIndex) => {
+    actGetCardByPage(pageIndex, pageSize);
+  }
+
   return (
     <div className="card-list">
       <div className="container">
@@ -107,7 +92,7 @@ const CardList = ({ actAddCard, actRemoveCard, cardItems, cardData }) => {
           <div className="card-list__button"><a className="btn btn-primary" href="#" data-toggle="modal" data-target="#show-find-card-modal">Find your suitable card</a><a className="card-list__button-compare-card btn btn-primary" href="/card-compare.html">COMPARE CARD {totalCard > 0 ? '(' + totalCard + ')' : ''}<span className="count-card-chosen"></span></a></div>
         </div>
         <div className="row card-list__list-item">
-          {cardData.map((item, index) => {
+          {cardData.data && cardData.data.length && cardData.data.map((item, index) => {
             return (
               <div className="col-sm-6 col-lg-4 card-item" key={item.dataIndex}>
                 <div className="card-item__wrap">
@@ -131,17 +116,7 @@ const CardList = ({ actAddCard, actRemoveCard, cardItems, cardData }) => {
             )
           })}
         </div>
-        {/* <div className="card-list__pagination">
-          <div className="card-list__pagination-wrap">
-            <a href="" class="prev-item disabled" data-index="PREV"><i class="ico icon-arrow-prev"></i></a>
-            <a href="" className="active">1</a>
-            <a href="">2</a>
-            <a href="">3</a>
-            <a href="">4</a>
-            <a href="" class="next-item" data-index="NEXT"><i class="ico icon-arrow-next"></i></a>
-          </div>
-        </div> */}
-        <ClientPaging updatePaging={updatePaging} pageIndex={pageIndex} pageSize={pageSize} total={cardData.length} />
+        <ClientPaging updatePaging={updatePaging} pageIndex={pageIndex} pageSize={pageSize} total={cardData && cardData.totalItem} />
       </div>
     </div>
   )
@@ -150,10 +125,9 @@ const CardList = ({ actAddCard, actRemoveCard, cardItems, cardData }) => {
 const mapDispatchToProps = dispatch => ({
   actAddCard: card => dispatch(actAddCard(card)),
   actRemoveCard: cardIndex => dispatch(actRemoveCard(cardIndex)),
+  actGetCardByPage: (pageIndex, pageSize) => dispatch(actGetCardByPage(pageIndex, pageSize)),
 })
 
-const mapPropsToState = createStructuredSelector({
-  cardItems: selectCardItems,
-})
 
-export default connect(mapPropsToState, mapDispatchToProps)(CardList);
+
+export default connect(null, mapDispatchToProps)(CardList);

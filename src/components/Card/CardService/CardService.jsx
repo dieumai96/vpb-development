@@ -3,32 +3,57 @@ import MastHead from '../../MastHead/MastHead';
 import RetailBankingNotitle from '../../RetailBanking/Retail-Banking--Notitle';
 import CardList from '../CardList/CardList';
 import AddCard from '../AddCard/AddCard';
-import { actGetAllCard } from '../../../redux/card/card.action';
 import { createStructuredSelector } from 'reselect';
 import {
-  selectAllCards,
+  selectCardByPage, selectCardItems,
 } from '../../../redux/card/card.seletor';
 import { connect } from 'react-redux';
+import * as $ from 'jquery';
 
-const CardService = ({ cardData, actGetAllCard }) => {
+const CardService = ({ cardList, cardItems }) => {
+
   useEffect(() => {
-    actGetAllCard();
-  })
+    changeCardItemCheckBoxState();
+  }, [cardList,cardItems]);
+
+  const changeCardItemCheckBoxState = () => {
+    let listIndexChosen = getListDataIndex();
+    const listCheckboxOnCard = $('.card-list .card-item .add-compare input');
+    listCheckboxOnCard.each((index, item) => {
+      let id = $(item).attr('id');
+      if (!listIndexChosen.includes(id)) {
+        $(item).prop('checked', false);
+      } else {
+        $(item).prop('checked', true);
+      }
+    })
+    if (listIndexChosen.length >= 3) {
+      listCheckboxOnCard.addClass('deactivated-by-count');
+    } else {
+      listCheckboxOnCard.removeClass('deactivated-by-count');
+    }
+  };
+
+  const getListDataIndex = () => {
+    let listIndex = [];
+    if (cardItems && cardItems.length) {
+      cardItems.forEach(item => listIndex.push('chosen-card-' + item.dataIndex));
+    }
+    return listIndex;
+  }
   return (
     <>
       <MastHead />
       <RetailBankingNotitle />
-      <CardList cardData={cardData} />
+      <CardList cardData={cardList} cardItems={cardItems} />
       <AddCard />
     </>
   )
 }
-const mapDispatchToProps = dispatch => ({
-  actGetAllCard: () => dispatch(actGetAllCard()),
-})
 
 const mapPropsToState = createStructuredSelector({
-  cardData: selectAllCards
+  cardList: selectCardByPage,
+  cardItems: selectCardItems,
 })
 
-export default connect(mapPropsToState, mapDispatchToProps)(CardService);
+export default connect(mapPropsToState)(CardService);
