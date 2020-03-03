@@ -1,0 +1,67 @@
+.menu-collapse {
+    $collapse-header-bg: #777;
+    position: relative;
+    z-index: 1;
+  
+    .collapse-header {
+      color: $white;
+      cursor: pointer;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 15px;
+  
+      i {
+        line-height: 22px;
+        float: right;
+        transition: all .2s ease-in-out;
+  
+        &.collapsed {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  
+    > .collapse-header {
+      &:after {
+        font-family: 'icomoon';
+        content: '\e907';
+        line-height: 22px;
+        float: right;
+        transition: all .2s ease-in-out;
+      }
+  
+      &.collapsed {
+        &:after {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  
+    .collapse-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+      background-color: #f1f1f1;
+    }
+  
+    &.item > .collapse-header {
+      padding: 15px;
+      background-color: $collapse-header-bg;
+    }
+  
+    &.item > .collapse-content {
+      position: absolute;
+      width: 100%;
+    }
+  
+    .sub-item > .collapse-header {
+      background-color: lighten($collapse-header-bg, 10%);
+      padding: 15px;
+    }
+  
+    .sub-sub-item {
+      background-color: lighten($collapse-header-bg, 20%);
+      padding: 15px;
+    }
+  }
