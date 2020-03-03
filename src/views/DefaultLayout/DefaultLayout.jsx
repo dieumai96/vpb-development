@@ -8,7 +8,7 @@ class DefaultLayout extends Component {
     return (
       <Fragment>
         <Header />
-        <Suspense fallback={<h1>Loading...</h1>}>
+        <Suspense fallback={<p>Loading...</p>}>
           <Switch>
             {routers.map((route, idx) => {
               return route.component ? (

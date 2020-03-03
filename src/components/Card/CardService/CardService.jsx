@@ -3,6 +3,7 @@ import MastHead from '../../MastHead/MastHead';
 import RetailBankingNotitle from '../../RetailBanking/Retail-Banking--Notitle';
 import CardList from '../CardList/CardList';
 import AddCard from '../AddCard/AddCard';
+import Promotion from '../../Promotion/Promotion';
 import { createStructuredSelector } from 'reselect';
 import {
   selectCardByPage, selectCardItems,
@@ -14,7 +15,7 @@ const CardService = ({ cardList, cardItems }) => {
 
   useEffect(() => {
     changeCardItemCheckBoxState();
-  }, [cardList,cardItems]);
+  }, [cardList, cardItems]);
 
   const changeCardItemCheckBoxState = () => {
     let listIndexChosen = getListDataIndex();
@@ -47,6 +48,7 @@ const CardService = ({ cardList, cardItems }) => {
       <RetailBankingNotitle />
       <CardList cardData={cardList} cardItems={cardItems} />
       <AddCard />
+      <Promotion />
     </>
   )
 }
