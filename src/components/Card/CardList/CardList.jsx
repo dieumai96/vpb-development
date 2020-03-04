@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { actAddCard, actRemoveCard, actGetCardByPage, actGetCardByType } from '../../../redux/card/card.action';
 import ClientPaging from '../../../smart-ui/Client-Paging';
 import { cardMenu } from './CardMenu';
-const CardList = ({ actAddCard, actRemoveCard, cardData, cardItems, actGetCardByPage, actGetCardByType }) => {
+import { createStructuredSelector } from 'reselect';
+import { selectCardTypeKey } from '../../../redux/card/card.seletor';
+const CardList = ({ actAddCard, actRemoveCard, cardData, cardItems, actGetCardByPage, actGetCardByType, selectCardTypeKey }) => {
   const [pageIndex, setPageIndex] = useState(1);
 
   const [pageSize] = useState(6);
@@ -33,7 +35,11 @@ const CardList = ({ actAddCard, actRemoveCard, cardData, cardItems, actGetCardBy
 
 
   const updatePaging = (pageIndex) => {
-    getData(pageIndex);
+    if (selectCardTypeKey && selectCardTypeKey != '') {
+      actGetCardByType(pageIndex, pageSize, selectCardTypeKey);
+    } else {
+      getData(pageIndex);
+    }
     setPageIndex(pageIndex);
   }
 
@@ -52,8 +58,8 @@ const CardList = ({ actAddCard, actRemoveCard, cardData, cardItems, actGetCardBy
 
 
   const onSearchCard = (type) => {
+    actGetCardByType(1, pageSize, type.toUpperCase());
     setPageIndex(1);
-    actGetCardByType(pageIndex, pageSize, type.toUpperCase());
   }
 
   return (
@@ -116,8 +122,8 @@ const CardList = ({ actAddCard, actRemoveCard, cardData, cardItems, actGetCardBy
                   <div className="card-item__description"><a className="card-type" href="#">{item.type}</a>
                     <h5 className="name"><a href="#">{item.name}</a></h5>
                     <ul className="description">
-                      <li>😍😘😎🐩🐪🐎🦄🍇🍈🍉🍊🍋🍌🍍🍎🍏🍐🍑🍒🍓🍅🍆🌽🌶🍄🌰🍞🧀🍖🍗🍔🍕🌭🌮🌯🍿🍲🍱🍘🍙🍛🍜🍝🍠🍢🌍🌐🏔🌋🏟🎗🎵🇧🇬🇮🇩🇻🇳</li>
-                      <li>😍😘😎🐩🐪🐎🦄🍇🍈🍉🍊🍋🍌🍍🍎🍏🍐🍑🍒🍓🍅🍆🌽🌶🍄🌰🍞🧀🍖🍗</li>
+                      <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae expedita blanditiis amet Quae expedita blanditiis amet impedit</li>
+                      <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae expedita blanditiis amet impedit</li>
                     </ul>
                   </div>
                   <div className="card-item__action">
@@ -142,6 +148,8 @@ const mapDispatchToProps = dispatch => ({
   actGetCardByType: (pageIndex, pageSize, type) => dispatch(actGetCardByType(pageIndex, pageSize, type))
 })
 
+const mapPropsToState = createStructuredSelector({
+  selectCardTypeKey: selectCardTypeKey,
+})
 
-
-export default connect(null, mapDispatchToProps)(CardList);
+export default connect(mapPropsToState, mapDispatchToProps)(CardList);

@@ -16,3 +16,9 @@ export const selectCardByPage = createSelector(
   [selectCard],
   card => card.cardItemList
 )
+
+export const selectCardTypeKey = createSelector(
+  [selectCard],
+  card => card.cardType
+)
+

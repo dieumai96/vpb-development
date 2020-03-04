@@ -4,6 +4,7 @@ const initialState = {
   listCard: [],
   cardItemList: {},
   getAllCard: [],
+  searchKey: '',
 }
 
 const reducer = (state = initialState, action) => {
@@ -37,7 +38,6 @@ const reducer = (state = initialState, action) => {
           data: [...cardItemList],
           totalItem: data.length,
         },
-
       }
     }
 
@@ -49,8 +49,9 @@ const reducer = (state = initialState, action) => {
         ...state,
         cardItemList: {
           data: [...cardItemList],
-          totalItem
-        }
+          totalItem,
+        },
+        cardType: cardType != 'ALL CARD' ? cardType : '',
       }
     }
 
@@ -71,7 +72,9 @@ const getCardByPage = (pageInput, type) => {
   const { pageIndex, pageSize } = pageInput;
   let filterData = data;
   if (type) {
-    filterData = filterData.filter(item => item.parentType == type);
+    if (type != 'ALL CARD') {
+      filterData = filterData.filter(item => item.parentType == type);
+    }
   }
   filterData = filterData.filter((item, index) => {
     return (index >= (pageIndex - 1) * pageSize && index < pageIndex * 6)
@@ -81,7 +84,11 @@ const getCardByPage = (pageInput, type) => {
 
 const totalItemSearch = (type) => {
   let totalItem = 0;
-  data.forEach(item => item.parentType == type ? totalItem = totalItem + 1 : totalItem = totalItem);
+  if (type != 'ALL CARD') {
+    data.forEach(item => item.parentType == type ? totalItem = totalItem + 1 : totalItem = totalItem);
+  } else {
+    totalItem = data.length;
+  }
   return totalItem;
 }
 
