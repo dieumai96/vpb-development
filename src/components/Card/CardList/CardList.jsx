@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
 import { actAddCard, actRemoveCard, actGetCardByPage } from '../../../redux/card/card.action';
-
 import ClientPaging from '../../../smart-ui/Client-Paging';
+import { cardMenu } from './CardMenu';
 
 const CardList = ({ actAddCard, actRemoveCard, cardData, cardItems, actGetCardByPage }) => {
   const [pageIndex, setPageIndex] = useState(1);
@@ -45,48 +45,42 @@ const CardList = ({ actAddCard, actRemoveCard, cardData, cardItems, actGetCardBy
         </div>
         <div className="card-list__filter"><span>Filter:</span>
           <ul className="card-list__filter__list">
-            <li><button className="choice-button active" data-type="ALL">All card</button></li>
-            <li><button className="choice-button" data-type="CREDIT CARD">credit</button>
-              <ul className="child-filter">
-                <li className="child-filter-item" data-type="REWARD">Reward</li>
-                <li className="child-filter-item" data-type="CASHBACK">Cashback</li>
-                <li className="child-filter-item" data-type="MILES">Miles</li>
-              </ul>
-            </li>
-            <li><button className="choice-button" data-type="DEBIT CARD">debit</button>
-              <ul className="child-filter">
-                <li className="child-filter-item" data-type="DEBIT 1">Debit 1</li>
-                <li className="child-filter-item" data-type="DEBIT 2">Debit 2</li>
-                <li className="child-filter-item" data-type="DEBIT 3">Debit 3</li>
-              </ul>
-            </li>
-            <li><button className="choice-button" data-type="POINT CARD">point</button></li>
+            {cardMenu.map((item, index) => (
+              <li key={index}>
+                <button className={'choice-button ' + (index == 0 ? 'active' : '')}>
+                  {item.parentMenu}
+                </button>
+                {item.childMenu && item.childMenu.length ? (
+                  <ul className="child-filter">
+                    {item.childMenu.map((itemChild, childIndex) => (
+                      <li className="child-filter-item" key={childIndex}>{itemChild}</li>
+                    ))}
+                  </ul>
+                ) : null
+                }
+              </li>
+            ))}
           </ul>
           <div className="card-list__filter__list--mobile menu-collapse item">
             <div className="collapse-header" data-target="#collapse-content"><span className="icon-filter-list"></span>Filter</div>
             <div className="collapse-content" id="collapse-content">
-              <div className="sub-item">
-                <div className="collapse-header"><span className="active filter-option parent-filter-mobile" data-type="ALL">ALL CARD</span><i className="icon-chevron-down" data-target="#collapse-subcontent-1"> </i></div>
-              </div>
-              <div className="sub-item">
-                <div className="collapse-header"> <span className="filter-option parent-filter-mobile" data-type="CREDIT CARD">CREDIT</span><i className="icon-chevron-down" data-target="#collapse-subcontent-2"> </i></div>
-                <div className="collapse-content" id="collapse-subcontent-2">
-                  <div className="sub-sub-item filter-option child-filter-item" data-type="REWARD">Reward</div>
-                  <div className="sub-sub-item filter-option child-filter-item" data-type="CASHBACK">Cashback</div>
-                  <div className="sub-sub-item filter-option child-filter-item" data-type="MILES">Miles</div>
+              {cardMenu.map((item, index) => (
+                <div className="sub-item">
+                  <div className="collapse-header">
+                    <span className={'filter-option parent-filter-mobile ' + index == 0 ? 'active' : ''}>{item.parentMenu}</span>
+                    <i className="icon-chevron-down" data-target={'#collapse-subcontent-' + index}></i>
+                  </div>
+                  {(item.childMenu && item.childMenu.length) ? (
+                    <div className="collapse-content" id={'collapse-subcontent-' + index}>
+                      {item.childMenu.map((itemChild, indexChild) => (
+                        <div key={indexChild}>
+                          <div className="sub-sub-item filter-option child-filter-item">{itemChild}</div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
                 </div>
-              </div>
-              <div className="sub-item">
-                <div className="collapse-header"><span className="filter-option parent-filter-mobile" data-type="DEBIT CARD">DEBIT</span><i className="icon-chevron-down" data-target="#collapse-subcontent-3"></i></div>
-                <div className="collapse-content" id="collapse-subcontent-3">
-                  <div className="sub-sub-item filter-option child-filter-item" data-type="DEBIT 1">Debit 1</div>
-                  <div className="sub-sub-item filter-option child-filter-item" data-type="DEBIT 2">Debit 2</div>
-                  <div className="sub-sub-item filter-option child-filter-item" data-type="DEBIT 3">Debit 3</div>
-                </div>
-              </div>
-              <div className="sub-item">
-                <div className="collapse-header"><span className="filter-option parent-filter-mobile" data-type="POINT CARD">POINT</span><i className="icon-chevron-down" data-target="#collapse-subcontent-4"> </i></div>
-              </div>
+              ))}
             </div>
           </div>
           <div className="card-list__button"><a className="btn btn-primary" href="#" data-toggle="modal" data-target="#show-find-card-modal">Find your suitable card</a><a className="card-list__button-compare-card btn btn-primary" href="/card-compare.html">COMPARE CARD {totalCard > 0 ? '(' + totalCard + ')' : ''}<span className="count-card-chosen"></span></a></div>

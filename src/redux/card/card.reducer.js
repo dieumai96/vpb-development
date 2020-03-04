@@ -3,6 +3,7 @@ import { data } from './card.data';
 const initialState = {
   listCard: [],
   cardItemList: {},
+  getAllCard : [],
 
 }
 
@@ -26,7 +27,7 @@ const reducer = (state = initialState, action) => {
     case GET_ALL_CARD: {
       return {
         ...state,
-        cardItemList: data,
+        getAllCard: data,
       }
     }
     case GET_CARD_BY_PAGE: {
