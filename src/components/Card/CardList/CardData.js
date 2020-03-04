@@ -17,4 +17,6 @@ export const data = [
   { image: '/images/components-image/card-list/card-1.png', name: "Card 16", star: 1, buttonRemove: 'Remove', wishlist: 'no', type: 'CASHBACK', parentType: "CREDIT CARD", dataIndex: "16" },
   { image: '/images/components-image/card-list/card-1.png', name: "Card 17", star: 2, buttonRemove: 'Remove', wishlist: 'yes', type: 'CASHBACK', parentType: "CREDIT CARD", dataIndex: "17" },
   { image: '/images/components-image/card-list/card-1.png', name: "Card 18", star: 3, buttonRemove: 'Remove', wishlist: 'no', type: 'DEBIT 2', parentType: "DEBIT CARD", dataIndex: "18" },
+  { image: '/images/components-image/card-list/card-1.png', name: "Card 19", star: 3, buttonRemove: 'Remove', wishlist: 'no', type: 'DEBIT 2', parentType: "DEBIT CARD", dataIndex: "19" },
+  { image: '/images/components-image/card-list/card-1.png', name: "Card 20", star: 3, buttonRemove: 'Remove', wishlist: 'no', type: 'DEBIT 2', parentType: "DEBIT CARD", dataIndex: "20" },
 ]

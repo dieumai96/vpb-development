@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { connect } from 'react-redux';
 import { actAddCard, actRemoveCard, actGetCardByPage } from '../../../redux/card/card.action';
 import ClientPaging from '../../../smart-ui/Client-Paging';
 import { cardMenu } from './CardMenu';
-
 const CardList = ({ actAddCard, actRemoveCard, cardData, cardItems, actGetCardByPage }) => {
   const [pageIndex, setPageIndex] = useState(1);
+
   const [pageSize] = useState(6);
+
+  const listRef = useRef(cardMenu.map(item => React.createRef()));
+
   const totalCard = cardItems.length;
+
   const toggleCardItem = (event, cardIndex) => {
     if (event.target.checked) {
       const findCard = findCardOnList(cardIndex);
@@ -37,6 +41,16 @@ const CardList = ({ actAddCard, actRemoveCard, cardData, cardItems, actGetCardBy
     actGetCardByPage(pageIndex, pageSize);
   }
 
+  const parentRef = () => {
+    return cardMenu.map(item => React.createRef())
+  }
+
+  const searchByParent = (parentType, index) => {
+    const { current } = listRef;
+    current.map(item => item.current.classList.remove('active'));
+    current[index].current.classList.add('active');
+  }
+
   return (
     <div className="card-list">
       <div className="container">
@@ -47,7 +61,7 @@ const CardList = ({ actAddCard, actRemoveCard, cardData, cardItems, actGetCardBy
           <ul className="card-list__filter__list">
             {cardMenu.map((item, index) => (
               <li key={index}>
-                <button className={'choice-button ' + (index == 0 ? 'active' : '')}>
+                <button ref={listRef.current[index]} className={'choice-button ' + (index == 0 ? 'active' : '')} onClick={() => searchByParent(item.parentMenu, index)}>
                   {item.parentMenu}
                 </button>
                 {item.childMenu && item.childMenu.length ? (
