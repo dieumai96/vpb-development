@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { connect } from 'react-redux';
-import { actAddCard, actRemoveCard, actGetCardByPage } from '../../../redux/card/card.action';
+import { actAddCard, actRemoveCard, actGetCardByPage, actGetCardByType } from '../../../redux/card/card.action';
 import ClientPaging from '../../../smart-ui/Client-Paging';
 import { cardMenu } from './CardMenu';
-const CardList = ({ actAddCard, actRemoveCard, cardData, cardItems, actGetCardByPage }) => {
+const CardList = ({ actAddCard, actRemoveCard, cardData, cardItems, actGetCardByPage, actGetCardByType }) => {
   const [pageIndex, setPageIndex] = useState(1);
 
   const [pageSize] = useState(6);
@@ -41,14 +41,19 @@ const CardList = ({ actAddCard, actRemoveCard, cardData, cardItems, actGetCardBy
     actGetCardByPage(pageIndex, pageSize);
   }
 
-  const parentRef = () => {
-    return cardMenu.map(item => React.createRef())
-  }
-
   const searchByParent = (parentType, index) => {
+    // INFO : set state button 
     const { current } = listRef;
     current.map(item => item.current.classList.remove('active'));
     current[index].current.classList.add('active');
+    // INFO : start search card 
+    onSearchCard(parentType);
+  }
+
+
+  const onSearchCard = (type) => {
+    setPageIndex(1);
+    actGetCardByType(pageIndex, pageSize, type.toUpperCase());
   }
 
   return (
@@ -134,6 +139,7 @@ const mapDispatchToProps = dispatch => ({
   actAddCard: card => dispatch(actAddCard(card)),
   actRemoveCard: cardIndex => dispatch(actRemoveCard(cardIndex)),
   actGetCardByPage: (pageIndex, pageSize) => dispatch(actGetCardByPage(pageIndex, pageSize)),
+  actGetCardByType: (pageIndex, pageSize, type) => dispatch(actGetCardByType(pageIndex, pageSize, type))
 })
 
 

@@ -1,10 +1,9 @@
-import { ADD_CARD, REMOVE_CARD, GET_ALL_CARD, GET_CARD_BY_PAGE } from './card.type';
+import { ADD_CARD, REMOVE_CARD, GET_ALL_CARD, GET_CARD_BY_PAGE, SEARCH_CARD_BY_TYPE } from './card.type';
 import { data } from './card.data';
 const initialState = {
   listCard: [],
   cardItemList: {},
-  getAllCard : [],
-
+  getAllCard: [],
 }
 
 const reducer = (state = initialState, action) => {
@@ -41,6 +40,20 @@ const reducer = (state = initialState, action) => {
 
       }
     }
+
+    case SEARCH_CARD_BY_TYPE: {
+      const { pageInput, cardType } = action.payload;
+      let cardItemList = getCardByPage(pageInput, cardType);
+      let totalItem = totalItemSearch(cardType);
+      return {
+        ...state,
+        cardItemList: {
+          data: [...cardItemList],
+          totalItem
+        }
+      }
+    }
+
     default: {
       return {
         ...state,
@@ -54,11 +67,22 @@ const findCardOnList = (listCard, cardIndex) => {
   return listCard.filter(card => card.dataIndex != cardIndex);
 }
 
-const getCardByPage = (pageInput) => {
-  console.log(pageInput);
+const getCardByPage = (pageInput, type) => {
   const { pageIndex, pageSize } = pageInput;
-  return data.filter((item, index) => {
+  let filterData = data;
+  if (type) {
+    filterData = filterData.filter(item => item.parentType == type);
+  }
+  filterData = filterData.filter((item, index) => {
     return (index >= (pageIndex - 1) * pageSize && index < pageIndex * 6)
   })
+  return filterData;
 }
+
+const totalItemSearch = (type) => {
+  let totalItem = 0;
+  data.forEach(item => item.parentType == type ? totalItem = totalItem + 1 : totalItem = totalItem);
+  return totalItem;
+}
+
 export default reducer;

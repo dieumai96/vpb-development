@@ -1,4 +1,4 @@
-import { ADD_CARD, REMOVE_CARD, GET_ALL_CARD, GET_CARD_BY_PAGE } from './card.type';
+import { ADD_CARD, REMOVE_CARD, GET_ALL_CARD, GET_CARD_BY_PAGE, SEARCH_CARD_BY_TYPE } from './card.type';
 
 export const actAddCard = (card) => ({
   type: ADD_CARD,
@@ -19,5 +19,16 @@ export const actGetCardByPage = (pageIndex, pageSize) => ({
   payload: {
     pageIndex,
     pageSize
+  }
+})
+
+export const actGetCardByType = (pageIndex, pageSize, type) => ({
+  type: SEARCH_CARD_BY_TYPE,
+  payload: {
+    pageInput: {
+      pageIndex,
+      pageSize
+    },
+    cardType: type,
   }
 })
