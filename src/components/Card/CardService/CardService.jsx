@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import MastHead from '../../MastHead/MastHead';
 import RetailBankingNotitle from '../../RetailBanking/Retail-Banking--Notitle';
 import CardList from '../CardList/CardList';
