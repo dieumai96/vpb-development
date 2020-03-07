@@ -10,7 +10,8 @@ const CardList = ({ actAddCard, actRemoveCard, cardData, cardItems, actGetCardBy
 
   const [pageSize] = useState(6);
 
-  const listRef = useRef(cardMenu.map(item => React.createRef()));
+  const listRefParent = useRef(cardMenu.map(item => React.createRef()));
+
 
   const totalCard = cardItems.length;
 
@@ -32,8 +33,6 @@ const CardList = ({ actAddCard, actRemoveCard, cardData, cardItems, actGetCardBy
     return cardData.data && cardData.data.length && cardData.data.find(card => card.dataIndex == cardIndex);
   }
 
-
-
   const updatePaging = (pageIndex) => {
     if (selectCardTypeKey && selectCardTypeKey != '') {
       actGetCardByType(pageIndex, pageSize, selectCardTypeKey);
@@ -48,18 +47,33 @@ const CardList = ({ actAddCard, actRemoveCard, cardData, cardItems, actGetCardBy
   }
 
   const searchByParent = (parentType, index) => {
-    // INFO : set state button 
-    const { current } = listRef;
-    current.map(item => item.current.classList.remove('active'));
-    current[index].current.classList.add('active');
-    // INFO : start search card 
+    activeChildButtonFilter();
+    activeParentButtonFiler(index);
     onSearchCard(parentType);
   }
 
+  const searchByChild = (event, parentType, childType, index) => {
+    activeChildButtonFilter(event);
+    activeParentButtonFiler(index);
+  }
 
   const onSearchCard = (type) => {
     actGetCardByType(1, pageSize, type.toUpperCase());
     setPageIndex(1);
+  }
+
+  const activeParentButtonFiler = (index) => {
+    const { current } = listRefParent;
+    current.map(item => item.current.classList.remove('active'));
+    current[index].current.classList.add('active');
+  }
+
+  const activeChildButtonFilter = (event, type = 'add') => {
+    let listRefChild = document.querySelectorAll('li.child-filter-item');
+    listRefChild.forEach((item) => item.classList.remove('active'));
+    if(event && type == 'add'){
+      event.target.classList.add('active');
+    }
   }
 
   return (
@@ -72,13 +86,13 @@ const CardList = ({ actAddCard, actRemoveCard, cardData, cardItems, actGetCardBy
           <ul className="card-list__filter__list">
             {cardMenu.map((item, index) => (
               <li key={index}>
-                <button ref={listRef.current[index]} className={'choice-button ' + (index == 0 ? 'active' : '')} onClick={() => searchByParent(item.parentMenu, index)}>
+                <button ref={listRefParent.current[index]} className={'choice-button ' + (index == 0 ? 'active' : '')} onClick={() => searchByParent(item.parentMenu, index)}>
                   {item.parentMenu}
                 </button>
                 {item.childMenu && item.childMenu.length ? (
                   <ul className="child-filter">
                     {item.childMenu.map((itemChild, childIndex) => (
-                      <li className="child-filter-item" key={childIndex}>{itemChild}</li>
+                      <li className="child-filter-item" key={childIndex} onClick={(event) => searchByChild(event, item.parentMenu, itemChild, index)}>{itemChild}</li>
                     ))}
                   </ul>
                 ) : null
@@ -90,7 +104,7 @@ const CardList = ({ actAddCard, actRemoveCard, cardData, cardItems, actGetCardBy
             <div className="collapse-header" data-target="#collapse-content"><span className="icon-filter-list"></span>Filter</div>
             <div className="collapse-content" id="collapse-content">
               {cardMenu.map((item, index) => (
-                <div className="sub-item">
+                <div className="sub-item" key = {index}>
                   <div className="collapse-header">
                     <span className={'filter-option parent-filter-mobile ' + index == 0 ? 'active' : ''}>{item.parentMenu}</span>
                     <i className="icon-chevron-down" data-target={'#collapse-subcontent-' + index}></i>
