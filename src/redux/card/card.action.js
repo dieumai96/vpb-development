@@ -22,7 +22,7 @@ export const actGetCardByPage = (pageIndex, pageSize) => ({
   }
 })
 
-export const actGetCardByType = (pageIndex, pageSize, type) => ({
+export const actGetCardByType = (pageIndex, pageSize, type, childType) => ({
   type: SEARCH_CARD_BY_TYPE,
   payload: {
     pageInput: {
@@ -30,5 +30,6 @@ export const actGetCardByType = (pageIndex, pageSize, type) => ({
       pageSize
     },
     cardType: type,
+    childType: childType,
   }
 })

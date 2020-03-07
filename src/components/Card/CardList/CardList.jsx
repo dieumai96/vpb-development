@@ -55,6 +55,8 @@ const CardList = ({ actAddCard, actRemoveCard, cardData, cardItems, actGetCardBy
   const searchByChild = (event, parentType, childType, index) => {
     activeChildButtonFilter(event);
     activeParentButtonFiler(index);
+    actGetCardByType(1, pageSize, parentType.toUpperCase(), childType.toUpperCase());
+    setPageIndex(1);
   }
 
   const onSearchCard = (type) => {
@@ -71,7 +73,7 @@ const CardList = ({ actAddCard, actRemoveCard, cardData, cardItems, actGetCardBy
   const activeChildButtonFilter = (event, type = 'add') => {
     let listRefChild = document.querySelectorAll('li.child-filter-item');
     listRefChild.forEach((item) => item.classList.remove('active'));
-    if(event && type == 'add'){
+    if (event && type == 'add') {
       event.target.classList.add('active');
     }
   }
@@ -104,7 +106,7 @@ const CardList = ({ actAddCard, actRemoveCard, cardData, cardItems, actGetCardBy
             <div className="collapse-header" data-target="#collapse-content"><span className="icon-filter-list"></span>Filter</div>
             <div className="collapse-content" id="collapse-content">
               {cardMenu.map((item, index) => (
-                <div className="sub-item" key = {index}>
+                <div className="sub-item" key={index}>
                   <div className="collapse-header">
                     <span className={'filter-option parent-filter-mobile ' + index == 0 ? 'active' : ''}>{item.parentMenu}</span>
                     <i className="icon-chevron-down" data-target={'#collapse-subcontent-' + index}></i>
@@ -159,7 +161,7 @@ const mapDispatchToProps = dispatch => ({
   actAddCard: card => dispatch(actAddCard(card)),
   actRemoveCard: cardIndex => dispatch(actRemoveCard(cardIndex)),
   actGetCardByPage: (pageIndex, pageSize) => dispatch(actGetCardByPage(pageIndex, pageSize)),
-  actGetCardByType: (pageIndex, pageSize, type) => dispatch(actGetCardByType(pageIndex, pageSize, type))
+  actGetCardByType: (pageIndex, pageSize, type, childType) => dispatch(actGetCardByType(pageIndex, pageSize, type, childType))
 })
 
 const mapPropsToState = createStructuredSelector({
