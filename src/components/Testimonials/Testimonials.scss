@@ -1,0 +1,154 @@
+.testimonials {
+  margin-bottom: 90px;
+
+  @include min-sm {
+    margin-bottom: 30px;
+  }
+
+  .testimonials-wrap {
+    margin-left: -$grid-gutter-width/2;
+    margin-right: -$grid-gutter-width/2;
+
+    @include min-sm {
+      padding: 0 57px;
+      margin: 0;
+    }
+  }
+
+  &__slide {
+    .slick-dots {
+      bottom: -40px;
+    }
+
+    button {
+      &.slick-arrow {
+        width: 42px;
+        height: 42px;
+        background-position: 12px;
+        border: 1px solid $gray-500;
+        border-radius: 50%;
+
+        &:hover {
+          background-color: $gray-300;
+          border: 1px solid $gray-300;
+        }
+
+        &:before {
+          display: none;
+        }
+      }
+
+      &.slick-next {
+        background-image: url('/images/icons/icon-arrow-right-img.png');
+        background-repeat: no-repeat;
+        right: 0;
+
+        @include min-sm {
+          right: -57px;
+        }
+      }
+
+      &.slick-prev {
+        background-image: url('/images/icons/icon-arrow-left-img.png');
+        background-repeat: no-repeat;
+        left: 0;
+
+        @include min-sm {
+          left: -57px;
+        }
+      }
+    }
+
+    &--item {
+      transform: translateX(-34px);
+
+      .modal.show & {
+        transform: translateX(0);
+      }
+
+      @include min-sm {
+        padding: 0 15px;
+        transform: translateX(0);
+      }
+    }
+
+    &__comment {
+      // INFO : override inline css properties from slick library
+      display: flex !important;
+      background: $gray-lightest;
+      padding: 15px;
+      border-radius: $global-margin/2;
+
+      @include min-sm {}
+
+      .author {
+        text-align: center;
+        width: 70px;
+
+        img {
+          margin: 0 auto;
+          border-radius: 50%;
+        }
+
+        &__name-author {
+          padding: 8px 0;
+          color: $text-color;
+          font-size: $font-size-smaller;
+        }
+
+        &__star {
+          display: flex;
+          font-size: $font-size-smaller;
+
+          .icon-star {
+            font-size: $font-size-smaller;
+            margin: 0 1px;
+          }
+        }
+      }
+
+      .evaluate {
+        margin-left: 20px;
+        max-width: 95px;
+
+        @include min-xs {
+          max-width: 100%;
+          margin-left: 30px;
+        }
+
+        &__detail {
+          color: $gray-dark;
+          overflow: hidden;
+          max-height: $font-size-base * $line-height-base * 4;
+          display: -webkit-box;
+          -webkit-line-clamp: 4;
+          -webkit-box-orient: vertical;
+
+          .modal.show & {
+            overflow: inherit;
+            max-height: inherit;
+            -webkit-line-clamp: inherit;
+            -webkit-box-orient: inherit;
+          }
+        }
+      }
+    }
+  }
+
+  .slick-initialized .slick-slide {
+    transform: scale(0.9);
+
+    @include min-sm {
+      transform: scale(1);
+    }
+
+    &.slick-current {
+      transform: scale(1);
+      transition: all 0.1s ease;
+
+      @include min-sm {
+        margin-left: 0px;
+      }
+    }
+  }
+}

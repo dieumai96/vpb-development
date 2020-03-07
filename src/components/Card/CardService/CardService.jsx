@@ -4,6 +4,11 @@ import RetailBankingNotitle from '../../RetailBanking/Retail-Banking--Notitle';
 import CardList from '../CardList/CardList';
 import AddCard from '../AddCard/AddCard';
 import Promotion from '../../Promotion/Promotion';
+import StoryTips from '../../StoryTips/StoryTips';
+import Testimonials from '../../Testimonials/Testimonials';
+import VpbAward from '../../VpbAward/VpbAward';
+import TalkToUs from '../../TalkToUs/TalkToUs';
+
 import { createStructuredSelector } from 'reselect';
 import {
   selectCardByPage, selectCardItems,
@@ -49,6 +54,10 @@ const CardService = ({ cardList, cardItems }) => {
       <CardList cardData={cardList} cardItems={cardItems} />
       <AddCard />
       <Promotion />
+      <StoryTips />
+      <Testimonials />
+      <VpbAward />
+      <TalkToUs />
     </>
   )
 }

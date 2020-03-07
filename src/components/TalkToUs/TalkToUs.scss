@@ -1,0 +1,116 @@
+.talk-to-us {
+  background-color: $gray-lightest;
+  position: relative;
+  padding: 33px 0;
+
+  @include min-sm {
+    padding: 50px 0;
+  }
+
+  &__image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+    img {
+      width: 100%;
+      height: 100%
+    }
+  }
+
+  &__content {
+    &__option {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      @include min-sm {
+        flex-wrap: nowrap;
+      }
+
+      &__item {
+        width: 70%;
+        text-align: center;
+        margin-bottom: 50px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        @include min-sm {
+          width: auto;
+          margin-bottom: 0;
+
+          &:nth-child(2) {
+            margin: 0 5%;
+          }
+        }
+
+        @include min-md {
+          &:nth-child(2) {
+            margin: 0 12%;
+          }
+        }
+
+        a {
+          color: $gray-dark;
+          position: relative;
+          display: flex;
+
+          &:hover {
+            text-decoration: none;
+            color: $primary;
+          }
+
+          &:visited {
+            color: $gray-dark;
+          }
+
+          span.icon {
+            position: absolute;
+            background-color: $white;
+            width: 60px;
+            overflow: hidden;
+            border-radius: 50%;
+            top: 50%;
+            left: 0;
+            transform: translate(0, -50%);
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .05);
+
+            &:before {
+              content: '';
+              display: block;
+              padding-bottom: 100%;
+            }
+
+            img {
+              max-width: 100%;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+            }
+          }
+
+          span.text {
+            font-size: $font-size-base;
+            font-family: $font-family-sans-serif;
+            line-height: 20px;
+            margin: 0;
+            width: 100%;
+            text-align: left;
+            white-space: nowrap;
+            padding-left: 30px;
+            margin: 0 10px 0 60px;
+
+            @include min-sm {
+              font-size: $font-size-large
+            }
+          }
+        }
+      }
+    }
+  }
+}

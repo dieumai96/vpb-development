@@ -1,0 +1,79 @@
+.vpbank-award-content {
+  position: relative;
+  margin-bottom: 45px;
+
+  @include min-sm {
+    margin-bottom: 80px;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  &__text {
+    position: absolute;
+    bottom: 0;
+    padding: 0 20px 16px;
+
+    @include min-sm {
+      top: 0px;
+      right: 0px;
+      max-width: 550px;
+      bottom: auto;
+      left: auto;
+      padding: 30px 30px 0px 249px;
+    }
+
+    @include min-md {
+      padding: 40px 80px 0px 160px;
+    }
+
+    @include min-lg {
+      padding: 45px 50px 0px 80px;
+
+    }
+
+    .title {
+      font-size: $font-size-base;
+      font-weight: $font-weight-bold;
+
+      @include min-sm {
+        font-size: $font-size-large;
+      }
+
+      @include min-md {
+        font-size: 2.2rem;
+      }
+
+      @include min-lg {
+        font-size: $h4-font-size;
+      }
+    }
+  }
+}
+
+a.read-more {
+  color: $link-color;
+  font-weight: $font-weight-bold;
+  font-size: $font-size-small;
+  position: relative;
+
+  &:hover {
+    color: $link-hover-color;
+    text-decoration: none;
+
+    &:before {
+      padding-right: $global-margin/4;
+    }
+  }
+
+  &:before {
+    font-family: 'icomoon';
+    content: '\e909';
+    padding-right: $global-margin/2;
+    line-height: $font-size-base;
+    font-size: $font-size-base;
+    vertical-align: text-top;
+    transition: 0.2s;
+  }
+}

@@ -1,0 +1,258 @@
+.story-tips-component {
+  margin-bottom: 30px;
+
+  @include min-sm {
+    margin-bottom: 0;
+  }
+
+  .slick-dots {
+    bottom: 25px;
+    left: 15px;
+    text-align: left;
+
+    @include min-sm {
+      bottom: 18px;
+    }
+
+    @include min-lg {
+      bottom: 15px;
+      left: 20px;
+    }
+
+    @include min-xl {
+      bottom: 27px;
+      left: 30px;
+    }
+
+    li {
+      width: 12px;
+      height: 12px;
+      margin: 0 15px 0 0;
+
+      button {
+        width: 12px;
+        height: 12px;
+        background: $white;
+        border-radius: 50%;
+        border: 1px solid $primary;
+
+        &:before {
+          display: none;
+        }
+      }
+
+      &.slick-active {
+        button {
+          background: $primary;
+        }
+      }
+    }
+  }
+}
+
+.story-tips-box {
+  margin-bottom: 30px;
+
+  @include min-lg {
+    margin-bottom: 15px;
+  }
+
+  button.slick-next.slick-arrow {
+    // INFO : turn off slick's display: inline-block attribute
+    display: none !important;
+  }
+
+  button.slick-prev.slick-arrow {
+    // INFO : turn off slick's display: inline-block attribute
+    display: none !important;
+  }
+
+  .story-tips {
+    height: 100%;
+    background: $gray-300;
+    position: relative;
+
+    &__title {
+      a {
+        color: $gray-dark;
+
+        &:hover {
+          color: $link-color;
+          text-decoration: none;
+        }
+      }
+    }
+
+    .story-tips-slick {
+      padding: 75px 45px 66px 20px;
+      margin-bottom: 0;
+    }
+
+    &__detail {
+      font-size: $font-size-base;
+      margin-bottom: 7px;
+      color: $gray-700;
+
+      @include min-sm {
+        margin-bottom: 15px;
+      }
+
+      @include min-md {
+        margin-bottom: 0;
+        // max-height: 50px;
+        overflow: hidden;
+      }
+
+      @include min-lg {
+        margin-bottom: 7px;
+        // max-height: 100px;
+      }
+    }
+  }
+
+  // card-img 
+  .card-img {
+    order: 1;
+
+    @include min-sm {
+      order: 2;
+    }
+  }
+
+  // tag
+  .tag {
+    text-transform: uppercase;
+    font-size: $font-size-smaller;
+    font-weight: $font-weight-bold;
+    background: $white;
+    position: absolute;
+    z-index: 1;
+    padding: 5px 13px;
+    top: $global-margin;
+    left: $global-margin;
+    color: $gray-dark;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .story-tips-img {
+    position: relative;
+    @extend .effect-img-hover;
+
+    >a {
+      display: block;
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+
+  // wish list
+  .story-tips--wishlist {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    line-height: 0;
+    z-index: 1;
+
+    label {
+      position: relative;
+      margin-bottom: 0;
+      width: 15px;
+      height: 13px;
+      cursor: pointer;
+    }
+
+    input[type='checkbox'] {
+      position: absolute;
+      z-index: -1;
+      opacity: 0;
+      pointer-events: none;
+
+      &+label:before {
+        content: "";
+        background: url('./image/heart.png') 0 0 no-repeat;
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 15px;
+        height: 13px;
+        transition: all 0.2s;
+      }
+
+      &:checked+label:before {
+        background: url('./image/heart-active.png') 0 0 no-repeat;
+      }
+    }
+  }
+}
+
+.card-cashbank {
+  position: relative;
+  @extend .effect-img-hover;
+
+  @include min-sm {
+    margin-bottom: 30px;
+  }
+
+  @include min-md {
+    margin-bottom: 0;
+  }
+
+  img {
+    width: 100%;
+
+    @include min-md {
+      max-width: 100%;
+      margin-bottom: 0;
+    }
+  }
+
+  &__title {
+    position: absolute;
+    top: 18px;
+    left: $global-margin;
+    font-size: $font-size-base;
+    font-weight: $font-weight-black;
+    color: $gray-dark;
+
+  }
+
+  &__button {
+    position: absolute;
+    bottom: $global-margin;
+    left: $global-margin;
+    width: calc(100% - 40px);
+
+    @include min-sm {
+      width: auto;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 0.8rem 3rem;
+
+      @include min-sm {
+        width: auto;
+        padding: 0.5rem 3rem;
+      }
+
+      &:after {
+        width: 130px;
+        left: 50%;
+        transform: translateX(-50%);
+
+        @include min-sm {
+          width: calc(100% - (3rem * 2));
+          left: 3rem;
+          transform: translateX(0);
+        }
+      }
+    }
+  }
+
+}
