@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import InputVPB from '../../Shared/InputVPB';
 import SelectVPB from '../../Shared/SelectVPB';
-
+import { BranchATMReducer } from './context/BranchATM.reducer';
 const LeftContent = () => {
+  const [{ seachPayload }, dispatch] = useReducer(BranchATMReducer, { seachPayload: {} })
   const options = [
     { value: 'chocolate', label: 'Chocolate' },
     { value: 'strawberry', label: 'Strawberry' },
@@ -11,10 +12,15 @@ const LeftContent = () => {
 
 
   const onChangeInput = (value) => {
+    dispatch({ type: 'update_payload', payload: { keyword: value } })
+  }
+  const onChangeSelect = (value) => {
     console.log(value);
   }
-  const onChangeSelect = (e) => {
-    console.log('1s', e);
+
+  const searchATM = (e) => {
+    e.preventDefault();
+    console.log(seachPayload);
   }
   return (
     <div className="nav-map">
@@ -25,10 +31,10 @@ const LeftContent = () => {
         </div>
         <div className="search-location clearfix">
           <div className="provincial">
-            <SelectVPB options={options} onChangeSelect={onChangeSelect} placeholder="Chọn tỉnh"/>
+            <SelectVPB options={options} onChangeSelect={onChangeSelect} placeholder="Chọn tỉnh" />
           </div>
           <div className="district">
-            <SelectVPB options={options} onChangeSelect={onChangeSelect} placeholder="Chọn quận/huyện"/>
+            <SelectVPB options={options} onChangeSelect={onChangeSelect} placeholder="Chọn quận/huyện" />
           </div>
         </div>
         <div className="select-type-atm">
@@ -44,7 +50,7 @@ const LeftContent = () => {
           <div className="select-type-atm__item select-type-atm__item--sme"><input id="type-atm-4" type="checkbox" />
             <label htmlFor="type-atm-4">DM vừa & nhỏ</label>
           </div>
-        </div><a className="btn btn-outline-primary search button-search" href="#">TÌM KIẾM</a></div>
+        </div><a className="btn btn-outline-primary search button-search" href="#" onClick={(e) => searchATM(e)}> TÌM KIẾM</a></div>
       <div className="nav-map__bottom display-desktop" style={{ marginTop: '15px' }}>
         <p className="count-response"></p>
         {/* <ul className="branch-atm-response" id="scroll"></ul>  */}
