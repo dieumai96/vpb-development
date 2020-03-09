@@ -19,7 +19,7 @@ const LeftContent = () => {
   const [searchTypeATM, setSearchTypeATM] = useState({
     IsBranch: true,
     IsATM: true,
-    IsHousehold: false,
+    IsHousehold: true,
     IsSME: false
   })
 
@@ -46,7 +46,7 @@ const LeftContent = () => {
           ...listData.filter(item => item.Address == res[0].data.headquarters),
           ...listData.filter(item => item.Address != res[0].data.headquarters),
         ]
-        setResponseATMList(newListData);
+        mapTypeATM(newListData);
       }
     });
   }, []);
@@ -121,12 +121,44 @@ const LeftContent = () => {
     } else {
       newObj[`${getKeyChecked}`] = false;
     }
+    if (newObj.IsATM) {
+      newObj.IsCDM = true;
+    } else {
+      newObj.IsCDM = false;
+    }
     setSearchTypeATM({ ...newObj });
   }
 
   const searchATM = (e) => {
     console.log(searchTypeATM)
     e.preventDefault();
+  }
+
+  const mapTypeATM = (listData) => {
+    let searchType = searchTypeATM;
+    if (searchType.IsCDM == undefined) {
+      searchType.IsCDM = searchType.IsATM;
+    }
+    let listKeyTypeATM = Object.keys(searchTypeATM).map(key => {
+      if (
+        searchTypeATM[key]
+      ) {
+        return key;
+      } else return;
+
+    }).filter(key => key != undefined);
+    console.log(listKeyTypeATM)
+    listData = listData.filter(item => {
+      let satisfyItem;
+      listKeyTypeATM.forEach(key => {
+        if(item[`${key}`]){
+          satisfyItem = item;
+        }
+      })
+      return satisfyItem;
+    })
+    console.log(listData);
+    setResponseATMList(listData);
   }
   return (
     <div className="nav-map">
