@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect, useState } from 'react';
+import React, { useReducer, useEffect, useState, useRef } from 'react';
 import InputVPB from '../../Shared/InputVPB';
 import SelectVPB from '../../Shared/SelectVPB';
 import { BranchATMReducer } from './context/BranchATM.reducer';
@@ -13,6 +13,16 @@ const LeftContent = () => {
       district: '',
     }
   });
+
+  const [searchTypeATM, setSerchTypeATM] = useState(({
+    IsBranch: true,
+    IsATM: true,
+    IsCDM: true,
+    IsHousehold: false,
+    IsSME: false
+  }))
+
+  const typeATMRef = useRef(Object.keys(searchTypeATM).map(key => React.createRef()));
 
   const [provinceList, setProvinceList] = useState([]);
   const [districtList, setDistrictList] = useState([]);
@@ -100,10 +110,10 @@ const LeftContent = () => {
           </div>
         </div>
         <div className="select-type-atm">
-          <div className="select-type-atm__item select-type-atm__item--branch"><input id="type-atm-1" type="checkbox" />
+          <div className="select-type-atm__item select-type-atm__item--branch"><input id="type-atm-1" type="checkbox" defaultChecked="true" />
             <label htmlFor="type-atm-1">Chi nhánh</label>
           </div>
-          <div className="select-type-atm__item select-type-atm__item--atm"><input id="type-atm-2" type="checkbox" />
+          <div className="select-type-atm__item select-type-atm__item--atm"><input id="type-atm-2" type="checkbox" defaultChecked="true" />
             <label htmlFor="type-atm-2">ATM/CDM</label>
           </div>
           <div className="select-type-atm__item select-type-atm__item--household"><input id="type-atm-3" type="checkbox" />
