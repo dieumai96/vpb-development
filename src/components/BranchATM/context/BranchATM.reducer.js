@@ -7,9 +7,7 @@ export const BranchATMReducer = (state, action) => {
 
       return {
         ...state,
-        seachPayload: {
-          keyword: action.payload.keyword
-        }
+        seachPayload: action.payload
       };
     }
     default:

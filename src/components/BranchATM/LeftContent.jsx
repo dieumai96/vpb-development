@@ -51,7 +51,6 @@ const LeftContent = () => {
     if (res && res.Value && res.Value.length) {
       let newListDistrict = res.Value.map(item => {
         return {
-          ...item,
           label: item,
           name: 'district'
         }
@@ -61,17 +60,19 @@ const LeftContent = () => {
   }
 
   const onChangeInput = (value) => {
-    dispatch({ type: 'update_payload', payload: { keyword: value } })
+    dispatch({ type: 'update_payload', payload: { ...seachPayload, keyword: value } })
   }
   const onChangeSelect = (value) => {
 
     switch (value.name) {
       case 'province': {
         getListDistrict(value);
-        
+        dispatch({ type: 'update_payload', payload: { ...seachPayload, city: value.label } })
+        break;
       }
       case 'district': {
-
+        dispatch({ type: 'update_payload', payload: { ...seachPayload, district: value.label } })
+        break;
       }
       default: {
         break;
