@@ -4,6 +4,8 @@ import SelectVPB from '../../Shared/SelectVPB';
 import { BranchATMReducer } from './context/BranchATM.reducer';
 import { endPoints } from '../../configs/endpoint';
 import { buildUrl } from '../../services/branch-atm.service';
+import ResponseItemATM from './ReponseItemATM';
+
 import axios from 'axios';
 const LeftContent = () => {
   const [{ seachPayload }, dispatch] = useReducer(BranchATMReducer, {
@@ -14,22 +16,38 @@ const LeftContent = () => {
     }
   });
 
-  const [searchTypeATM, setSerchTypeATM] = useState(({
+  const [searchTypeATM, setSearchTypeATM] = useState({
     IsBranch: true,
     IsATM: true,
-    IsCDM: true,
     IsHousehold: false,
     IsSME: false
-  }))
+  })
 
-  const typeATMRef = useRef(Object.keys(searchTypeATM).map(key => React.createRef()));
+  const [responseATMList, setResponseATMList] = useState([]);
+
+  const branchATMType = [
+    { type: 'branch', label: 'Chi nhánh' },
+    { type: 'atm', label: 'ATM/CDM' },
+    { type: 'household', label: 'Hộ KD' },
+    { type: 'sme', label: 'DM vừa & nhỏ' },
+  ]
+
+  const typeATMRef = useRef(Object.keys(searchTypeATM).map(() => React.createRef()));
 
   const [provinceList, setProvinceList] = useState([]);
   const [districtList, setDistrictList] = useState([]);
 
   useEffect(() => {
-    getDataInitial().then(data => {
-      getListProvince(data[1]);
+    getDataInitial().then(res => {
+      getListProvince(res[1]);
+      if (res[0].data.branches_and_atm && res[0].data.branches_and_atm) {
+        let listData = res[0].data.branches_and_atm;
+        let newListData = [
+          ...listData.filter(item => item.Address == res[0].data.headquarters),
+          ...listData.filter(item => item.Address != res[0].data.headquarters),
+        ]
+        setResponseATMList(newListData);
+      }
     });
   }, []);
 
@@ -90,9 +108,25 @@ const LeftContent = () => {
     }
   }
 
+  const changeTypeAtm = (event, index) => {
+    let getKeyChecked;
+    let newObj = searchTypeATM;
+    Object.keys(searchTypeATM).forEach((key, idx) => {
+      if (idx == index) {
+        getKeyChecked = key;
+      }
+    })
+    if (event.target.checked) {
+      newObj[`${getKeyChecked}`] = true;
+    } else {
+      newObj[`${getKeyChecked}`] = false;
+    }
+    setSearchTypeATM({ ...newObj });
+  }
+
   const searchATM = (e) => {
+    console.log(searchTypeATM)
     e.preventDefault();
-    console.log(seachPayload);
   }
   return (
     <div className="nav-map">
@@ -110,22 +144,22 @@ const LeftContent = () => {
           </div>
         </div>
         <div className="select-type-atm">
-          <div className="select-type-atm__item select-type-atm__item--branch"><input id="type-atm-1" type="checkbox" defaultChecked="true" />
-            <label htmlFor="type-atm-1">Chi nhánh</label>
-          </div>
-          <div className="select-type-atm__item select-type-atm__item--atm"><input id="type-atm-2" type="checkbox" defaultChecked="true" />
-            <label htmlFor="type-atm-2">ATM/CDM</label>
-          </div>
-          <div className="select-type-atm__item select-type-atm__item--household"><input id="type-atm-3" type="checkbox" />
-            <label htmlFor="type-atm-3">Hộ KD</label>
-          </div>
-          <div className="select-type-atm__item select-type-atm__item--sme"><input id="type-atm-4" type="checkbox" />
-            <label htmlFor="type-atm-4">DM vừa & nhỏ</label>
-          </div>
+          {branchATMType.map((item, index) => (
+            <div key={index} className={'select-type-atm__item select-type-atm__item--' + item.type}>
+              <input ref={typeATMRef.current[index]} id={'type-atm-' + (index + 1)} type="checkbox" onChange={(event) => changeTypeAtm(event, index)} defaultChecked={(index == 0 || index == 1) ? true : false} />
+              <label htmlFor={'type-atm-' + (index + 1)}>{item.label}</label>
+            </div>
+          ))}
         </div><a className="btn btn-outline-primary search button-search" href="#" onClick={(e) => searchATM(e)}> TÌM KIẾM</a></div>
       <div className="nav-map__bottom display-desktop" style={{ marginTop: '15px' }}>
         <p className="count-response"></p>
-        {/* <ul className="branch-atm-response" id="scroll"></ul>  */}
+        {responseATMList.length ? (
+          <ul className="branch-atm-response" id="scroll">
+            {responseATMList.map((item, index) => (
+              <ResponseItemATM key={index} item={item} />
+            ))}
+          </ul>
+        ) : null}
       </div>
     </div>
   )
