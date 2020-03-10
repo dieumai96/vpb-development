@@ -19,7 +19,7 @@ const LeftContent = () => {
   const [searchTypeATM, setSearchTypeATM] = useState({
     IsBranch: true,
     IsATM: true,
-    IsHousehold: true,
+    IsHousehold: false,
     IsSME: false
   })
 
@@ -130,8 +130,15 @@ const LeftContent = () => {
   }
 
   const searchATM = (e) => {
-    console.log(searchTypeATM)
     e.preventDefault();
+    axios.get(`${endPoints}branchandatm/searchbranchesandatms${buildUrl(seachPayload)}`).then(res => {
+      let listData = res.data.branches_and_atm;
+      let newListData = [
+        ...listData.filter(item => item.Address == res.data.headquarters),
+        ...listData.filter(item => item.Address != res.data.headquarters),
+      ]
+      mapTypeATM(newListData);
+    })
   }
 
   const mapTypeATM = (listData) => {
@@ -147,19 +154,20 @@ const LeftContent = () => {
       } else return;
 
     }).filter(key => key != undefined);
-    console.log(listKeyTypeATM)
-    listData = listData.filter(item => {
-      let satisfyItem;
-      listKeyTypeATM.forEach(key => {
-        if(item[`${key}`]){
-          satisfyItem = item;
-        }
-      })
-      return satisfyItem;
-    })
-    console.log(listData);
+    listData = listData.filter(item => checkItemByType(listKeyTypeATM, item));
     setResponseATMList(listData);
   }
+
+  const checkItemByType = (listType, item) => {
+    let checkType = false;
+    listType.forEach(key => {
+      if (item[key]) {
+        checkType = true;
+      }
+    })
+    return checkType;
+  }
+
   return (
     <div className="nav-map">
       <div className="nav-map__top">
