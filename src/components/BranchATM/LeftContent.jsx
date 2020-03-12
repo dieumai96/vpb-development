@@ -5,15 +5,17 @@ import { BranchATMReducer } from './context/BranchATM.reducer';
 import { endPoints } from '../../configs/endpoint';
 import { buildUrl } from '../../services/branch-atm.service';
 import ResponseItemATM from './ReponseItemATM';
-
+import { emitResponseList, responseDataList } from './services/BranchATM.service';
 import axios from 'axios';
 const LeftContent = () => {
-  const [{ seachPayload }, dispatch] = useReducer(BranchATMReducer, {
+  responseDataList().subscribe(_ => console.log(_))
+  const [{ seachPayload, response }, dispatch] = useReducer(BranchATMReducer, {
     seachPayload: {
       keyword: '',
       city: '',
       district: '',
-    }
+    },
+    response: [],
   });
 
   const [searchTypeATM, setSearchTypeATM] = useState({
@@ -38,6 +40,7 @@ const LeftContent = () => {
   const [districtList, setDistrictList] = useState([]);
 
   useEffect(() => {
+    console.log(seachPayload)
     getDataInitial().then(res => {
       getListProvince(res[1]);
       if (res[0].data.branches_and_atm && res[0].data.branches_and_atm) {
@@ -131,14 +134,15 @@ const LeftContent = () => {
 
   const searchATM = (e) => {
     e.preventDefault();
-    axios.get(`${endPoints}branchandatm/searchbranchesandatms${buildUrl(seachPayload)}`).then(res => {
-      let listData = res.data.branches_and_atm;
-      let newListData = [
-        ...listData.filter(item => item.Address == res.data.headquarters),
-        ...listData.filter(item => item.Address != res.data.headquarters),
-      ]
-      mapTypeATM(newListData);
-    })
+    console.log(response);
+    // axios.get(`${endPoints}branchandatm/searchbranchesandatms${buildUrl(seachPayload)}`).then(res => {
+    //   let listData = res.data.branches_and_atm;
+    //   let newListData = [
+    //     ...listData.filter(item => item.Address == res.data.headquarters),
+    //     ...listData.filter(item => item.Address != res.data.headquarters),
+    //   ]
+    //   mapTypeATM(newListData);
+    // })
   }
 
   const mapTypeATM = (listData) => {
@@ -156,6 +160,11 @@ const LeftContent = () => {
     }).filter(key => key != undefined);
     listData = listData.filter(item => checkItemByType(listKeyTypeATM, item));
     setResponseATMList(listData);
+
+    // INFO: add response data to store
+    dispatch({ type: 'branch_atm_response', payload: listData });
+    emitResponseList(listData);
+
   }
 
   const checkItemByType = (listType, item) => {
