@@ -1,25 +1,23 @@
-/// <reference types="@types/googlemaps" />
-import React, { Fragment, useRef, useEffect, useReducer } from 'react';
+import React, { Fragment, useRef, useEffect } from 'react';
 import { initMap } from './map/Map.service';
-import { responseDataList } from './services/BranchATM.service';
-import { Subscription } from 'rxjs';
-const Map = () => {
+import { createStructuredSelector } from 'reselect';
+import { selectAtmList } from '../../redux/atm/atm.selector';
+import { connect } from 'react-redux';
+const Map = ({ atmList }) => {
   const mapRef = useRef(React.createRef());
-  let resSubscription = new Subscription();
   let map;
   useEffect(() => {
     initMap(mapRef);
-    responseDataList().subscribe(data => console.log(data));
-    return () =>{
+    return () => {
     }
   });
-
   return (
     <Fragment>
-     
       <div id="map" ref={mapRef}></div>
     </Fragment>
   )
 }
-
-export default Map
+const mapPropsToState = createStructuredSelector({
+  atmList: selectAtmList,
+})
+export default connect(mapPropsToState)(Map);

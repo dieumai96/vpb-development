@@ -1,0 +1,1 @@
+export const ATM_RESPONSE_LIST = '[AMT] RESPONSE LIST';

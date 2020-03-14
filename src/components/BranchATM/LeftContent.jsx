@@ -5,10 +5,10 @@ import { BranchATMReducer } from './context/BranchATM.reducer';
 import { endPoints } from '../../configs/endpoint';
 import { buildUrl } from '../../services/branch-atm.service';
 import ResponseItemATM from './ReponseItemATM';
-import { emitResponseList, responseDataList } from './services/BranchATM.service';
+import { connect } from 'react-redux';
+import { actGetResponseAtmList } from '../../redux/atm/atm.action';
 import axios from 'axios';
-const LeftContent = () => {
-  responseDataList().subscribe(_ => console.log(_))
+const LeftContent = ({ actGetResponseAtmList }) => {
   const [{ seachPayload, response }, dispatch] = useReducer(BranchATMReducer, {
     seachPayload: {
       keyword: '',
@@ -134,15 +134,14 @@ const LeftContent = () => {
 
   const searchATM = (e) => {
     e.preventDefault();
-    console.log(response);
-    // axios.get(`${endPoints}branchandatm/searchbranchesandatms${buildUrl(seachPayload)}`).then(res => {
-    //   let listData = res.data.branches_and_atm;
-    //   let newListData = [
-    //     ...listData.filter(item => item.Address == res.data.headquarters),
-    //     ...listData.filter(item => item.Address != res.data.headquarters),
-    //   ]
-    //   mapTypeATM(newListData);
-    // })
+    axios.get(`${endPoints}branchandatm/searchbranchesandatms${buildUrl(seachPayload)}`).then(res => {
+      let listData = res.data.branches_and_atm;
+      let newListData = [
+        ...listData.filter(item => item.Address == res.data.headquarters),
+        ...listData.filter(item => item.Address != res.data.headquarters),
+      ]
+      mapTypeATM(newListData);
+    })
   }
 
   const mapTypeATM = (listData) => {
@@ -160,11 +159,7 @@ const LeftContent = () => {
     }).filter(key => key != undefined);
     listData = listData.filter(item => checkItemByType(listKeyTypeATM, item));
     setResponseATMList(listData);
-
-    // INFO: add response data to store
-    dispatch({ type: 'branch_atm_response', payload: listData });
-    emitResponseList(listData);
-
+    actGetResponseAtmList(listData);
   }
 
   const checkItemByType = (listType, item) => {
@@ -214,4 +209,7 @@ const LeftContent = () => {
   )
 }
 
-export default LeftContent
+const mapDispatchToProps = dispatch => ({
+  actGetResponseAtmList: atmList => dispatch(actGetResponseAtmList(atmList)),
+})
+export default connect(null, mapDispatchToProps)(LeftContent);
