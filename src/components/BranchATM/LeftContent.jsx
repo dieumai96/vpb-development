@@ -8,7 +8,9 @@ import ResponseItemATM from './ReponseItemATM';
 import { connect } from 'react-redux';
 import { actGetResponseAtmList } from '../../redux/atm/atm.action';
 import axios from 'axios';
-const LeftContent = ({ actGetResponseAtmList }) => {
+import { createStructuredSelector } from 'reselect';
+import { selectAtmList } from '../../redux/atm/atm.selector';
+const LeftContent = ({ actGetResponseAtmList, responseATMList }) => {
   const [{ seachPayload, response }, dispatch] = useReducer(BranchATMReducer, {
     seachPayload: {
       keyword: '',
@@ -25,7 +27,6 @@ const LeftContent = ({ actGetResponseAtmList }) => {
     IsSME: false
   })
 
-  const [responseATMList, setResponseATMList] = useState([]);
 
   const branchATMType = [
     { type: 'branch', label: 'Chi nhánh' },
@@ -158,7 +159,7 @@ const LeftContent = ({ actGetResponseAtmList }) => {
 
     }).filter(key => key != undefined);
     listData = listData.filter(item => checkItemByType(listKeyTypeATM, item));
-    setResponseATMList(listData);
+    // setResponseATMList(listData); 
     actGetResponseAtmList(listData);
   }
 
@@ -197,7 +198,7 @@ const LeftContent = ({ actGetResponseAtmList }) => {
         </div><a className="btn btn-outline-primary search button-search" href="#" onClick={(e) => searchATM(e)}> TÌM KIẾM</a></div>
       <div className="nav-map__bottom display-desktop" style={{ marginTop: '15px' }}>
         <p className="count-response"></p>
-        {responseATMList.length ? (
+        {responseATMList && responseATMList.length ? (
           <ul className="branch-atm-response" id="scroll">
             {responseATMList.map((item, index) => (
               <ResponseItemATM key={index} item={item} />
@@ -209,7 +210,12 @@ const LeftContent = ({ actGetResponseAtmList }) => {
   )
 }
 
+const mapPropsToState = createStructuredSelector({
+  responseATMList: selectAtmList,
+})
+
 const mapDispatchToProps = dispatch => ({
   actGetResponseAtmList: atmList => dispatch(actGetResponseAtmList(atmList)),
 })
-export default connect(null, mapDispatchToProps)(LeftContent);
+
+export default connect(mapPropsToState, mapDispatchToProps)(LeftContent);
