@@ -1,5 +1,5 @@
 import React, { Fragment, useRef, useEffect } from 'react';
-import { initMap } from './map/Map.service';
+import { initMap, markerOnMap } from './map/Map.service';
 import { createStructuredSelector } from 'reselect';
 import { selectAtmList } from '../../redux/atm/atm.selector';
 import { connect } from 'react-redux';
@@ -8,6 +8,7 @@ const Map = ({ atmList }) => {
   let map;
   useEffect(() => {
     initMap(mapRef);
+    markerOnMap(atmList);
     return () => {
     }
   });

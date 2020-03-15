@@ -104,3 +104,5 @@ export const LOCATION_INITIAL = {
   lat: 21.015972,
   lng: 105.815111
 }
+
+export const MARKER_ICON = "https://i.imgur.com/ZCH1xIw.png";
