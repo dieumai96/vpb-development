@@ -1,6 +1,6 @@
 /// <reference types="@types/googlemaps" />
 import { ZOOM_MAP, googleConfigStyle, LOCATION_INITIAL, MARKER_ICON } from '../../../configs/map';
-const { MarkerClusterer } = require("react-google-maps/lib/components/addons/MarkerClusterer");
+import MarkerClusterer from '@google/markerclusterer'
 let map;
 let markers = [];
 const google = window.google;
