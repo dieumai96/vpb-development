@@ -17,6 +17,7 @@ export const initMap = (mapRef) => {
 }
 
 export const markerOnMap = (atmList) => {
+  clearMarkers();
   if (atmList && atmList.length) {
     atmList.forEach(atm => {
       let position = {
@@ -31,4 +32,11 @@ export const markerOnMap = (atmList) => {
         'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
     });
   }
+}
+
+export const clearMarkers = () => {
+  for (let lp = 0; lp < markers.length; lp++) {
+    markers[lp].setMap(null);
+  }
+  markers = [];
 }
