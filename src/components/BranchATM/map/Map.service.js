@@ -1,14 +1,13 @@
 /// <reference types="@types/googlemaps" />
 import { ZOOM_MAP, googleConfigStyle, LOCATION_INITIAL, MARKER_ICON } from '../../../configs/map';
-import MarkerClusterer from '@google/markerclusterer'
 let map;
 let markers = [];
 let infowindow;
 const google = window.google;
-export const initMap = (mapRef) => {
+export const initMap = (mapRef, zoom = ZOOM_MAP) => {
   let position = { ...LOCATION_INITIAL }
   let mapOptions = {
-    zoom: ZOOM_MAP,
+    zoom: zoom,
     center: position,
     mapTypeControl: false,
     styles: googleConfigStyle
@@ -19,23 +18,26 @@ export const initMap = (mapRef) => {
 
 export const markerOnMap = (atmList) => {
   clearMarkers();
-  if (atmList && atmList.length) {
-    atmList.forEach(atm => {
+  if (atmList.listData && atmList.listData.length) {
+    atmList.listData.forEach(atm => {
       let atmInfomation = {
         lat: Number(atm.Latitude),
         lng: Number(atm.Longitude),
         ...atm
       };
       let marker = new google.maps.Marker({ position: atmInfomation, map: map, icon: MARKER_ICON });
+
+      activeHeadQuarters(marker, atmInfomation, atmList.headQuarters);
+
       marker.addListener('click', function () {
         clickToMarker(atmInfomation, marker);
       })
       markers.push(marker);
     });
-    new MarkerClusterer(map, markers, {
-      imagePath:
-        'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
-    });
+    // new MarkerClusterer(map, markers, {
+    //   imagePath:
+    //     'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+    // });
   }
 }
 
@@ -44,6 +46,15 @@ export const clearMarkers = () => {
     markers[lp].setMap(null);
   }
   markers = [];
+}
+
+const activeHeadQuarters = (marker, atmInfomation, headquarters) => {
+  if (headquarters && headquarters.length) {
+    if (atmInfomation.Id === headquarters[0].Id) {
+      clickToMarker(atmInfomation, marker);
+      // initMap(refMap, 20);
+    }
+  }
 }
 
 export const clickToMarker = (markerInfomation, marker) => {

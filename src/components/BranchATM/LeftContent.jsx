@@ -11,7 +11,7 @@ import axios from 'axios';
 import { createStructuredSelector } from 'reselect';
 import { selectAtmList } from '../../redux/atm/atm.selector';
 const LeftContent = ({ actGetResponseAtmList, responseATMList }) => {
-  const [{ seachPayload, response }, dispatch] = useReducer(BranchATMReducer, {
+  const [{ seachPayload }, dispatch] = useReducer(BranchATMReducer, {
     seachPayload: {
       keyword: '',
       city: '',
@@ -41,16 +41,16 @@ const LeftContent = ({ actGetResponseAtmList, responseATMList }) => {
   const [districtList, setDistrictList] = useState([]);
 
   useEffect(() => {
-    console.log(seachPayload)
     getDataInitial().then(res => {
       getListProvince(res[1]);
       if (res[0].data.branches_and_atm && res[0].data.branches_and_atm) {
         let listData = res[0].data.branches_and_atm;
+        let headQuarters = listData.filter(item => item.Address == res[0].data.headquarters);
         let newListData = [
-          ...listData.filter(item => item.Address == res[0].data.headquarters),
+          ...headQuarters,
           ...listData.filter(item => item.Address != res[0].data.headquarters),
         ]
-        mapTypeATM(newListData);
+        mapTypeATM(newListData, headQuarters);
       }
     });
   }, []);
@@ -137,15 +137,16 @@ const LeftContent = ({ actGetResponseAtmList, responseATMList }) => {
     e.preventDefault();
     axios.get(`${endPoints}branchandatm/searchbranchesandatms${buildUrl(seachPayload)}`).then(res => {
       let listData = res.data.branches_and_atm;
+      let headQuarters = listData.filter(item => item.Address == res[0].data.headquarters);
       let newListData = [
-        ...listData.filter(item => item.Address == res.data.headquarters),
+        ...headQuarters,
         ...listData.filter(item => item.Address != res.data.headquarters),
       ]
-      mapTypeATM(newListData);
+      mapTypeATM(newListData, headQuarters);
     })
   }
 
-  const mapTypeATM = (listData) => {
+  const mapTypeATM = (listData, headQuarters) => {
     let searchType = searchTypeATM;
     if (searchType.IsCDM == undefined) {
       searchType.IsCDM = searchType.IsATM;
@@ -159,8 +160,10 @@ const LeftContent = ({ actGetResponseAtmList, responseATMList }) => {
 
     }).filter(key => key != undefined);
     listData = listData.filter(item => checkItemByType(listKeyTypeATM, item));
-    // setResponseATMList(listData); 
-    actGetResponseAtmList(listData);
+    actGetResponseAtmList({
+      listData,
+      headQuarters,
+    });
   }
 
   const checkItemByType = (listType, item) => {
@@ -198,9 +201,9 @@ const LeftContent = ({ actGetResponseAtmList, responseATMList }) => {
         </div><a className="btn btn-outline-primary search button-search" href="#" onClick={(e) => searchATM(e)}> TÌM KIẾM</a></div>
       <div className="nav-map__bottom display-desktop" style={{ marginTop: '15px' }}>
         <p className="count-response"></p>
-        {responseATMList && responseATMList.length ? (
+        {responseATMList.listData && responseATMList.listData.length ? (
           <ul className="branch-atm-response" id="scroll">
-            {responseATMList.map((item, index) => (
+            {responseATMList.listData.map((item, index) => (
               <ResponseItemATM key={index} item={item} />
             ))}
           </ul>
