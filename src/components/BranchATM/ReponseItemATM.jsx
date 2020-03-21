@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { isMobile } from '../../utils/dom';
-const ReponseItemATM = ({ item }) => {
+const ReponseItemATM = ({ item, clickAtm }) => {
 
   const isDetectMobile = useMemo(() => isMobile(window.innerWidth), []);
 
@@ -16,8 +16,12 @@ const ReponseItemATM = ({ item }) => {
     }
   };
 
+  const clickItem = () => {
+    clickAtm(item);
+  }
+
   return (
-    <li className="branch-atm-response__item" >
+    <li className="branch-atm-response__item" onClick={clickItem} >
       {
         item.Name == null ? null : <h5 className="name">{item.Name}</h5>
       }
@@ -37,7 +41,7 @@ const ReponseItemATM = ({ item }) => {
             <a href={'tel:' + item.Phone}>{item.Phone}</a>
           </p>) :
           (<p className="phone" >Điện thoại:
-        <a href={'tel:' + item.Phone}>{item.Phone}</a>
+            <a href={'tel:' + item.Phone}>{item.Phone}</a>
           </p>)
       }
     </li >

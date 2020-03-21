@@ -25,7 +25,7 @@ export const markerOnMap = (atmList) => {
         lng: Number(atm.Longitude),
         ...atm
       };
-      let marker = new google.maps.Marker({ position: atmInfomation, map: map, icon: MARKER_ICON });
+      let marker = generateMarker(atmInfomation);
 
       activeHeadQuarters(marker, atmInfomation, atmList.headQuarters);
 
@@ -39,6 +39,10 @@ export const markerOnMap = (atmList) => {
     //     'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
     // });
   }
+}
+
+export const generateMarker = (atmInfomation) => {
+  return new google.maps.Marker({ position: atmInfomation, map: map, icon: MARKER_ICON });
 }
 
 export const clearMarkers = () => {
@@ -58,6 +62,7 @@ const activeHeadQuarters = (marker, atmInfomation, headquarters) => {
 }
 
 export const clickToMarker = (markerInfomation, marker) => {
+  map.setCenter({ lat: markerInfomation.lat, lng: markerInfomation.lng });
   if (infowindow) {
     infowindow.close();
   }

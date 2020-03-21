@@ -10,6 +10,7 @@ import { actGetResponseAtmList } from '../../redux/atm/atm.action';
 import axios from 'axios';
 import { createStructuredSelector } from 'reselect';
 import { selectAtmList } from '../../redux/atm/atm.selector';
+import { generateMarker, clickToMarker } from './map/Map.service';
 const LeftContent = ({ actGetResponseAtmList, responseATMList }) => {
   const [{ seachPayload }, dispatch] = useReducer(BranchATMReducer, {
     seachPayload: {
@@ -137,7 +138,7 @@ const LeftContent = ({ actGetResponseAtmList, responseATMList }) => {
     e.preventDefault();
     axios.get(`${endPoints}branchandatm/searchbranchesandatms${buildUrl(seachPayload)}`).then(res => {
       let listData = res.data.branches_and_atm;
-      let headQuarters = listData.filter(item => item.Address == res[0].data.headquarters);
+      let headQuarters = listData.filter(item => item.Address == res.data.headquarters);
       let newListData = [
         ...headQuarters,
         ...listData.filter(item => item.Address != res.data.headquarters),
@@ -176,6 +177,16 @@ const LeftContent = ({ actGetResponseAtmList, responseATMList }) => {
     return checkType;
   }
 
+  const onClickToAtmItem = (item) => {
+    let atmInfomation = {
+      lat: Number(item.Latitude),
+      lng: Number(item.Longitude),
+      ...item
+    };
+    let marker = generateMarker(atmInfomation);
+    clickToMarker(atmInfomation,marker);
+  }
+
   return (
     <div className="nav-map">
       <div className="nav-map__top">
@@ -204,7 +215,7 @@ const LeftContent = ({ actGetResponseAtmList, responseATMList }) => {
         {responseATMList.listData && responseATMList.listData.length ? (
           <ul className="branch-atm-response" id="scroll">
             {responseATMList.listData.map((item, index) => (
-              <ResponseItemATM key={index} item={item} />
+              <ResponseItemATM clickAtm={onClickToAtmItem} key={index} item={item} />
             ))}
           </ul>
         ) : null}
