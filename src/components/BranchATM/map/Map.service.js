@@ -26,18 +26,19 @@ export const markerOnMap = (atmList) => {
         ...atm
       };
       let marker = generateMarker(atmInfomation);
-
-      activeHeadQuarters(marker, atmInfomation, atmList.headQuarters);
-
       marker.addListener('click', function () {
         clickToMarker(atmInfomation, marker);
       })
       markers.push(marker);
     });
-    // new MarkerClusterer(map, markers, {
-    //   imagePath:
-    //     'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
-    // });
+    if (atmList.headQuarters && atmList.headQuarters.length) {
+      // INFO : if have headQuartes
+      activeHeadQuarters(atmList.headQuarters);
+    } else {
+      // INFO: if not have head quarters, set map center to first response ;
+      let firstAtm = { ...atmList.listData[0], lat: Number(atmList.listData[0].Latitude), lng: Number(atmList.listData[0].Longitude) };
+      setMapCenter(firstAtm);
+    }
   }
 }
 
@@ -52,17 +53,19 @@ export const clearMarkers = () => {
   markers = [];
 }
 
-const activeHeadQuarters = (marker, atmInfomation, headquarters) => {
-  if (headquarters && headquarters.length) {
-    if (atmInfomation.Id === headquarters[0].Id) {
-      clickToMarker(atmInfomation, marker);
-      // initMap(refMap, 20);
-    }
-  }
+const activeHeadQuarters = (headquarters) => {
+  let head = headquarters[0];
+  let atmInfomation = {
+    lat: Number(head.Latitude),
+    lng: Number(head.Longitude),
+    ...head
+  };
+  let marker = generateMarker(atmInfomation);
+  clickToMarker(atmInfomation, marker);
 }
 
 export const clickToMarker = (markerInfomation, marker) => {
-  map.setCenter({ lat: markerInfomation.lat, lng: markerInfomation.lng });
+  setMapCenter(markerInfomation);
   if (infowindow) {
     infowindow.close();
   }
@@ -88,4 +91,9 @@ const addInfoWindowContent = ({ Name, Address, Phone }) => {
       </div> \
   </div>`;
   return contentWindow;
+}
+
+
+const setMapCenter = ({ lat, lng }) => {
+  map.setCenter({ lat, lng });
 }

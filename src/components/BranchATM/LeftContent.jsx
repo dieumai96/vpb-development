@@ -40,6 +40,7 @@ const LeftContent = ({ actGetResponseAtmList, responseATMList }) => {
 
   const [provinceList, setProvinceList] = useState([]);
   const [districtList, setDistrictList] = useState([]);
+  const [topCity, setTopCity] = useState(['']);
 
   useEffect(() => {
     getDataInitial().then(res => {
@@ -66,6 +67,7 @@ const LeftContent = ({ actGetResponseAtmList, responseATMList }) => {
   const getListProvince = (res) => {
     if (res.data && res.data.cities && res.data.cities.length) {
       const topCities = res.data.top_cities;
+      setTopCity(res.data.top_cities[0]);
       const provinceIsNotOnTop = res.data.cities.filter(province => !topCities.includes(province.Key));
       const provinceOnTop = res.data.cities.filter(province => topCities.includes(province.Key));
       let newListProvince = [...provinceList, { 'Key': topCities[0] }, ...provinceOnTop, ...provinceIsNotOnTop];
@@ -100,7 +102,7 @@ const LeftContent = ({ actGetResponseAtmList, responseATMList }) => {
     switch (value.name) {
       case 'province': {
         getListDistrict(value);
-        dispatch({ type: 'update_payload', payload: { ...seachPayload, city: value.label } })
+        dispatch({ type: 'update_payload', payload: { ...seachPayload, city: value.label == topCity ? '' : value.label } })
         break;
       }
       case 'district': {
@@ -138,7 +140,9 @@ const LeftContent = ({ actGetResponseAtmList, responseATMList }) => {
     e.preventDefault();
     axios.get(`${endPoints}branchandatm/searchbranchesandatms${buildUrl(seachPayload)}`).then(res => {
       let listData = res.data.branches_and_atm;
-      let headQuarters = listData.filter(item => item.Address == res.data.headquarters);
+      let headQuarters = listData.filter(item => {
+        return item.Address == res.data.headquarters;
+      });
       let newListData = [
         ...headQuarters,
         ...listData.filter(item => item.Address != res.data.headquarters),
@@ -184,7 +188,7 @@ const LeftContent = ({ actGetResponseAtmList, responseATMList }) => {
       ...item
     };
     let marker = generateMarker(atmInfomation);
-    clickToMarker(atmInfomation,marker);
+    clickToMarker(atmInfomation, marker);
   }
 
   return (

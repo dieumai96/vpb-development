@@ -3,7 +3,6 @@ import { map, catchError } from 'rxjs/operators';
 import { endPoints } from '../configs/endpoint';
 import { of } from 'rxjs';
 export function callApiGet({url, params}) {
-    console.log(url,params);
     return ajax({
         method: 'GET',
         url: endPoints + url,
