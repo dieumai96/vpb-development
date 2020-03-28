@@ -1,1 +1,2 @@
 export const ATM_RESPONSE_LIST = '[AMT] RESPONSE LIST';
+export const LOCALTION = '[ATM] LOCALTION';

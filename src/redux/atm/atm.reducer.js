@@ -1,7 +1,8 @@
-import { ATM_RESPONSE_LIST } from "./atm.type";
+import { ATM_RESPONSE_LIST, LOCALTION } from "./atm.type";
 
 const initialState = {
   atmList: [],
+  localtion: {},
 }
 
 const reducer = (state = initialState, action) => {
@@ -10,6 +11,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         atmList: action.payload,
+      }
+    }
+    case LOCALTION: {
+      console.log('here');
+      return {
+        ...state,
+        localtion: action.payload,
       }
     }
     default: {
