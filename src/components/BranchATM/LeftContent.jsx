@@ -9,9 +9,9 @@ import { connect } from 'react-redux';
 import { actGetResponseAtmList } from '../../redux/atm/atm.action';
 import axios from 'axios';
 import { createStructuredSelector } from 'reselect';
-import { selectAtmList } from '../../redux/atm/atm.selector';
-import { generateMarker, clickToMarker } from './map/Map.service';
-const LeftContent = ({ actGetResponseAtmList, responseATMList }) => {
+import { selectAtmList, selectLocaltion } from '../../redux/atm/atm.selector';
+import { generateMarker, clickToMarker, directionMap } from './map/Map.service';
+const LeftContent = ({ actGetResponseAtmList, responseATMList, localtion }) => {
   const [{ seachPayload }, dispatch] = useReducer(BranchATMReducer, {
     seachPayload: {
       keyword: '',
@@ -189,6 +189,15 @@ const LeftContent = ({ actGetResponseAtmList, responseATMList }) => {
     };
     let marker = generateMarker(atmInfomation);
     clickToMarker(atmInfomation, marker);
+    if (localtion && localtion != null) {
+      directionMap({
+        origin: localtion,
+        destination: {
+          lat: atmInfomation.lat,
+          lng: atmInfomation.lng
+        }
+      })
+    }
   }
 
   return (
@@ -230,6 +239,7 @@ const LeftContent = ({ actGetResponseAtmList, responseATMList }) => {
 
 const mapPropsToState = createStructuredSelector({
   responseATMList: selectAtmList,
+  localtion: selectLocaltion
 })
 
 const mapDispatchToProps = dispatch => ({

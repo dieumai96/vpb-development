@@ -4,6 +4,10 @@ let map;
 let markers = [];
 let infowindow;
 const google = window.google;
+
+let directionsService = new google.maps.DirectionsService();
+let directionsRenderer = new google.maps.DirectionsRenderer();
+
 export const initMap = (mapRef, zoom = ZOOM_MAP) => {
   let position = { ...LOCATION_INITIAL }
   let mapOptions = {
@@ -65,7 +69,7 @@ const activeHeadQuarters = (headquarters) => {
 }
 
 export const clickToMarker = (markerInfomation, marker) => {
-  setMapCenter(markerInfomation);
+  // setMapCenter(markerInfomation); 
   if (infowindow) {
     infowindow.close();
   }
@@ -96,4 +100,36 @@ const addInfoWindowContent = ({ Name, Address, Phone }) => {
 
 const setMapCenter = ({ lat, lng }) => {
   map.setCenter({ lat, lng });
+}
+
+export const directionMap = ({ origin, destination }) => {
+  if (directionsRenderer) {
+    directionsRenderer.setMap(null);
+  }
+  calculateAndDisplayRoute({
+    directionsService,
+    directionsRenderer,
+    origin,
+    destination
+  })
+}
+
+const calculateAndDisplayRoute = ({ origin, destination }) => {
+  let start = new google.maps.LatLng(origin.lat, origin.lng);
+  let end = new google.maps.LatLng(destination.lat, destination.lng);
+  directionsService.route(
+    {
+      origin: start,
+      destination: end,
+      travelMode: 'DRIVING'
+    },
+    function (response, status) {
+
+      if (status === 'OK') {
+        directionsRenderer.setDirections(response);
+        directionsRenderer.setMap(map);
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
 }
