@@ -1,10 +1,14 @@
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 import MastHead from '../MastHead/MastHead';
 import SupportListBar from './SupportListBar';
 import SupportNowSearch from './SupportSearch';
 import SupportSegment from './SupportSegment';
 import SupportNotType from './SupportNotType';
-const SupportNow = () => {
+import SupportNowHasSegement from './SupportNowHasSegement';
+import { createStructuredSelector } from 'reselect';
+import { selectSupportSegementType } from '../../redux/supportnow/support-now.selector';
+const SupportNow = ({ segementType }) => {
   return (
     <Fragment>
       <MastHead />
@@ -15,7 +19,12 @@ const SupportNow = () => {
             <div className="container">
               <SupportNowSearch />
               <SupportSegment />
-              <SupportNotType />
+              {segementType == null ?
+                <SupportNotType /> :
+                <div className="nav-tab-level2__content">
+                  <SupportNowHasSegement segementType={segementType} />
+                </div>
+              }
             </div>
           </div>
         </div>
@@ -23,5 +32,7 @@ const SupportNow = () => {
     </Fragment>
   )
 }
-
-export default SupportNow
+const mapPropsToState = createStructuredSelector({
+  segementType: selectSupportSegementType,
+})
+export default connect(mapPropsToState)(SupportNow);
