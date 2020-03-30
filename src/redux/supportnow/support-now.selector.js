@@ -7,3 +7,8 @@ export const selectSupportSegementType = createSelector(
   support => support.segementType
 );
 
+export const selectSupportNowNoType = createSelector(
+  [selectSupportNow],
+  support => support.supportNoType
+);
+
