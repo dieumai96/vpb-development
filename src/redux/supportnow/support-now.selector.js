@@ -12,3 +12,8 @@ export const selectSupportNowNoType = createSelector(
   support => support.supportNoType
 );
 
+export const selectSupportNowHasType = createSelector(
+  [selectSupportNow],
+  support => support.supportHasType
+);
+

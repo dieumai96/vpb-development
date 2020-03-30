@@ -1,26 +1,27 @@
-import { SUPPORT_NOW_SEGEMENT_TYPE, SUPPORT_NOW_GET_NO_TYPE_SUCCESS, SUPPORT_NOW_GET_NO_TYPE_FAIL } from "./support-now.type";
-import { callApiPost } from '../../callApi/CallApiService';
+import { SUPPORT_NOW_SEGEMENT_TYPE, SUPPORT_NOW_GET_NO_TYPE_SUCCESS, SUPPORT_NOW_GET_NO_TYPE_FAIL, SUPPORT_NOW_GET_HAS_TYPE_SUCCESS } from "./support-now.type";
+import { callApiPost, callApiGet } from '../../callApi/CallApiService';
 import { SUPPORT_NOW_NO_TYPE } from "../../configs/const";
+import { forkJoin } from "rxjs";
 export const actSetSupportNowSegementType = (type) => ({
   type: SUPPORT_NOW_SEGEMENT_TYPE,
   payload: type,
 })
 
-export const actGetSupportNowNoType = ({ page, maxItems }) => {
+export const actGetSupportNowNoType = ({ page = 1, maxItems = 10 }) => {
   return dispatch => {
     let url = 'faq/search';
     let data = {
-      "page": page,
-      "maxItems": maxItems,
-      "customertype": SUPPORT_NOW_NO_TYPE
+      page: page,
+      maxItems: maxItems,
+      customertype: SUPPORT_NOW_NO_TYPE
     }
-    return callApiPost(url, data).done(res => {
+    return callApiPost(url, data).subscribe(res => {
       let data = {
-        supportNowNoType: res?.faqItems,
-        totalItem: res?.totalCount,
+        supportNowNoType: res?.response?.faqItems,
+        totalItem: res?.response?.totalCount,
       }
       dispatch(actGetSupportNowNoTypeSuccess(data));
-    }).catch(err => dispatch(actGetSupportNowNoTypeFail()));
+    }, err => dispatch(actGetSupportNowNoTypeFail()));
   }
 }
 
@@ -33,5 +34,33 @@ export const actGetSupportNowNoTypeSuccess = (data) => {
 export const actGetSupportNowNoTypeFail = () => {
   return {
     type: SUPPORT_NOW_GET_NO_TYPE_FAIL
+  }
+}
+
+export const actGetSupportNowHasType = ({ page = 1, maxItems = 10, customerType, firstTime = false }) => {
+  return dispatch => {
+    let searchBody = {
+      page,
+      maxItems,
+      customertype: customerType
+    }
+    if (firstTime) {
+      return forkJoin([
+        callApiGet(`faqtag/get?customerType=${customerType}`),
+        callApiPost('faq/search', searchBody)
+      ]).subscribe(res => {
+        
+      });
+    } else {
+      return callApiPost('faq/search', searchBody)
+    }
+  }
+}
+
+
+export const actGetSupportNowHasTypeSuccess = (data) => {
+  return {
+    type: SUPPORT_NOW_GET_HAS_TYPE_SUCCESS,
+    payload: data,
   }
 }

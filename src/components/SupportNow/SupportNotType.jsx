@@ -19,7 +19,6 @@ const SupportNotType = ({ actGetFAQs, faqList }) => {
       maxItems: pageSize
     }
   }
-  console.log(faqList)
   return (
     <div className="suggest-question-paging">
       <div className="support-suggest-question-content">
@@ -30,7 +29,7 @@ const SupportNotType = ({ actGetFAQs, faqList }) => {
           <div className="support-suggest-question-content__detail" id="accordionSuggestQuestion">
             {faqList?.supportNowNoType?.length ?
               faqList.supportNowNoType.map((item, index) =>
-                (<QuestionItem item={item} index={index} />))
+                (<QuestionItem key={index} item={item} index={index} />))
               : null}
           </div>
         </div>
