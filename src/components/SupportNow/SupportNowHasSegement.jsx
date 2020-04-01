@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 import { SUPPORT_NOW_PAGE_SIZE } from '../../configs/const';
 import { createStructuredSelector } from 'reselect';
 import SupportNowMenuItem from './SupportNowMenuItem';
+import SupportNowTag from './SupportNowTag';
 
-const SupportNowHasSegement = ({ segementType, actGetFAQs, supportNowMenu, supportNowData }) => {
+const SupportNowHasSegement = ({ segementType, actGetFAQs, supportNowMenu }) => {
   const pageSize = SUPPORT_NOW_PAGE_SIZE;
   console.log(supportNowMenu);
   const [pageIndex, setPageIndex] = useState(1);
@@ -24,7 +25,7 @@ const SupportNowHasSegement = ({ segementType, actGetFAQs, supportNowMenu, suppo
   }
   return (
     <div className="nav-tab-level2__content__item-segment-1">
-      <div className="support-now-content__detail tab-pane segment-1">
+      <div className="support-now-content__detail tab-pane active">
         <div className="support-filter-categories-desktop">
           <div className="support-categories-desktop">
             <div className="support-categories-desktop__delete">
@@ -36,10 +37,13 @@ const SupportNowHasSegement = ({ segementType, actGetFAQs, supportNowMenu, suppo
             <div className="support-categories-desktop__list">
               {supportNowMenu?.length ?
                 supportNowMenu.map((item, index) => (
-                  <SupportNowMenuItem key={index} item={item}  index = {index}/>
+                  <SupportNowMenuItem key={index} item={item} index={index} />
                 )) : null}
             </div>
           </div>
+        </div>
+        <div className="support-now-content__result">
+          <SupportNowTag />
         </div>
       </div>
     </div>

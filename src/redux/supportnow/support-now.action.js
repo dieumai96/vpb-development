@@ -49,10 +49,11 @@ export const actGetSupportNowHasType = ({ page = 1, maxItems = 10, customerType,
         callApiGet(`faqtag/get?customerType=${customerType}`),
         callApiPost('faq/search', searchBody)
       ]).subscribe(res => {
-        dispatch(actGetSupportNowMenuSuccess(res[0].response?.data?.TagCatalogs));
+        const [menu, data] = res;
+        dispatch(actGetSupportNowMenuSuccess(menu.response?.data?.TagCatalogs));
         dispatch(actGetSupportNowHasTypeSuccess({
-          data: res[1].response?.faqItems,
-          totalCount: res[1].response?.totalCount
+          data: data.response?.faqItems,
+          totalCount: data.response?.totalCount
         }));
       });
     } else {
