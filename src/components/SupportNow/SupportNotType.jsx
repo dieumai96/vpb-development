@@ -8,7 +8,7 @@ import QuestionItem from './QuestionItem';
 const SupportNotType = ({ actGetFAQs, faqList }) => {
   const pageSize = SUPPORT_NOW_PAGE_SIZE;
   const [pageIndex, setPageIndex] = useState(1);
-
+  
   useEffect(() => {
     actGetFAQs(getPayload());
   }, []);

@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { actGetSupportNowHasType } from '../../redux/supportnow/support-now.action';
+import { selectSupportNowMenu, selectSupportNowHasType } from '../../redux/supportnow/support-now.selector';
 import { connect } from 'react-redux';
 import { SUPPORT_NOW_PAGE_SIZE } from '../../configs/const';
-const SupportNowHasSegement = ({ segementType, actGetFAQs }) => {
+import { createStructuredSelector } from 'reselect';
+import SupportNowMenuItem from './SupportNowMenuItem';
+
+const SupportNowHasSegement = ({ segementType, actGetFAQs, supportNowMenu, supportNowData }) => {
   const pageSize = SUPPORT_NOW_PAGE_SIZE;
+  console.log(supportNowMenu);
   const [pageIndex, setPageIndex] = useState(1);
+
   useEffect(() => {
     actGetFAQs({ ...getPayload(), firstTime: true });
   }, [segementType]);
+
   const getPayload = () => {
     return {
       page: pageIndex,
@@ -16,7 +23,26 @@ const SupportNowHasSegement = ({ segementType, actGetFAQs }) => {
     }
   }
   return (
-    <div>Has type</div>
+    <div className="nav-tab-level2__content__item-segment-1">
+      <div className="support-now-content__detail tab-pane segment-1">
+        <div className="support-filter-categories-desktop">
+          <div className="support-categories-desktop">
+            <div className="support-categories-desktop__delete">
+              <p><a href="">Lọc lại</a></p>
+            </div>
+            <div className="support-categories-desktop__title">
+              <p>SẢN PHẨM & DỊCH VỤ</p>
+            </div>
+            <div className="support-categories-desktop__list">
+              {supportNowMenu?.length ?
+                supportNowMenu.map((item, index) => (
+                  <SupportNowMenuItem key={index} item={item}  index = {index}/>
+                )) : null}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -24,4 +50,9 @@ const mapDispatchToProps = dispatch => ({
   actGetFAQs: data => dispatch(actGetSupportNowHasType(data)),
 })
 
-export default connect(null, mapDispatchToProps)(SupportNowHasSegement);
+const mapPropsToState = createStructuredSelector({
+  supportNowMenu: selectSupportNowMenu,
+  supportNowData: selectSupportNowHasType
+});
+
+export default connect(mapPropsToState, mapDispatchToProps)(SupportNowHasSegement);

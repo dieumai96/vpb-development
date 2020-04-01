@@ -17,3 +17,8 @@ export const selectSupportNowHasType = createSelector(
   support => support.supportHasType
 );
 
+export const selectSupportNowMenu = createSelector(
+  [selectSupportNow],
+  support => support.supportNowMenu
+);
+
