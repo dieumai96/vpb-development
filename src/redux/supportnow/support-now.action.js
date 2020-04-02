@@ -60,7 +60,7 @@ export const actGetSupportNowHasType = ({ page = 1, maxItems = 10, customerType,
       callApiPost('faq/search', searchBody)
     ]).subscribe(res => {
       const [menu, data] = res;
-      dispatch(actGetSupportNowMenuSuccess(menu.response?.data?.TagCatalogs));
+      dispatch(actGetSupportNowMenuSuccess(menu.response?.data?.TagCatalogs || []));
       dispatch(actGetSupportNowHasTypeSuccess({
         data: data.response?.faqItems,
         totalCount: data.response?.totalCount
