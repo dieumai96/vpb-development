@@ -13,7 +13,7 @@ const SupportNowHasSegement = ({ segementType, actGetFAQs, supportNowMenu }) => 
 
   useEffect(() => {
     actGetFAQs({ ...getPayload() });
-  }, [segementType]);
+  }, [segementType.type]);
 
   const getPayload = () => {
     return {
@@ -42,7 +42,7 @@ const SupportNowHasSegement = ({ segementType, actGetFAQs, supportNowMenu }) => 
           </div>
         </div>
         <div className="support-now-content__result">
-          <SupportNowTag />
+          <SupportNowTag segementType={segementType} />
         </div>
       </div>
     </div>
