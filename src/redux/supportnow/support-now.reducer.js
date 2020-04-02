@@ -1,4 +1,4 @@
-import { SUPPORT_NOW_SEGEMENT_TYPE, SUPPORT_NOW_GET_NO_TYPE_SUCCESS, SUPPORT_NOW_GET_NO_TYPE, SUPPORT_NOW_GET_NO_TYPE_FAIL, SUPPORT_NOW_GET_HAS_TYPE_SUCCESS, SUPPORT_NOW_GET_HAS_TYPE_FAIL, SUPPORT_NOW_GET_MENU_SUCCESS, SUPPORT_NOW_GET_MENU_FAIL, SUPPORT_NOW_RESET_SEGMENT, SUPPORT_NOW_ADD_TAG, SUPPORT_NOW_REMOVE_TAG } from "./support-now.type";
+import { SUPPORT_NOW_SEGEMENT_TYPE, SUPPORT_NOW_GET_NO_TYPE_SUCCESS, SUPPORT_NOW_GET_NO_TYPE, SUPPORT_NOW_GET_NO_TYPE_FAIL, SUPPORT_NOW_GET_HAS_TYPE_SUCCESS, SUPPORT_NOW_GET_HAS_TYPE_FAIL, SUPPORT_NOW_GET_MENU_SUCCESS, SUPPORT_NOW_GET_MENU_FAIL, SUPPORT_NOW_RESET_SEGMENT, SUPPORT_NOW_ADD_TAG, SUPPORT_NOW_REMOVE_TAG, SUPPORT_NOW_UPDATE_MENU_CHECKBOX_STATE } from "./support-now.type";
 import * as uuid from 'uuid';
 
 const initialState = {
@@ -12,16 +12,22 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SUPPORT_NOW_SEGEMENT_TYPE: {
+      let newMenu = [...resetAllMenuActive(state.supportNowMenu)];
       return {
         ...state,
         segementType: action.payload,
+        tagList: [],
+        supportNowMenu: newMenu
       }
     }
 
     case SUPPORT_NOW_RESET_SEGMENT: {
+      let newMenu = [...resetAllMenuActive(state.supportNowMenu)];
       return {
         ...state,
         segementType: null,
+        tagList: [],
+        supportNowMenu: newMenu
       }
     }
 
@@ -96,6 +102,17 @@ const reducer = (state = initialState, action) => {
       }
     }
 
+    case SUPPORT_NOW_UPDATE_MENU_CHECKBOX_STATE: {
+      let tagList = [...state.tagList];
+      let menuList = [...state.supportNowMenu];
+      let newMenu = [...getParentIdChosen(tagList, menuList)];
+      newMenu = [...getChildIdChosen(tagList, newMenu)];
+      return {
+        ...state,
+        supportNowMenu: newMenu,
+      }
+    }
+
     default: {
       return {
         ...state,
@@ -165,4 +182,52 @@ function removeTagChild(tagChildId, parentId, tagList) {
   return newTagList;
 }
 
+function getParentIdChosen(tagList, menuList) {
+  let parentIdList = [];
+  tagList.forEach(item => {
+    if (!parentIdList.includes(item.parentId)) {
+      parentIdList.push(item.parentId);
+    }
+  })
+  let newMenuList = [...menuList];
+  newMenuList.forEach(item => {
+    if (parentIdList.includes(item.parentId)) {
+      item.isActive = true;
+    } else {
+      delete item.isActive;
+    }
+  })
+  return newMenuList || [];
+}
+
+function getChildIdChosen(tagList, menuList) {
+
+  let childIdList = [];
+  tagList.forEach(item => {
+    if (item?.TagId) {
+      childIdList.push(item?.TagId);
+    }
+  })
+  let newMenuList = [...menuList];
+  newMenuList.forEach(item => {
+    item.TagItems.forEach(itemChild => {
+      if (childIdList.includes(itemChild.TagId)) {
+        itemChild.isActive = true;
+      } else {
+        delete itemChild.isActive;
+      }
+    })
+  })
+  return newMenuList || [];
+}
+
+function resetAllMenuActive(menuList) {
+  menuList.forEach(item => {
+    delete item?.isActive;
+    item.TagItems.forEach(itemChild => {
+      delete itemChild?.isActive;
+    })
+  })
+  return menuList;
+}
 export default reducer;

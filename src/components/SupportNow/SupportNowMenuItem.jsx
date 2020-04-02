@@ -47,7 +47,7 @@ const SupportNowMenuItem = ({ item, index, actAddTag, actRemoveTag, selectSuppor
   return (
     <div className="support-categories-desktop__list__items">
       <div className="title">
-        <input className="vp-checkbox parent" type="checkbox" id={'items-' + index} onChange={(event) => menuParentChange(event)} />
+        <input className="vp-checkbox parent" type="checkbox" id={'items-' + index} checked={item.isActive} onChange={(event) => menuParentChange(event)} />
         <label htmlFor={'items-' + index}>
           {item?.Title}
         </label>
@@ -61,7 +61,7 @@ const SupportNowMenuItem = ({ item, index, actAddTag, actRemoveTag, selectSuppor
         {item?.TagItems?.length ? (
           item.TagItems.map((childItem, indexChild) => (
             <div className="sub-list__items" key={indexChild}>
-              <input className="vp-checkbox child" type="checkbox" id={'items-' + index + '-' + indexChild} onChange={(event) => menuChildChange(event, childItem)} />
+              <input className="vp-checkbox child" type="checkbox" checked={childItem.isActive} id={'items-' + index + '-' + indexChild} onChange={(event) => menuChildChange(event, childItem)} />
               <label htmlFor={'items-' + index + '-' + indexChild}>
                 {childItem.Title}
               </label>

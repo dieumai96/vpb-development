@@ -14,7 +14,6 @@ const reducer = (state = initialState, action) => {
       }
     }
     case LOCALTION: {
-      console.log('here');
       return {
         ...state,
         localtion: action.payload,

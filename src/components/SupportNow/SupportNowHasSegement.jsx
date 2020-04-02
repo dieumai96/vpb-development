@@ -8,7 +8,6 @@ import SupportNowMenuItem from './SupportNowMenuItem';
 import SupportNowTag from './SupportNowTag';
 
 const SupportNowHasSegement = ({ segementType, actGetFAQs, supportNowMenu, selectSupportNowTag, actUpdateMenu }) => {
-  console.log(selectSupportNowTag);
   const pageSize = SUPPORT_NOW_PAGE_SIZE;
   const [pageIndex, setPageIndex] = useState(1);
 

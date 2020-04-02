@@ -54,7 +54,6 @@ export const actGetSupportNowHasType = ({ page = 1, maxItems = 10, customerType,
       maxItems,
       customertype: customerType
     }
-    console.log(searchBody);
     return forkJoin([
       callApiGet(`faqtag/get?customerType=${customerType}`),
       callApiPost('faq/search', searchBody)
