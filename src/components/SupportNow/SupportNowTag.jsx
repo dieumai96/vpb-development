@@ -3,9 +3,9 @@ import { createStructuredSelector } from 'reselect';
 import { selectSupportNowHasType, selectSupportNowTag } from '../../redux/supportnow/support-now.selector';
 import QuestionItem from './QuestionItem';
 import { connect } from 'react-redux';
-import { actResetSupportNowSegement } from '../../redux/supportnow/support-now.action';
+import { actResetSupportNowSegement, actRemoveTag } from '../../redux/supportnow/support-now.action';
 
-const SupportNowTag = ({ supportNowData, segementType, actResetSegement, selectSupportNowTag }) => {
+const SupportNowTag = ({ supportNowData, segementType, actResetSegement, selectSupportNowTag, actRemoveTag }) => {
   let { totalCount, data } = supportNowData;
   const totalItem = useMemo(() => totalCount > 0 ? totalCount : 0, [supportNowData.totalCount]);
 
@@ -13,6 +13,18 @@ const SupportNowTag = ({ supportNowData, segementType, actResetSegement, selectS
     event.preventDefault();
     actResetSegement();
   }
+
+  const removeTag = (event, tag, tagId) => {
+    event.preventDefault();
+    const childTagOption = {
+      parentId: tag.parentId,
+      type: 'child',
+      action: 'remove',
+      tagId: tagId,
+    };
+    actRemoveTag(childTagOption);
+  }
+
   return (
     <div className="support-tag-content">
       <div className="support-tag-content__title"><input id="result-text" type="hidden" value="Tìm thấy {result} kết quả:" />
@@ -30,8 +42,8 @@ const SupportNowTag = ({ supportNowData, segementType, actResetSegement, selectS
         {selectSupportNowTag?.length ?
           selectSupportNowTag.map((tag, index) => (
             <span className="support-tag-content__detail__items" key={index}>
-              {tag.Title}
-              <a href="" className="close-button close-range">
+              {tag?.Title}
+              <a href="" className="close-button close-range" onClick={(event) => removeTag(event, tag, tag?.TagId)}>
                 <i className="icon-close"></i>
               </a>
             </span>
@@ -55,6 +67,7 @@ const mapPropsToState = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
   actResetSegement: () => dispatch(actResetSupportNowSegement()),
+  actRemoveTag: (data) => dispatch(actRemoveTag(data)),
 })
 
 export default connect(mapPropsToState, mapDispatchToProps)(SupportNowTag);

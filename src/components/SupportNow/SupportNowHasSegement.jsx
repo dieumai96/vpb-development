@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { actGetSupportNowHasType } from '../../redux/supportnow/support-now.action';
-import { selectSupportNowMenu, selectSupportNowHasType, selectSupportSegementType } from '../../redux/supportnow/support-now.selector';
+import { actGetSupportNowHasType, actUpdateMenuCheckboxState } from '../../redux/supportnow/support-now.action';
+import { selectSupportNowMenu, selectSupportNowHasType, selectSupportNowTag } from '../../redux/supportnow/support-now.selector';
 import { connect } from 'react-redux';
 import { SUPPORT_NOW_PAGE_SIZE } from '../../configs/const';
 import { createStructuredSelector } from 'reselect';
 import SupportNowMenuItem from './SupportNowMenuItem';
 import SupportNowTag from './SupportNowTag';
 
-const SupportNowHasSegement = ({ segementType, actGetFAQs, supportNowMenu }) => {
+const SupportNowHasSegement = ({ segementType, actGetFAQs, supportNowMenu, selectSupportNowTag, actUpdateMenu }) => {
+  console.log(selectSupportNowTag);
   const pageSize = SUPPORT_NOW_PAGE_SIZE;
   const [pageIndex, setPageIndex] = useState(1);
 
   useEffect(() => {
     actGetFAQs({ ...getPayload() });
   }, [segementType.type]);
+
+  useEffect(() => {
+    actUpdateMenu({});
+  }, [selectSupportNowTag?.length])
+
 
   const getPayload = () => {
     return {
@@ -22,6 +28,9 @@ const SupportNowHasSegement = ({ segementType, actGetFAQs, supportNowMenu }) => 
       customerType: segementType.type
     }
   }
+
+
+
   return (
     <div className="nav-tab-level2__content__item-segment-1">
       <div className="support-now-content__detail tab-pane active">
@@ -51,11 +60,13 @@ const SupportNowHasSegement = ({ segementType, actGetFAQs, supportNowMenu }) => 
 
 const mapDispatchToProps = dispatch => ({
   actGetFAQs: data => dispatch(actGetSupportNowHasType(data)),
+  actUpdateMenu: data => dispatch(actUpdateMenuCheckboxState(data)),
 })
 
 const mapPropsToState = createStructuredSelector({
   supportNowMenu: selectSupportNowMenu,
   supportNowData: selectSupportNowHasType,
+  selectSupportNowTag: selectSupportNowTag,
 });
 
 export default connect(mapPropsToState, mapDispatchToProps)(SupportNowHasSegement);

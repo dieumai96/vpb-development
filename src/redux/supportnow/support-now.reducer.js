@@ -69,7 +69,7 @@ const reducer = (state = initialState, action) => {
       if (action?.payload?.type == 'parent') {
         newTagList = [...newTagList, ...addParentTag(action.payload, state.supportNowMenu)];
       } else {
-
+        newTagList = [...addTagChild(action.payload, state.tagList, state.supportNowMenu)];
       }
       return {
         ...state,
@@ -79,8 +79,16 @@ const reducer = (state = initialState, action) => {
 
     case SUPPORT_NOW_REMOVE_TAG: {
       let newTagList = [...state.tagList];
-      if (action?.payload?.type == 'parent') {
-        newTagList = newTagList.filter(item => item.parentId != action.payload?.parentId)
+      const { payload } = action;
+      if (payload?.type == 'parent') {
+        newTagList = newTagList.filter(item => item.parentId != payload?.parentId)
+      } else {
+        newTagList = [...removeTagChild(payload?.tagId, payload?.parentId, newTagList)];
+        const findSameParentId = newTagList.filter(item => item.parentId == payload?.parentId);
+        // INFO : if user remove all child item be longs to one parent => need remove this parent
+        if (findSameParentId?.length == 1) {
+          newTagList = newTagList.filter(item => item.parentId != payload?.parentId);
+        }
       }
       return {
         ...state,
@@ -133,5 +141,28 @@ function findParentTag(parentId, menuList) {
   return menuList.find(item => item.parentId == parentId);
 }
 
+function addTagChild({ parentId, tagId, title }, tagList, supportNowMenu) {
+  const isTagListHasParent = tagList.find(item => item.parentId == parentId);
+  let newTagList = [...tagList];
+  if (!isTagListHasParent) {
+    const findParent = findParentTag(parentId, supportNowMenu);
+    newTagList.push({
+      Title: findParent?.Title,
+      parentId: findParent?.parentId,
+    });
+  }
+  newTagList.push({
+    Title: title,
+    TagId: tagId,
+    parentId,
+  });
+  return newTagList;
+}
+
+function removeTagChild(tagChildId, parentId, tagList) {
+  // INFO : if haven't tagChildId => this is parent tag => need remove this and child items be long this
+  let newTagList = tagList.filter(item => tagChildId == undefined ? item.parentId != parentId : item.TagId !== tagChildId)
+  return newTagList;
+}
 
 export default reducer;

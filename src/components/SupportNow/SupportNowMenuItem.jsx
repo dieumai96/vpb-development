@@ -5,6 +5,7 @@ import { selectSupportNowTag } from '../../redux/supportnow/support-now.selector
 import { createStructuredSelector } from 'reselect';
 
 const SupportNowMenuItem = ({ item, index, actAddTag, actRemoveTag, selectSupportNowTag }) => {
+
   const menuParentChange = (event) => {
     const parentMenuOption = {
       parentId: item.parentId,
@@ -20,6 +21,26 @@ const SupportNowMenuItem = ({ item, index, actAddTag, actRemoveTag, selectSuppor
         ...parentMenuOption,
         action: 'remove'
       })
+    }
+  }
+
+  const menuChildChange = (event, childItem) => {
+    const childMenuOption = {
+      parentId: item.parentId,
+      type: 'child',
+      tagId: childItem.TagId,
+      title: childItem.Title,
+    };
+    if (event.target.checked) {
+      actAddTag({
+        ...childMenuOption,
+        action: 'add'
+      });
+    } else {
+      actRemoveTag({
+        ...childMenuOption,
+        action: 'remove'
+      });
     }
   }
 
@@ -40,7 +61,7 @@ const SupportNowMenuItem = ({ item, index, actAddTag, actRemoveTag, selectSuppor
         {item?.TagItems?.length ? (
           item.TagItems.map((childItem, indexChild) => (
             <div className="sub-list__items" key={indexChild}>
-              <input className="vp-checkbox child" type="checkbox" id={'items-' + index + '-' + indexChild} />
+              <input className="vp-checkbox child" type="checkbox" id={'items-' + index + '-' + indexChild} onChange={(event) => menuChildChange(event, childItem)} />
               <label htmlFor={'items-' + index + '-' + indexChild}>
                 {childItem.Title}
               </label>
