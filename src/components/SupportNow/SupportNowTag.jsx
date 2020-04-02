@@ -16,7 +16,7 @@ const SupportNowTag = ({ supportNowData }) => {
       <div className="support-tag-content__detail">
         
       </div>
-      <div class="support-question-content" id="accordionFAQs">
+      <div className="support-question-content" id="accordionFAQs">
         {data?.length ?
           data.map((item, index) => (
             <QuestionItem key={index} item={item} index={index} />

@@ -30,9 +30,9 @@ class SupportSegment extends Component {
       ]
     }
   }
-  changeType = (segementRef, idx, type) => {
+  changeType = (segementRef, idx, { type, title }) => {
     this.removeClassActive(segementRef, idx);
-    this.props.actSetSupportNowSegementType(type);
+    this.props.actSetSupportNowSegementType({ type, title });
   }
   removeClassActive = (segementRef, idx) => {
     segementRef.map(item => item.current.classList.remove('active'));
@@ -47,7 +47,7 @@ class SupportSegment extends Component {
         <div className="support-segment-content__detail nav-tab-level2__link">
           {
             segment.map((item, idx) => (
-              <span className="range" key={idx} onClick={() => this.changeType(segementRef, idx, item.type)}>
+              <span className="range" key={idx} onClick={() => this.changeType(segementRef, idx, { type: item.type, title: item.title })}>
                 <a data-link={'segement-' + (idx + 1)} ref={segementRef[idx]} >{item.title}</a>
               </span>
             ))
@@ -60,8 +60,8 @@ class SupportSegment extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actSetSupportNowSegementType: (type) => {
-      dispatch(actSetSupportNowSegementType(type));
+    actSetSupportNowSegementType: ({ type, title }) => {
+      dispatch(actSetSupportNowSegementType({ type, title }));
     }
   }
 }

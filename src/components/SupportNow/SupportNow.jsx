@@ -19,11 +19,12 @@ const SupportNow = ({ segementType }) => {
             <div className="container">
               <SupportNowSearch />
               <SupportSegment />
-              {segementType == null ?
-                <SupportNotType /> :
+              {segementType != null?
                 <div className="nav-tab-level2__content">
                   <SupportNowHasSegement segementType={segementType} />
                 </div>
+                :
+                <SupportNotType />
               }
             </div>
           </div>

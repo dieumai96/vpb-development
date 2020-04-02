@@ -4,7 +4,7 @@ const initialState = {
   segementType: null,
   supportNoType: {},
   supportHasType: {},
-  supportNowMenu : [],
+  supportNowMenu: [],
 }
 
 const reducer = (state = initialState, action) => {
@@ -39,7 +39,7 @@ const reducer = (state = initialState, action) => {
         supportHasType: {},
       }
     }
-    
+
     case SUPPORT_NOW_GET_MENU_SUCCESS: {
       return {
         ...state,

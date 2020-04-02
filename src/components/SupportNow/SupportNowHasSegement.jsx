@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { actGetSupportNowHasType } from '../../redux/supportnow/support-now.action';
-import { selectSupportNowMenu, selectSupportNowHasType } from '../../redux/supportnow/support-now.selector';
+import { selectSupportNowMenu, selectSupportNowHasType, selectSupportSegementType } from '../../redux/supportnow/support-now.selector';
 import { connect } from 'react-redux';
 import { SUPPORT_NOW_PAGE_SIZE } from '../../configs/const';
 import { createStructuredSelector } from 'reselect';
@@ -9,18 +9,17 @@ import SupportNowTag from './SupportNowTag';
 
 const SupportNowHasSegement = ({ segementType, actGetFAQs, supportNowMenu }) => {
   const pageSize = SUPPORT_NOW_PAGE_SIZE;
-  console.log(supportNowMenu);
   const [pageIndex, setPageIndex] = useState(1);
 
   useEffect(() => {
-    actGetFAQs({ ...getPayload(), firstTime: true });
+    actGetFAQs({ ...getPayload() });
   }, [segementType]);
 
   const getPayload = () => {
     return {
       page: pageIndex,
       maxItems: pageSize,
-      customerType: segementType
+      customerType: segementType.type
     }
   }
   return (
@@ -56,7 +55,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapPropsToState = createStructuredSelector({
   supportNowMenu: selectSupportNowMenu,
-  supportNowData: selectSupportNowHasType
+  supportNowData: selectSupportNowHasType,
 });
 
 export default connect(mapPropsToState, mapDispatchToProps)(SupportNowHasSegement);
