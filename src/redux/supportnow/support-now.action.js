@@ -1,4 +1,4 @@
-import { SUPPORT_NOW_SEGEMENT_TYPE, SUPPORT_NOW_GET_NO_TYPE_SUCCESS, SUPPORT_NOW_GET_NO_TYPE_FAIL, SUPPORT_NOW_GET_HAS_TYPE_SUCCESS, SUPPORT_NOW_GET_MENU_SUCCESS, SUPPORT_NOW_RESET_SEGMENT } from "./support-now.type";
+import { SUPPORT_NOW_SEGEMENT_TYPE, SUPPORT_NOW_GET_NO_TYPE_SUCCESS, SUPPORT_NOW_GET_NO_TYPE_FAIL, SUPPORT_NOW_GET_HAS_TYPE_SUCCESS, SUPPORT_NOW_GET_MENU_SUCCESS, SUPPORT_NOW_RESET_SEGMENT, SUPPORT_NOW_ADD_TAG, SUPPORT_NOW_REMOVE_TAG } from "./support-now.type";
 import { callApiPost, callApiGet } from '../../callApi/CallApiService';
 import { SUPPORT_NOW_NO_TYPE } from "../../configs/const";
 import { forkJoin } from "rxjs";
@@ -84,7 +84,19 @@ export const actGetSupportNowMenuSuccess = (data) => {
   }
 }
 
+export const actAddTag = (data) => {
+  return {
+    type: SUPPORT_NOW_ADD_TAG,
+    payload: data,
+  }
+}
 
+export const actRemoveTag = (data) => {
+  return {
+    type: SUPPORT_NOW_REMOVE_TAG,
+    payload: data,
+  }
+}
 
 
 

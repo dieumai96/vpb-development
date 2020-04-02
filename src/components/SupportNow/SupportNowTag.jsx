@@ -1,11 +1,11 @@
 import React, { useMemo, useRef } from 'react';
 import { createStructuredSelector } from 'reselect';
-import { selectSupportNowHasType } from '../../redux/supportnow/support-now.selector';
+import { selectSupportNowHasType, selectSupportNowTag } from '../../redux/supportnow/support-now.selector';
 import QuestionItem from './QuestionItem';
 import { connect } from 'react-redux';
 import { actResetSupportNowSegement } from '../../redux/supportnow/support-now.action';
 
-const SupportNowTag = ({ supportNowData, segementType, actResetSegement }) => {
+const SupportNowTag = ({ supportNowData, segementType, actResetSegement, selectSupportNowTag }) => {
   let { totalCount, data } = supportNowData;
   const totalItem = useMemo(() => totalCount > 0 ? totalCount : 0, [supportNowData.totalCount]);
 
@@ -26,6 +26,17 @@ const SupportNowTag = ({ supportNowData, segementType, actResetSegement }) => {
             <i className="icon-close"></i>
           </a>
         </span>
+        {/* INFO : add support now tag */}
+        {selectSupportNowTag?.length ?
+          selectSupportNowTag.map((tag, index) => (
+            <span className="support-tag-content__detail__items" key={index}>
+              {tag.Title}
+              <a href="" className="close-button close-range">
+                <i className="icon-close"></i>
+              </a>
+            </span>
+          )) : null
+        }
       </div>
       <div className="support-question-content" id="accordionFAQs">
         {data?.length ?
@@ -38,7 +49,8 @@ const SupportNowTag = ({ supportNowData, segementType, actResetSegement }) => {
   )
 }
 const mapPropsToState = createStructuredSelector({
-  supportNowData: selectSupportNowHasType
+  supportNowData: selectSupportNowHasType,
+  selectSupportNowTag: selectSupportNowTag,
 });
 
 const mapDispatchToProps = dispatch => ({

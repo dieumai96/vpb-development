@@ -22,3 +22,8 @@ export const selectSupportNowMenu = createSelector(
   support => support.supportNowMenu
 );
 
+export const selectSupportNowTag = createSelector(
+  [selectSupportNow],
+  support => support.tagList
+);
+
