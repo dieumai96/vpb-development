@@ -9,10 +9,10 @@ import ServerPaging from '../../smart-ui/Server-Paging';
 const SupportNotType = ({ actGetFAQs, faqList }) => {
   const pageSize = SUPPORT_NOW_PAGE_SIZE;
   const [pageIndex, setPageIndex] = useState(1);
-  const totalPage = useMemo(() => Math.ceil(faqList?.totalItem / pageSize), [faqList]);
+  const totalPage = useMemo(() => Math.ceil(faqList?.totalItem / pageSize), [faqList.totalItem]);
   useEffect(() => {
     actGetFAQs(getPayload());
-  }, []);
+  }, [pageIndex]);
 
   const getPayload = () => {
     return {
@@ -22,7 +22,7 @@ const SupportNotType = ({ actGetFAQs, faqList }) => {
   }
 
   const changePage = (pageIndex) => {
-    console.log(pageIndex);
+    setPageIndex(pageIndex);
   }
 
   return (

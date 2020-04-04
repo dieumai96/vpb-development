@@ -61,7 +61,6 @@ const SupportNowTag = ({ supportNowData, segementType, actResetSegement, selectS
   )
 }
 const mapPropsToState = createStructuredSelector({
-  supportNowData: selectSupportNowHasType,
   selectSupportNowTag: selectSupportNowTag,
 });
 

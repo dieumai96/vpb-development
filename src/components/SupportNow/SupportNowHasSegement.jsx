@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { actGetSupportNowHasType, actUpdateMenuCheckboxState } from '../../redux/supportnow/support-now.action';
 import { selectSupportNowMenu, selectSupportNowHasType, selectSupportNowTag } from '../../redux/supportnow/support-now.selector';
 import { connect } from 'react-redux';
@@ -6,19 +6,21 @@ import { SUPPORT_NOW_PAGE_SIZE } from '../../configs/const';
 import { createStructuredSelector } from 'reselect';
 import SupportNowMenuItem from './SupportNowMenuItem';
 import SupportNowTag from './SupportNowTag';
+import ServerPaging from '../../smart-ui/Server-Paging';
 
-const SupportNowHasSegement = ({ segementType, actGetFAQs, supportNowMenu, selectSupportNowTag, actUpdateMenu }) => {
+const SupportNowHasSegement = ({ segementType, actGetFAQs, supportNowMenu, selectSupportNowTag, actUpdateMenu, supportNowData }) => {
   const pageSize = SUPPORT_NOW_PAGE_SIZE;
-  const [pageIndex, setPageIndex] = useState(1);
+  let pageIndex = 1;
+
+  const totalPage = useMemo(() => Math.ceil(supportNowData?.totalCount / pageSize), [supportNowData.totalCount]);
 
   useEffect(() => {
-    actGetFAQs({ ...getPayload() });
+    actGetFAQs({ ...getPayload(), firstTime: true });
   }, [segementType.type]);
 
   useEffect(() => {
     actUpdateMenu({});
   }, [selectSupportNowTag?.length])
-
 
   const getPayload = () => {
     return {
@@ -28,7 +30,10 @@ const SupportNowHasSegement = ({ segementType, actGetFAQs, supportNowMenu, selec
     }
   }
 
-
+  const changePage = (page) => {
+    pageIndex = page;
+    actGetFAQs({ ...getPayload() });
+  }
 
   return (
     <div className="nav-tab-level2__content__item-segment-1">
@@ -50,9 +55,10 @@ const SupportNowHasSegement = ({ segementType, actGetFAQs, supportNowMenu, selec
           </div>
         </div>
         <div className="support-now-content__result">
-          <SupportNowTag segementType={segementType} />
+          <SupportNowTag segementType={segementType} supportNowData={supportNowData} />
         </div>
       </div>
+      <ServerPaging totalPage={totalPage} changePageIndex={changePage} />
     </div>
   )
 }

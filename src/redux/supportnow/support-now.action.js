@@ -54,17 +54,26 @@ export const actGetSupportNowHasType = ({ page = 1, maxItems = 10, customerType,
       maxItems,
       customertype: customerType
     }
-    return forkJoin([
-      callApiGet(`faqtag/get?customerType=${customerType}`),
-      callApiPost('faq/search', searchBody)
-    ]).subscribe(res => {
-      const [menu, data] = res;
-      dispatch(actGetSupportNowMenuSuccess(menu.response?.data?.TagCatalogs || []));
-      dispatch(actGetSupportNowHasTypeSuccess({
-        data: data.response?.faqItems,
-        totalCount: data.response?.totalCount
-      }));
-    });
+    if (firstTime) {
+      return forkJoin([
+        callApiGet(`faqtag/get?customerType=${customerType}`),
+        callApiPost('faq/search', searchBody)
+      ]).subscribe(res => {
+        const [menu, data] = res;
+        dispatch(actGetSupportNowMenuSuccess(menu.response?.data?.TagCatalogs || []));
+        dispatch(actGetSupportNowHasTypeSuccess({
+          data: data.response?.faqItems,
+          totalCount: data.response?.totalCount
+        }));
+      });
+    } else {
+      callApiPost('faq/search', searchBody).subscribe(res => {
+        dispatch(actGetSupportNowHasTypeSuccess({
+          data: res.response?.faqItems,
+          totalCount: res.response?.totalCount
+        }));
+      })
+    }
   }
 }
 
