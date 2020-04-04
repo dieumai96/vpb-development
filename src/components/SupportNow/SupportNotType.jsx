@@ -5,10 +5,11 @@ import { SUPPORT_NOW_PAGE_SIZE } from '../../configs/const';
 import { createStructuredSelector } from 'reselect';
 import { selectSupportNowNoType } from '../../redux/supportnow/support-now.selector';
 import QuestionItem from './QuestionItem';
+import ServerPaging from '../../smart-ui/Server-Paging';
 const SupportNotType = ({ actGetFAQs, faqList }) => {
   const pageSize = SUPPORT_NOW_PAGE_SIZE;
   const [pageIndex, setPageIndex] = useState(1);
-  
+
   useEffect(() => {
     actGetFAQs(getPayload());
   }, []);
@@ -34,6 +35,7 @@ const SupportNotType = ({ actGetFAQs, faqList }) => {
           </div>
         </div>
       </div>
+      <ServerPaging />
     </div>
   )
 }
