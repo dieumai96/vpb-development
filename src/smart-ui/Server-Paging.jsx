@@ -1,7 +1,7 @@
 import React, { useState, useMemo, Fragment } from 'react';
 
 const ServerPaging = () => {
-  const totalPage = 5;
+  const totalPage = 50;
 
   const [displayPage, setDisplayPage] = useState([1, 2, 3, 4]);
 
@@ -11,41 +11,90 @@ const ServerPaging = () => {
 
   const getMinDisplayPage = useMemo(() => displayPage[0], [displayPage]);
 
+  // INFO : action after change pageIndex, smaller equals minDisplay  or bigger than  maxDisplay
+  useMemo(() => {
+    let newPages = [];
+    if (pageIndex == getMaxDisplayPage + 1) {
+      if (pageIndex <= totalPage) {
+        newPages.push(pageIndex);
+      }
+      if (pageIndex + 1 <= totalPage) {
+        newPages.push(pageIndex + 1);
+      }
+      if (pageIndex + 2 <= totalPage) {
+        newPages.push(pageIndex + 2);
+      }
+      if (pageIndex + 3 <= totalPage) {
+        newPages.push(pageIndex + 3);
+      }
+      setDisplayPage(newPages);
+    }
+    if (pageIndex == getMinDisplayPage - 1) {
+      newPages.push(pageIndex - 3);
+      newPages.push(pageIndex - 2);
+      newPages.push(pageIndex - 1);
+      newPages.push(pageIndex);
+      setDisplayPage(newPages);
+    }
+  }, [pageIndex]);
+
+
   const loadOldPage = () => {
-    let newPage = [];
-    newPage.push(getMinDisplayPage - 4);
-    newPage.push(getMinDisplayPage - 3);
-    newPage.push(getMinDisplayPage - 2);
-    newPage.push(getMinDisplayPage - 1);
-    setDisplayPage(newPage);
+    let newPages = [];
+    newPages.push(getMinDisplayPage - 4);
+    newPages.push(getMinDisplayPage - 3);
+    newPages.push(getMinDisplayPage - 2);
+    newPages.push(getMinDisplayPage - 1);
+    setDisplayPage(newPages);
   }
 
   const loadNewPage = () => {
-    let newPage = [];
+    let newPages = [];
     if (getMaxDisplayPage + 1 <= totalPage) {
-      newPage.push(getMaxDisplayPage + 1);
+      newPages.push(getMaxDisplayPage + 1);
     }
     if (getMaxDisplayPage + 2 <= totalPage) {
-      newPage.push(getMaxDisplayPage + 2);
+      newPages.push(getMaxDisplayPage + 2);
     }
     if (getMaxDisplayPage + 3 <= totalPage) {
-      newPage.push(getMaxDisplayPage + 3);
+      newPages.push(getMaxDisplayPage + 3);
     }
     if (getMaxDisplayPage + 4 <= totalPage) {
-      newPage.push(getMaxDisplayPage + 4);
+      newPages.push(getMaxDisplayPage + 4);
     }
-    setDisplayPage(newPage);
+    setDisplayPage(newPages);
   }
 
   const changePage = (page) => {
     setPageIndex(page);
   }
 
+  const changeNavPage = (event, changeType) => {
+    event.preventDefault();
+    switch (changeType) {
+      case 'prev': {
+        if (pageIndex - 1 > 0) {
+          setPageIndex(pageIndex - 1);
+        }
+        break;
+      }
+      case 'next': {
+        if (pageIndex < totalPage) {
+          setPageIndex(pageIndex + 1);
+        }
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+  }
+
   return (
-    <div className="paginator js-paginator">
-      <ul className="jsPagination pagination paginatorCustomClass">
-        <li className="page-item jspreviousPage">
-          <a href="#" className="page-link jsNavPage disabled">
+    <div className="paginator">
+      <ul className="pagination">
+        <li className={pageIndex == 1 ? 'page-item disabled' : 'page-item'} onClick={(event) => changeNavPage(event, 'prev')}>
+          <a href="#" className="page-link">
             <i className="ico icon-arrow-prev"></i>
           </a>
         </li>
@@ -71,8 +120,8 @@ const ServerPaging = () => {
             </li>
           )
         }
-        <li className="page-item jsNextPage">
-          <a href="#" className="page-link jsNavPage">
+        <li className={pageIndex == totalPage ? 'page-item disabled' : 'page-item'} onClick={(event) => changeNavPage(event, 'next')}>
+          <a href="#" className="page-link ">
             <i className="ico icon-arrow-next"></i>
           </a>
         </li>

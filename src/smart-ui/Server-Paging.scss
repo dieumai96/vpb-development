@@ -31,8 +31,7 @@
       background: $primary;
     }
 
-    &:first-child .page-link.disabled,
-    &:last-child .page-link.disabled {
+    &.disabled {
       pointer-events: none;
       opacity: 0.5;
     }
