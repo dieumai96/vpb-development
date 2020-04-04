@@ -14,9 +14,22 @@ const ServerPaging = () => {
   }
 
   const loadNewPage = () => {
-    if(totalPage > getMaxDisplayPage){
-      
+    let newPage = [];
+    if (totalPage > getMaxDisplayPage) {
+      if (getMaxDisplayPage + 1 <= totalPage) {
+        newPage.push(getMaxDisplayPage + 1);
+      }
+      if (getMaxDisplayPage + 2 <= totalPage) {
+        newPage.push(getMaxDisplayPage + 2);
+      }
+      if (getMaxDisplayPage + 3 <= totalPage) {
+        newPage.push(getMaxDisplayPage + 3);
+      }
+      if (getMaxDisplayPage + 4 <= totalPage) {
+        newPage.push(getMaxDisplayPage + 4);
+      }
     }
+    setDisplayPage(newPage);
   }
 
   return (
@@ -56,12 +69,15 @@ const ServerPaging = () => {
               <span className="page-link jsPage">{pageIndex}</span>
             </li>
           ))}
-
-          <li className="page-item" onClick={() => loadNewPage()}>
-            <span className="page-link">
-              ...
-          </span>
-          </li>
+          {
+            getMaxDisplayPage >= totalPage ? null : (
+              <li className="page-item" onClick={() => loadNewPage()}>
+                <span className="page-link">
+                  ...
+                </span>
+              </li>
+            )
+          }
           <li className="page-item jsNextPage">
             <a href="#" className="page-link jsNavPage">
               <i className="ico icon-arrow-next"></i>
