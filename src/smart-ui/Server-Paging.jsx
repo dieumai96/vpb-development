@@ -1,6 +1,6 @@
-import React, { useState, useMemo, useEffect, memo } from 'react';
+import React, { useState, useMemo, useEffect, memo, useCallback } from 'react';
 
-const ServerPaging = memo(({ totalPage }) => {
+const ServerPaging = memo(({ totalPage, changePageIndex }) => {
   const [displayPage, setDisplayPage] = useState([]);
 
   useEffect(() => {
@@ -20,6 +20,11 @@ const ServerPaging = memo(({ totalPage }) => {
   const getMaxDisplayPage = useMemo(() => displayPage[displayPage.length - 1], [displayPage]);
 
   const getMinDisplayPage = useMemo(() => displayPage[0], [displayPage]);
+
+  const changPage = useCallback((page) => {
+    setPageIndex(page);
+    changePageIndex(page);
+  }, [pageIndex]);
 
   // INFO : action after change pageIndex, smaller equals minDisplay  or bigger than  maxDisplay
   useMemo(() => {
@@ -76,7 +81,7 @@ const ServerPaging = memo(({ totalPage }) => {
   }
 
   const changePage = (page) => {
-    setPageIndex(page);
+    setPageIndexFn(page);
   }
 
   const changeNavPage = (event, changeType) => {
@@ -84,13 +89,13 @@ const ServerPaging = memo(({ totalPage }) => {
     switch (changeType) {
       case 'prev': {
         if (pageIndex - 1 > 0) {
-          setPageIndex(pageIndex - 1);
+          setPageIndexFn(pageIndex - 1);
         }
         break;
       }
       case 'next': {
         if (pageIndex < totalPage) {
-          setPageIndex(pageIndex + 1);
+          setPageIndexFn(pageIndex + 1)
         }
         break;
       }
@@ -98,6 +103,10 @@ const ServerPaging = memo(({ totalPage }) => {
         break;
       }
     }
+  }
+
+  const setPageIndexFn = (page) => {
+    changPage(page);
   }
 
   return (

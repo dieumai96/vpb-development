@@ -7,7 +7,6 @@ import { selectSupportNowNoType } from '../../redux/supportnow/support-now.selec
 import QuestionItem from './QuestionItem';
 import ServerPaging from '../../smart-ui/Server-Paging';
 const SupportNotType = ({ actGetFAQs, faqList }) => {
-  console.log(faqList);
   const pageSize = SUPPORT_NOW_PAGE_SIZE;
   const [pageIndex, setPageIndex] = useState(1);
   const totalPage = useMemo(() => Math.ceil(faqList?.totalItem / pageSize), [faqList]);
@@ -21,6 +20,11 @@ const SupportNotType = ({ actGetFAQs, faqList }) => {
       maxItems: pageSize
     }
   }
+
+  const changePage = (pageIndex) => {
+    console.log(pageIndex);
+  }
+
   return (
     <div className="suggest-question-paging">
       <div className="support-suggest-question-content">
@@ -36,7 +40,7 @@ const SupportNotType = ({ actGetFAQs, faqList }) => {
           </div>
         </div>
       </div>
-      <ServerPaging totalPage={totalPage} />
+      <ServerPaging totalPage={totalPage} changePageIndex={changePage} />
     </div>
   )
 }
