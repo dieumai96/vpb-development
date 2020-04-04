@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { actGetSupportNowNoType } from '../../redux/supportnow/support-now.action';
 import { SUPPORT_NOW_PAGE_SIZE } from '../../configs/const';
@@ -7,9 +7,10 @@ import { selectSupportNowNoType } from '../../redux/supportnow/support-now.selec
 import QuestionItem from './QuestionItem';
 import ServerPaging from '../../smart-ui/Server-Paging';
 const SupportNotType = ({ actGetFAQs, faqList }) => {
+  console.log(faqList);
   const pageSize = SUPPORT_NOW_PAGE_SIZE;
   const [pageIndex, setPageIndex] = useState(1);
-
+  const totalPage = useMemo(() => Math.ceil(faqList?.totalItem / pageSize), [faqList]);
   useEffect(() => {
     actGetFAQs(getPayload());
   }, []);
@@ -35,7 +36,7 @@ const SupportNotType = ({ actGetFAQs, faqList }) => {
           </div>
         </div>
       </div>
-      <ServerPaging />
+      <ServerPaging totalPage={totalPage} />
     </div>
   )
 }

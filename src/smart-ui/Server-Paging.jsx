@@ -1,9 +1,19 @@
-import React, { useState, useMemo, Fragment } from 'react';
+import React, { useState, useMemo, useEffect, memo } from 'react';
 
-const ServerPaging = () => {
-  const totalPage = 50;
+const ServerPaging = memo(({ totalPage }) => {
+  const [displayPage, setDisplayPage] = useState([]);
 
-  const [displayPage, setDisplayPage] = useState([1, 2, 3, 4]);
+  useEffect(() => {
+    let pages = [];
+    if (totalPage < 4) {
+      for (let i = 1; i <= totalPage; i++) {
+        pages.push(i);
+      }
+    } else {
+      pages = [1, 2, 3, 4];
+    }
+    setDisplayPage(pages);
+  }, [totalPage])
 
   const [pageIndex, setPageIndex] = useState(1);
 
@@ -128,6 +138,6 @@ const ServerPaging = () => {
       </ul>
     </div>
   )
-}
+});
 
 export default ServerPaging;
