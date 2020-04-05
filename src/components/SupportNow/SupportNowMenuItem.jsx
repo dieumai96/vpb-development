@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { selectSupportNowTag } from '../../redux/supportnow/support-now.selector';
 import { createStructuredSelector } from 'reselect';
 
-const SupportNowMenuItem = ({ item, index, actAddTag, actRemoveTag, selectSupportNowTag }) => {
+const SupportNowMenuItem = ({ item, index, actAddTag, actRemoveTag }) => {
 
   const menuParentChange = (event) => {
     const parentMenuOption = {
@@ -53,11 +53,11 @@ const SupportNowMenuItem = ({ item, index, actAddTag, actRemoveTag, selectSuppor
         </label>
       </div>
       <div className="close show">
-        <a href="#" data-toggle="collapse" data-target={'#sub-list-' + index}>
+        <a href="#" data-toggle="collapse" className={index == 0 ? '' : 'collapsed'} data-target={'#sub-list-' + index}>
           <i className="icon-chevron-down"></i>
         </a>
       </div>
-      <div className="sub-list collapse show" id={'sub-list-' + index}>
+      <div className={index == 0 ? 'sub-list collapse show' : 'sub-list collapse'} id={'sub-list-' + index}>
         {item?.TagItems?.length ? (
           item.TagItems.map((childItem, indexChild) => (
             <div className="sub-list__items" key={indexChild}>
